@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>健康管理师头条</title>
+    <script src="/static/js/jquery-1.11.1.min.js"></script>
+    <script src="/static/bootstrap/js/bootstrap.min.js"></script>
+    <link href="/static/bootstrap/css/bootstrap.css" rel='stylesheet' type='text/css' />
+    <link href="/static/css/style.css" rel='stylesheet' type='text/css' />
+
+    <link rel="stylesheet" type="text/css" href="../../static/css/news.css">
+</head>
+
+<body>
+    <!-- 菜单 -->
+    {{template "no1jks/common/navi.html" .}}
+
+    <div class="container">
+          <div class="row">
+              <!--用来抵消，下面栅格的内部，跟标题保持一样的样式-->
+              <div class="col-sm-9">
+                  <div class="news-list">
+                      <div class="news-list-item clearfix">
+                          <!--一定要清除浮动，不然排版不规范-->
+                          <div class="col-xs-5">
+                              <img src="../../static/imgs/64*64.svg" alt="">
+                          </div>
+                          <div class="col-xs-7">
+                              <a href="news.html" class="title">清华大学招生100人</a>
+                              <div class="info">
+                                  <span><span class="author"><img src="../../static/imgs/64*64.svg" alt="头像"></span>祝老板写</span>.
+                                  <span>25w阅读</span>.
+                                  <span>5w评论</span>.
+                                  <span>两天前</span>
+                              </div>
+                          </div>
+                      </div>
+                      <div class="news-list-item clearfix">
+                          <!--一定要清除浮动，不然排版不规范-->
+                          <div class="col-xs-5">
+                              <img src="../../static/imgs/64*64.svg" alt="不知名男教师">
+                          </div>
+                          <div class="col-xs-7">
+                              <a href="news.html" class="title">北京大学要100人</a>
+                              <div class="info">
+                                  <span><span class="author"><img src="../../static/imgs/64*64.svg" alt="头像"></span>祝老板写</span>.
+                                  <span>38w阅读</span>.
+                                  <span>8w评论</span>.
+                                  <span>一天前</span>
+                              </div>
+                          </div>
+                      </div>
+                      <div class="news-list-item clearfix">
+                          <!--一定要清除浮动，不然排版不规范-->
+                          <div class="col-xs-5">
+                              <img src="../../static/imgs/64*64.svg" alt="不知名男教师">
+                          </div>
+                          <div class="col-xs-7">
+                              <a href="news.html" class="title">持续报道：该六安舒城老师，在校期间，经常在寝室室友中间，发表不正当言论，疑有犯罪冲动</a>
+                              <div class="info">
+                                  <span>
+                                      <span class="author">
+                                          <img src="../../static/imgs/64*64.svg" alt="头像">
+                                      </span>祝老板写
+                                  </span>
+                                  <span>51w阅读</span>.
+                                  <span>26w评论</span>.
+                                  <span>两小时前</span>
+                              </div>
+                          </div>
+                      </div>
+                      <div class="news-list-item clearfix">
+                          <div class="col-xs-5">
+                              <img src="../../static/imgs/64*64.svg" alt="不知名男教师">
+                          </div>
+                          <div class="col-xs-7">
+                              <a href="news.html" class="title">哈哈哈哈哈哈</a>
+                              <div class="info">
+                                  <span><span class="author"><img src="../../static/imgs/64*64.svg" alt="头像"></span>祝老板写</span>.
+                                  <span>25w阅读</span>.
+                                  <span>5w评论</span>.
+                                  <span>2分钟前</span>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+              <div class="col-sm-3">
+                  <div class="side-bar-card police clearfix">
+                      <!--清除浮动-->
+                      <div class="col-xs-5">
+                          <img src="../../static/imgs/64*64.svg" alt="举报图片">
+                      </div>
+                      <div class="col-xs-7">
+                          <div class="note">绿色上网</div>
+                          <div>不良信息举报专栏</div>
+                          <div>举报电话：888888</div>
+                      </div>
+                  </div>
+                  <div class="side-bar-card ">
+                      <div class="card-title">老哥，我懂你系列</div>
+                      <div class="card-body">
+                          <div class="list">
+                              <div class="item">
+                                  <div class="title">清华大学</div>
+                                  <div class="desc">300w点赞，20w评论</div>
+                              </div>
+                              <div class="item">
+                                  <div class="title">清华大学</div>
+                                  <div class="desc">300w点赞，20w评论</div>
+                              </div>
+                              <div class="item">
+                                  <div class="title">清华大学</div>
+                                  <div class="desc">300w点赞，20w评论</div>
+                              </div>
+                              <div class="item">
+                                  <div class="title">清华大学</div>
+                                  <div class="desc">300w点赞，20w评论</div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+    </div>
+</body>
+</html>

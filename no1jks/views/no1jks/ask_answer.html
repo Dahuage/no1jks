@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>健康管理师问答</title>
+    <link rel="stylesheet" href="/static/layui/css/layui.css">
+    <script src="/static/layui/layui.js"></script>
+
+    <script src="/static/js/jquery-1.11.1.min.js"></script>
+    <script src="/static/bootstrap/js/bootstrap.min.js"></script>
+    <link href="/static/bootstrap/css/bootstrap.css" rel='stylesheet' type='text/css' />
+    <link href="/static/css/style.css" rel='stylesheet' type='text/css' />
+
+    <link rel="stylesheet" type="text/css" href="../../static/css/news.css">
+</head>
+
+<body>
+    <!-- 菜单 -->
+    {{template "no1jks/common/navi.html" .}}
+    <!-- Modal1 -->
+    <div class="modal fade" id="question" tabindex="-1" role="dialog" aria-labelledby="questionModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="questionModalLabel">写下你的问题</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="layui-form" action="">
+                        <!-- <div class="layui-form-item">
+                                    <label class="layui-form-label">输入框</label>
+                                    <div class="layui-input-block">
+                                        <input type="text" name="title" required lay-verify="required" placeholder="请输入标题" autocomplete="off"
+                                            class="layui-input">
+                                    </div>
+                                </div>
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label">密码框</label>
+                                    <div class="layui-input-inline">
+                                        <input type="password" name="password" required lay-verify="required" placeholder="请输入密码" autocomplete="off"
+                                            class="layui-input">
+                                    </div>
+                                    <div class="layui-form-mid layui-word-aux">辅助文字</div>
+                                </div>
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label">选择框</label>
+                                    <div class="layui-input-block">
+                                        <select name="city" lay-verify="required">
+                                            <option value=""></option>
+                                            <option value="0">北京</option>
+                                            <option value="1">上海</option>
+                                            <option value="2">广州</option>
+                                            <option value="3">深圳</option>
+                                            <option value="4">杭州</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label">复选框</label>
+                                    <div class="layui-input-block">
+                                        <input type="checkbox" name="like[write]" title="写作">
+                                        <input type="checkbox" name="like[read]" title="阅读" checked>
+                                        <input type="checkbox" name="like[dai]" title="发呆">
+                                    </div>
+                                </div>
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label">开关</label>
+                                    <div class="layui-input-block">
+                                        <input type="checkbox" name="switch" lay-skin="switch">
+                                    </div>
+                                </div>
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label">单选框</label>
+                                    <div class="layui-input-block">
+                                        <input type="radio" name="sex" value="男" title="男">
+                                        <input type="radio" name="sex" value="女" title="女" checked>
+                                    </div>
+                                </div> -->
+                        <div class="layui-form-item layui-form-text">
+                            <label class="layui-form-label">标题</label>
+                            <div class="layui-input-block">
+                                <textarea name="desc" placeholder="一句话描述问题" class="layui-textarea"></textarea>
+                            </div>
+                        </div>
+                        <div class="layui-form-item layui-form-text">
+                            <label class="layui-form-label">描述</label>
+                            <div class="layui-input-block">
+                                <textarea id="ask" style="display: none;"></textarea>
+                            </div>
+                        </div>
+                        <script>
+                            layui.use('layedit', function () {
+                                var layedit = layui.layedit;
+                                layedit.build('ask'); //建立编辑器
+                            });
+                        </script>
+                        <div class="layui-form-item">
+                            <div class="layui-input-block">
+                                <button class="layui-btn" lay-submit lay-filter="formDemo">立即提交</button>
+                                <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                            </div>
+                        </div>
+                    </form>
+                    <script>
+                        //Demo
+                        layui.use('form', function () {
+                            var form = layui.form;
+                            //监听提交
+                            form.on('submit(formDemo)', function (data) {
+                                layer.msg(JSON.stringify(data.field));
+                                return false;
+                            });
+                        });
+                    </script>
+                </div>
+                <div class="modal-footer">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal2 -->
+    <div class="modal fade" id="blog" tabindex="-1" role="dialog" aria-labelledby="blogModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="blogModalLabel">分享你的精彩</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="layui-form" action="">
+                        <!-- <div class="layui-form-item">
+                                <label class="layui-form-label">输入框</label>
+                                <div class="layui-input-block">
+                                    <input type="text" name="title" required lay-verify="required" placeholder="请输入标题" autocomplete="off"
+                                        class="layui-input">
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">密码框</label>
+                                <div class="layui-input-inline">
+                                    <input type="password" name="password" required lay-verify="required" placeholder="请输入密码" autocomplete="off"
+                                        class="layui-input">
+                                </div>
+                                <div class="layui-form-mid layui-word-aux">辅助文字</div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">选择框</label>
+                                <div class="layui-input-block">
+                                    <select name="city" lay-verify="required">
+                                        <option value=""></option>
+                                        <option value="0">北京</option>
+                                        <option value="1">上海</option>
+                                        <option value="2">广州</option>
+                                        <option value="3">深圳</option>
+                                        <option value="4">杭州</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">复选框</label>
+                                <div class="layui-input-block">
+                                    <input type="checkbox" name="like[write]" title="写作">
+                                    <input type="checkbox" name="like[read]" title="阅读" checked>
+                                    <input type="checkbox" name="like[dai]" title="发呆">
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">开关</label>
+                                <div class="layui-input-block">
+                                    <input type="checkbox" name="switch" lay-skin="switch">
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">单选框</label>
+                                <div class="layui-input-block">
+                                    <input type="radio" name="sex" value="男" title="男">
+                                    <input type="radio" name="sex" value="女" title="女" checked>
+                                </div>
+                            </div> -->
+                        <div class="layui-form-item layui-form-text">
+                            <label class="layui-form-label">标题</label>
+                            <div class="layui-input-block">
+                                <textarea name="desc" placeholder="写个耀眼的标题" class="layui-textarea"></textarea>
+                            </div>
+                        </div>
+                        <div class="layui-form-item layui-form-text">
+                            <label class="layui-form-label">正文</label>
+                            <div class="layui-input-block">
+                                <textarea id="blogger" style="display: none;"></textarea>
+                            </div>
+                        </div>
+                        <script>
+                            layui.use('layedit', function () {
+                                var layedit = layui.layedit;
+                                layedit.build('blogger'); //建立编辑器
+                            });
+                        </script>
+                        <div class="layui-form-item">
+                            <div class="layui-input-block">
+                                <button class="layui-btn" lay-submit lay-filter="blogForm">立即提交</button>
+                                <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                            </div>
+                        </div>
+                    </form>
+                    <script>
+                        //Demo
+                        layui.use('form', function () {
+                            var form = layui.form;
+                            //监听提交
+                            form.on('submit(blogForm)', function (data) {
+                                layer.msg(JSON.stringify(data.field));
+                                return false;
+                            });
+                        });
+                    </script>
+                </div>
+                <div class="modal-footer">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="content-header btn-group btn-group-justified" role="group"
+                    style="background:rgba(0,0,0,0.05); border-radius: 10px;" data-container="body">
+                    <!-- Button trigger modal -->
+                    <div class="btn-group" role="group">
+                        <button type="button" class="btn btn-primary btn-lg" data-toggle="modal"
+                            data-target="#question">
+                            我有疑问
+                        </button>
+                    </div>
+                    <!-- Button trigger modal -->
+                    <div class="btn-group" role="group">
+                        <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#blog">
+                            我要分享
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <!--用来抵消，下面栅格的内部，跟标题保持一样的样式-->
+            <div class="col-sm-9 content-main">
+                <div class="news-list" style="background:rgba(0,0,0,0.05); margin-top: 17px; border-radius: 10px;">
+                    <div class="news-list-item clearfix" style="margin-bottom: 2px;">
+                        <!--一定要清除浮动，不然排版不规范-->
+                        <div class="col-xs-2">
+                            <img src="../../static/imgs/64*64.svg" alt="">
+                        </div>
+                        <div class="col-xs-10">
+                            <a href="news.html" class="title">清华大学招生100人</a>
+                            <div class="info">
+                                <span>
+                                    <span class="author">
+                                        <img src="../../static/imgs/64*64.svg" alt="头像">
+                                    </span>
+                                    祝老板写
+                                </span>
+                                <span>25w阅读</span>.
+                                <span>5w评论</span>.
+                                <span>两天前</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="news-list-item clearfix">
+                        <!--一定要清除浮动，不然排版不规范-->
+                        <div class="col-xs-5">
+                            <img src="../../static/imgs/64*64.svg" alt="不知名男教师">
+                        </div>
+                        <div class="col-xs-7">
+                            <a href="news.html" class="title">北京大学要100人</a>
+                            <div class="info">
+                                <span><span class="author"><img src="../../static/imgs/64*64.svg"
+                                            alt="头像"></span>祝老板写</span>.
+                                <span>38w阅读</span>.
+                                <span>8w评论</span>.
+                                <span>一天前</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="news-list-item clearfix">
+                        <!--一定要清除浮动，不然排版不规范-->
+                        <div class="col-xs-5">
+                            <img src="../../static/imgs/64*64.svg" alt="不知名男教师">
+                        </div>
+                        <div class="col-xs-7">
+                            <a href="news.html" class="title">持续报道：该六安舒城老师，在校期间，经常在寝室室友中间，发表不正当言论，疑有犯罪冲动</a>
+                            <div class="info">
+                                <span>
+                                    <span class="author">
+                                        <img src="../../static/imgs/64*64.svg" alt="头像">
+                                    </span>祝老板写
+                                </span>
+                                <span>51w阅读</span>.
+                                <span>26w评论</span>.
+                                <span>两小时前</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="news-list-item clearfix">
+                        <div class="col-xs-5">
+                            <img src="../../static/imgs/64*64.svg" alt="不知名男教师">
+                        </div>
+                        <div class="col-xs-7">
+                            <a href="news.html" class="title">哈哈哈哈哈哈</a>
+                            <div class="info">
+                                <span><span class="author"><img src="../../static/imgs/64*64.svg"
+                                            alt="头像"></span>祝老板写</span>.
+                                <span>25w阅读</span>.
+                                <span>5w评论</span>.
+                                <span>2分钟前</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="side-bar-card police clearfix">
+                    <!--清除浮动-->
+                    <div class="col-xs-5">
+                        <img src="../../static/imgs/64*64.svg" alt="健康管理师">
+                    </div>
+                    <div class="col-xs-7">
+                        <div class="note">广告位</div>
+                        <div>虚席以待</div>
+                        <div>招商电话：888888</div>
+                    </div>
+                </div>
+                <div class="side-bar-card ">
+                    <div class="card-title">一周热问</div>
+                    <div class="card-body">
+                        <div class="list">
+                            <div class="item">
+                                <div class="title">清华大学</div>
+                                <div class="desc">300w点赞，20w评论</div>
+                            </div>
+                            <div class="item">
+                                <div class="title">清华大学</div>
+                                <div class="desc">300w点赞，20w评论</div>
+                            </div>
+                            <div class="item">
+                                <div class="title">清华大学</div>
+                                <div class="desc">300w点赞，20w评论</div>
+                            </div>
+                            <div class="item">
+                                <div class="title">清华大学</div>
+                                <div class="desc">300w点赞，20w评论</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

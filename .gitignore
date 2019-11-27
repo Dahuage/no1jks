@@ -1,0 +1,6 @@
+*.tar.gz
+*.pem
+*.pyc
+*DS*
+
+*.so
