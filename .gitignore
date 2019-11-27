@@ -4,3 +4,5 @@
 *DS*
 
 *.so
+bin
+.vscode/
