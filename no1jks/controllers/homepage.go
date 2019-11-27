@@ -11,8 +11,8 @@ type HomepageController struct {
 }
 
 type Banner struct {
-	Id       int
-	Order    int
+	Id        int
+	Order     int
 	Img, Herf string
 }
 

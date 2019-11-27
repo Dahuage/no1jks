@@ -1067,29 +1067,29 @@ a  i.download,a  i.heart,a i.service,a i.share{
  width:32px;
  height:32px;
  display:inline-block;
- background:url(/static/imgs/icons.png) no-repeat -6px -60px;
+ background:url("/static/imgs/icons.png") no-repeat -6px -60px;
    margin-right: 0.6em;
 }
 a  i.download:hover{
- background:url(/static/imgs/icons.png) no-repeat  -6px -92px;
+ background:url("/static/imgs/icons.png") no-repeat  -6px -92px;
 }
 a  i.heart{
-  background:url(/static/imgs/icons.png) no-repeat  -37px -60px;
+  background:url("/static/imgs/icons.png") no-repeat  -37px -60px;
 }
 a  i.heart:hover{
-  background:url(/static/imgs/icons.png) no-repeat  -37px -92px;
+  background:url("/static/imgs/icons.png") no-repeat  -37px -92px;
 }
 a  i.service{
-  background:url(/static/imgs/icons.png) no-repeat  -68px -60px;
+  background:url("/static/imgs/icons.png") no-repeat  -68px -60px;
 }
 a  i.service:hover{
-  background:url(/static/imgs/icons.png) no-repeat  -68px -92px;
+  background:url("/static/imgs/icons.png") no-repeat  -68px -92px;
 }
 a  i.share{
-  background:url(/static/imgs/icons.png) no-repeat  -98px -60px;
+  background:url("/static/imgs/icons.png") no-repeat  -98px -60px;
 }
 a  i.share:hover{
-  background:url(/static/imgs/icons.png) no-repeat  -98px -92px;
+  background:url("/static/imgs/icons.png") no-repeat  -98px -92px;
 }
 
  .single {
@@ -1132,26 +1132,26 @@ a  i.share:hover{
 	text-decoration:none;
 }
 .single-one span i {
-  background: url(/static/imgs/icons.png)no-repeat -180px -2px;
+  background: url("/static/imgs/icons.png")no-repeat -180px -2px;
   width: 25px;
   height: 25px;
   display: inline-block;
   vertical-align: middle;
 }
 .single-one span i:hover {
-  background: url(/static/imgs/icons.png)no-repeat -180px -27px;
+  background: url("/static/imgs/icons.png")no-repeat -180px -27px;
 }
 .single-one span i.com{
-	background: url(/static/imgs/icons.png)no-repeat -205px -2px;
+	background: url("/static/imgs/icons.png")no-repeat -205px -2px;
 }
 .single-one span i.com:hover{
-	background: url(/static/imgs/icons.png)no-repeat -205px -27px;
+	background: url("/static/imgs/icons.png")no-repeat -205px -27px;
 }
 .single-one span i.four{
-	background: url(/static/imgs/icons.png)no-repeat -230px -0px;
+	background: url("/static/imgs/icons.png")no-repeat -230px -0px;
 }
 .single-one span i.four:hover{
-	background: url(/static/imgs/icons.png)no-repeat -230px -25px;
+	background: url("/static/imgs/icons.png")no-repeat -230px -25px;
 }
  p.eget {
   font-size: 0.9em;
@@ -1174,7 +1174,7 @@ ul.social-share li span{
 	font-family: 'Fugaz One', cursive;
 }
 ul.social-share li  i{
-  background: url(/static/imgs/icons.png)no-repeat -255px -2px;
+  background: url("/static/imgs/icons.png")no-repeat -255px -2px;
   width:25px;
   height:25px;
   display: inline-block;
@@ -1182,19 +1182,19 @@ ul.social-share li  i{
   vertical-align: middle;
 }
 ul.social-share li  i:hover{
-	background: url(/static/imgs/icons.png)no-repeat -255px -27px;
+	background: url("/static/imgs/icons.png")no-repeat -255px -27px;
 }
 ul.social-share li  i.tin{
-	background: url(/static/imgs/icons.png)no-repeat -282px -2px;
+	background: url("/static/imgs/icons.png")no-repeat -282px -2px;
 }
 ul.social-share li  i.tin:hover{
-	background: url(/static/imgs/icons.png)no-repeat -282px -27px;
+	background: url("/static/imgs/icons.png")no-repeat -282px -27px;
 }
 ul.social-share li  i.message{
-	background: url(/static/imgs/icons.png)no-repeat -305px -2px;
+	background: url("/static/imgs/icons.png")no-repeat -305px -2px;
 }
 ul.social-share li  i.message:hover{
-	background: url(/static/imgs/icons.png)no-repeat -305px -27px;
+	background: url("/static/imgs/icons.png")no-repeat -305px -27px;
 }
 .top-comments h3,.leave h3{
   color: #5bb2fc;
@@ -1208,14 +1208,14 @@ ul.social-share li  i.message:hover{
 	padding: 1.5em;
 }
 i.arrow{
-  background: url(/static/imgs/icons.png)no-repeat -335px -2px;
+  background: url("/static/imgs/icons.png")no-repeat -335px -2px;
   width: 25px;
   height: 25px;
   display: inline-block;
   float: right;
 }
 i.arrow:hover{
- background: url(/static/imgs/icons.png)no-repeat -335px -27px;
+ background: url("/static/imgs/icons.png")no-repeat -335px -27px;
 }
 .comments-top-top{
 	background:#F4F4F4;
@@ -1281,7 +1281,7 @@ p.reply a:hover{
 	color:#5bb2fc;
 }
 p.reply i{
-  background: url(/static/imgs/icons.png)no-repeat -359px -4px;
+  background: url("/static/imgs/icons.png")no-repeat -359px -4px;
   width: 25px;
   height: 25px;
   display: inline-block;
@@ -1289,7 +1289,7 @@ p.reply i{
   margin: 0 14px 0 0p
 }
 p.reply i:hover{
-     background: url(/static/imgs/icons.png)no-repeat -359px -29px;
+     background: url("/static/imgs/icons.png")no-repeat -359px -29px;
 }
 .single-us input[type="text"],.leave textarea,.leave input[type="submit"] {
   font-size: 1em;
@@ -1658,7 +1658,7 @@ a.read:hover{
   height: 22px;
   border: none;
   text-indent: 100%;
-  background: url(/static/imgs/icons.png) no-repeat 0px 0px;
+  background: url("/static/imgs/icons.png") no-repeat 0px 0px;
 }
 /*--Responsive*--*/
 @media (max-width:1440px){
