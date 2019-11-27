@@ -4,6 +4,11 @@ import (
 	"github.com/jinzhu/gorm"
 )
 
+const (
+	HomepageLimit = 10
+	Deleted = 1
+)
+
 type News struct {
 	gorm.Model
 	Title             string `json:"title" gorm:""`
