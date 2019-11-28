@@ -161,18 +161,12 @@
 					<!-- List group -->
 					<div class="panel-body">
 					<div class="list-group">
-						<a href="#" class="list-group-item">
-							<h4 class="list-group-item-heading">什么时候报名、什么时候考试啊？</h4>
-							<p class="list-group-item-text">每年2、4、6、8月份均可在所在省市进行报名考试具体考试时间参见…</p>
-						</a>
-						<a href="#" class="list-group-item">
-							<h4 class="list-group-item-heading">有没有参考书可以买？</h4>
-							<p class="list-group-item-text">官方并未指定任何教材，只指定考试大纲。依据考试大纲我们大致可以得知…</p>
-						</a>
-						<a href="#" class="list-group-item ">
-							<h4 class="list-group-item-heading">我需要报名培训班吗？</h4>
-							<p class="list-group-item-text">培训班可以为大家更快地缕清考试框架、梳理考试重点…</p>
-						</a>
+						{{ range $index, $news := .News }}
+							<a href="/news/{{ $news.ID }}" class="list-group-item">
+								<h4 class="list-group-item-heading">{{ $news.Title }}</h4>
+								<p class="list-group-item-text">{{ $news.Content }} </p>
+							</a>
+						{{ end }}
 					</div>
 					</div>
 					<div class="clearfix"> </div>

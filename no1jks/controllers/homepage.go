@@ -22,10 +22,13 @@ func (c *HomepageController) Get() {
 	c.TplName = "no1jks/home.html"
 	c.Data["IsLogin"] = false
 	c.Data["IsHome"] = "active"
-	banners := []Banner{{1, 1, "/static/imgs/banner2.png", ""},
+	banners := []Banner{
+		{1, 1, "/static/imgs/banner2.png", ""},
 		{2, 2, "/static/imgs/banner3.png", ""},
 		{3, 3, "/static/imgs/banner1.png", ""},
 	}
 	c.Data["Banners"] = &banners
 	c.Data["News"] = (*RenderData)["News"]
+	c.Data["Questions"] = (*RenderData)["Questions"]
+
 }

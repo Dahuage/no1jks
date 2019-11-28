@@ -6,3 +6,4 @@
 *.so
 bin
 .vscode/
+.DS_Store

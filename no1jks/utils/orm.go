@@ -26,7 +26,7 @@ func (l ormLog) Print(v ...interface{}) {
 // NewMySQL mysql client factory
 func NewMySQL(c *MysqlConf) (db *gorm.DB) {
 	db, err := gorm.Open("mysql", c.MysqlDSN)
-	defer db.Close()
+	//defer db.Close()
 	if err != nil {
 		logs.Error("cant connect (%s)", c.MysqlDSN)
 		logs.Error("db dsn(%s) connect err: %v", c.MysqlDSN, err)

@@ -5,15 +5,21 @@ import (
 )
 
 // GetNewsByID as the name said idiot.
-func (d *Dao) GetNewsByID(id int) (news *models.News) {
+func (d *Dao) GetNewsByID(id int) *models.News {
+	var news models.News
 	db := d.mysql
-	db.First(news, id)
-	return
+	db.First(&news, id)
+	return &news
 }
 
 // GetHomePageNews as the name said idiot.
-func (d *Dao) GetHomePageNews(limit int) (news *models.News) {
+func (d *Dao) GetHomepageNews(limit uint8) *[]*models.News {
+	var news []*models.News
 	db := d.mysql
-	db.Where("display_homepage = ? AND delete_at = ?", 1, nil).Find(news)
-	return
+	err := db.Where("display_homepage = ? AND is_deleted = ?",
+			 1, models.False).Find(&news)
+	if err.Error != nil {
+		panic(err.Error)
+	}
+	return &news
 }
