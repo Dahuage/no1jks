@@ -35,5 +35,6 @@ func NewMySQL(c *MysqlConf) (db *gorm.DB) {
 	db.DB().SetMaxIdleConns(c.MysqlIdle)
 	db.DB().SetMaxOpenConns(c.MysqlActive)
 	db.DB().SetConnMaxLifetime(time.Duration(c.MysqlIdleTimeout) / time.Second)
+	db.LogMode(true)
 	return db
 }
