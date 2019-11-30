@@ -9,27 +9,27 @@ import (
 // 我们将在下个接口中尝试用struct 表述复杂的json
 
 type qa struct {
-	QuestionID int
-	QuestionTitle string
-	QuestionContent string
-	QuestionViewCount int
-	QuestionLikeCount int
-	QuestionCommCount int
+	QuestionID         int
+	QuestionTitle      string
+	QuestionContent    string
+	QuestionViewCount  int
+	QuestionLikeCount  int
+	QuestionCommCount  int
 	QuestionUpdateTime time.Time
-	QuestionUserID int
-	QuestionUserName string
+	QuestionUserID     int
+	QuestionUserName   string
 	QuestionUserAvatar string
-	IsBlog int
-	Cover string
+	IsBlog             int
+	Cover              string
 
-	AnswerId int
-	AnswerContent string
-	AnswerViewCount int
-	AnswerLikeCount int
-	AnswerCommCount int
+	AnswerId         int
+	AnswerContent    string
+	AnswerViewCount  int
+	AnswerLikeCount  int
+	AnswerCommCount  int
 	AnswerUpdateTime time.Time
-	AnswerUserID int
-	AnswerUserName string
+	AnswerUserID     int
+	AnswerUserName   string
 	AnswerUserAvatar string
 }
 
@@ -54,10 +54,10 @@ func AssembleQA(rows *[]*qa) *[]*map[string]interface{} {
 		qid := (*value).QuestionID
 		q := container[qid]
 		answer := makeAnswer(value)
-		if  q != nil {
+		if q != nil {
 			answers := q["Answers"].([]*map[string]interface{})
 			answers = append(answers, answer)
-		}else {
+		} else {
 			q := make(map[string]interface{})
 			q["QuestionID"] = (*value).QuestionID
 			q["QuestionTitle"] = (*value).QuestionTitle
@@ -77,7 +77,7 @@ func AssembleQA(rows *[]*qa) *[]*map[string]interface{} {
 			container[(*value).QuestionID] = q
 		}
 	}
-	for _, v:= range container{
+	for _, v := range container {
 		Questions = append(Questions, &v)
 	}
 	return &Questions
@@ -86,34 +86,72 @@ func AssembleQA(rows *[]*qa) *[]*map[string]interface{} {
 func (d *Dao) GetHomepageQuestions(limit uint8) *[]*map[string]interface{} {
 	var result []*qa
 	db := d.mysql.Table("question").
-		Select("question.id as question_id, " +
-		"question.title as question_title," +
-		"question.content as question_content," +
-		"question.view_count as question_view_count," +
-		"question.like_count as question_like_count," +
-		"question.comment_count as question_comm_count," +
-		"question.update_at as question_update_time," +
-		"question.is_blog as question_is_blog," +
-		"question.thumb_img as question_cover," +
-		"question_user.id as question_user_id," +
-		"question_user.name as question_user_name," +
-		"question_user.avatar as question_user_avatar," +
-		"answer.id as answer_id, " +
-		"answer.content as answer_content," +
-		"answer.view_count as answer_view_count," +
-		"answer.like_count as answer_like_count," +
-		"answer.comment_count as answer_comm_count," +
-		"answer.update_at as answer_update_time," +
-		"answer_user.id as answer_user_id," +
-		"answer_user.name as answer_user_name," +
-		"answer_user.avatar as answer_user_avatar").
+		Select("question.id as question_id, "+
+			"question.title as question_title,"+
+			"question.content as question_content,"+
+			"question.view_count as question_view_count,"+
+			"question.like_count as question_like_count,"+
+			"question.comment_count as question_comm_count,"+
+			"question.update_at as question_update_time,"+
+			"question.is_blog as question_is_blog,"+
+			"question.thumb_img as question_cover,"+
+			"question_user.id as question_user_id,"+
+			"question_user.name as question_user_name,"+
+			"question_user.avatar as question_user_avatar,"+
+			"answer.id as answer_id, "+
+			"answer.content as answer_content,"+
+			"answer.view_count as answer_view_count,"+
+			"answer.like_count as answer_like_count,"+
+			"answer.comment_count as answer_comm_count,"+
+			"answer.update_at as answer_update_time,"+
+			"answer_user.id as answer_user_id,"+
+			"answer_user.name as answer_user_name,"+
+			"answer_user.avatar as answer_user_avatar").
 		Joins("left join user as question_user on question.user_id = question_user.id").
 		Joins("left join answer on question.id = answer.question_id").
 		Joins("left join user as answer_user on answer.user_id = question_user.id").
-		Where("question.display_homepage = ? AND question.is_top = ?", models.True, models.True).
-		Scan(&result)
+		Where("question.display_homepage = ? AND question.is_top = ? AND question.is_blog=0",
+			models.True, models.True).Scan(&result)
 	if err := db.Error; err != nil {
 		panic(err)
 	}
 	return AssembleQA(&result)
+}
+
+type HomepageBlog struct {
+	BlogID         int
+	BlogTitle      string
+	BlogContent    string
+	BlogViewCount  int
+	BlogLikeCount  int
+	BlogCommCount  int
+	BlogUpdateTime time.Time
+	BlogCover      string
+	BlogUserID     int
+	BlogUserAvatar string
+	BlogUserName   string
+}
+
+func (d *Dao) GetHomepageBlog(limit uint8) *[]*HomepageBlog {
+	var result []*HomepageBlog
+	db := d.mysql.Table("question").
+		Select("question.id as blog_id, "+
+			"question.title as blog_title,"+
+			"question.content as blog_content,"+
+			"question.view_count as blog_view_count,"+
+			"question.like_count as blog_like_count,"+
+			"question.comment_count as blog_comm_count,"+
+			"question.update_at as blog_update_time,"+
+			"question.thumb_img as blog_cover,"+
+			"blog_user.id as blog_user_id,"+
+			"blog_user.avatar as blog_user_avatar,"+
+			"blog_user.name as blog_user_name").
+		Joins("left join user as blog_user on question.user_id = blog_user.id").
+		Where("question.display_homepage = ? AND question.is_top = ? AND "+
+			"question.is_blog = ?", models.True, models.True, models.True).
+		Scan(&result)
+	if err := db.Error; err != nil {
+		panic(err)
+	}
+	return &result
 }

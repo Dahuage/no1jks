@@ -4,7 +4,7 @@ import "time"
 
 // blog 本质上作为一个没有答案的问题
 type Question struct {
-	ID              uint      `json:"title" gorm:"primary_key" sql:"INT NOT NULL PRIMARY KEY AUTO_INCREMENT"`
+	ID              uint      `json:"id" gorm:"primary_key" sql:"INT NOT NULL PRIMARY KEY AUTO_INCREMENT"`
 	UserID          uint      `json:"user_id" gorm:"" sql:"INT NOT NULL INDEX"`
 	Title           string    `json:"title" gorm:"" sql:"VARCHAR(1024) NOT NULL"`
 	Content         string    `json:"content" gorm:"" sql:"TEXT"`

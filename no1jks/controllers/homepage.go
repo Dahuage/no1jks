@@ -30,4 +30,6 @@ func (c *HomepageController) Get() {
 	c.Data["Banners"] = &banners
 	c.Data["News"] = (*RenderData)["News"]
 	c.Data["Questions"] = (*RenderData)["Questions"]
+	c.Data["Books"] = (*RenderData)["Books"]
+	c.Data["Blog"] = (*RenderData)["Blog"]
 }

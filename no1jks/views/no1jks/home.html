@@ -187,81 +187,24 @@
 		</div>
 
 		<div class="row">
+			{{ range $index, $book := .Books.Books}}
 			<div class="col-lg-3 col-md-4 col-sm-6 col-xs-6">
 				<!-- 大屏幕放3张略缩图，pc端放4张，平板和手机放6张-->
 				<div class="thumbnail">
-					<img src="../../static/imgs/book.jpg" alt="..."  class="img-responsive">
-					<div class="caption">
-						<h4>我的前半生</h4>
-						<p style="color:red;">$10.0</p>
-						<p>中信出版社</p>
-					</div>
+					<a href="/book/{{$book.ID}}">
+						<img src="{{ $book.ThumbImg }}" alt="{{ $book.Title }}"  class="img-responsive">
+						<div class="caption">
+							<h4>{{ $book.Title }}</h4>
+							<p style="color:red;">¥{{ $book.Price }}</p>
+							<p>{{ $book.Publisher }}</p>
+						</div>
+					</a>
 				</div>
 			</div>
-			<div class="col-lg-3 col-md-4 col-sm-6 col-xs-6">
-				<!-- 大屏幕放3张略缩图，pc端放4张，平板和手机放6张-->
-				<div class="thumbnail">
-					<img src="../../static/imgs/book.jpg" alt="..."  class="img-responsive">
-					<div class="caption">
-						<h4>vivo X9s Plus</h4>
-						<p style="color:red;">
-							            2000万柔光双摄内置&nbsp;&nbsp;震撼HIFI音效&nbsp;&nbsp;&nbsp;便捷一屏两用
-							 </p>
-					</div>
-				</div>
-			</div>
-			<div class="col-lg-3 col-md-4 col-sm-6 col-xs-6">
-				<!-- 大屏幕放3张略缩图，pc端放4张，平板和手机放6张-->
-				<div class="thumbnail">
-					<img src="../../static/imgs/book.jpg" alt="..."  class="img-responsive">
-					<div class="caption">
-						<h4>vivo X9s Plus</h4>
-						<p style="color:red;">
-							            2000万柔光双摄内置&nbsp;&nbsp;震撼HIFI音效&nbsp;&nbsp;&nbsp;便捷一屏两用
-							 </p>
-					</div>
-				</div>
-			</div>
-			<div class="col-lg-3 col-md-4 col-sm-6 col-xs-6">
-				<!-- 大屏幕放3张略缩图，pc端放4张，平板和手机放6张-->
-				<div class="thumbnail">
-					<img src="../../static/imgs/book.jpg" alt="..."  class="img-responsive">
-					<div class="caption">
-						<h4></h4>
-						<p style="color:red;">
-							            2000万柔光双摄内置&nbsp;&nbsp;震撼HIFI音效&nbsp;&nbsp;&nbsp;便捷一屏两用
-							 </p>
-					</div>
-				</div>
-			</div>
+			{{ end }}
 		</div>
-		<div class="row">
-			<div class="col-lg-3 col-md-4 col-sm-6 col-xs-6">
-				<!-- 大屏幕放3张略缩图，pc端放4张，平板和手机放6张-->
-				<div class="thumbnail">
-					<img src="../../static/imgs/book.jpg" alt="..."  class="img-responsive">
-					<div class="caption">
-						<h4>vivo X9s Plus</h4>
-						<p style="color:red;">
-							            2000万柔光双摄内置&nbsp;&nbsp;震撼HIFI音效&nbsp;&nbsp;&nbsp;便捷一屏两用
-							 </p>
-					</div>
-				</div>
-			</div>
-			<div class="col-lg-3 col-md-4 col-sm-6 col-xs-6">
-				<!-- 大屏幕放3张略缩图，pc端放4张，平板和手机放6张-->
-				<div class="thumbnail">
-					<img src="../../static/imgs/book.jpg" alt="..."  class="img-responsive">
-					<div class="caption">
-						<h4>vivo X9s Plus</h4>
-						<p style="color:red;">
-							            2000万柔光双摄内置&nbsp;&nbsp;震撼HIFI音效&nbsp;&nbsp;&nbsp;便捷一屏两用
-							 </p>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="clearfix"> </div>
+	</div>
+	<div class="clearfix"> </div>
 	</div>
 
 	<!--考证分享-->
@@ -270,71 +213,21 @@
 			<h1>考证心得 <small>相互学习</small></h1>
 		</div>
 		<ul class="media-list">
-			<li class="media">
-				<div class="media-left pull-left">
-					<a href="#">
-						<img class="media-object" src="../../static/imgs/64*64.svg">
-					</a>
-				</div>
-				<div class="media-body">
-					<h4 class="media-heading">健康管理师为何会如此火热？</h4>
-					1.健康管理师待遇如何呢？健康管理是一个热门职业，最基本的收入大多在6000-20000之间，
-					不同地区收入有所差异。从业的越久，收入肯定就越高，特别优秀的，年薪可以达到近百万。
-					并且，伴随着国内慢性病患病率越来越高、老年化、亚健康群体越来越大，人民对...
-				</div>
-			</li>
-			<li class="media">
-				<div class="media-left pull-left">
-					<a href="#">
-						<img class="media-object" src="../../static/imgs/64*64.svg">
-					</a>
-				</div>
-				<div class="media-body">
-					<h4 class="media-heading">健康管理师为何会如此火热？</h4>
-					1.健康管理师待遇如何呢？健康管理是一个热门职业，最基本的收入大多在6000-20000之间，
-					不同地区收入有所差异。从业的越久，收入肯定就越高，特别优秀的，年薪可以达到近百万。
-					并且，伴随着国内慢性病患病率越来越高、老年化、亚健康群体越来越大，人民对...
-				</div>
-			</li>
-			<li class="media">
-				<div class="media-left pull-left">
-					<a href="#">
-						<img class="media-object" src="../../static/imgs/64*64.svg">
-					</a>
-				</div>
-				<div class="media-body">
-					<h4 class="media-heading">健康管理师为何会如此火热？</h4>
-					1.健康管理师待遇如何呢？健康管理是一个热门职业，最基本的收入大多在6000-20000之间，
-					不同地区收入有所差异。从业的越久，收入肯定就越高，特别优秀的，年薪可以达到近百万。
-					并且，伴随着国内慢性病患病率越来越高、老年化、亚健康群体越来越大，人民对...
-				</div>
-			</li>
-			<li class="media">
-				<div class="media-left pull-left">
-					<a href="#">
-						<img class="media-object" src="../../static/imgs/64*64.svg">
-					</a>
-				</div>
-				<div class="media-body">
-					<h4 class="media-heading">健康管理师为何会如此火热？</h4>
-					1.健康管理师待遇如何呢？健康管理是一个热门职业，最基本的收入大多在6000-20000之间，
-					不同地区收入有所差异。从业的越久，收入肯定就越高，特别优秀的，年薪可以达到近百万。
-					并且，伴随着国内慢性病患病率越来越高、老年化、亚健康群体越来越大，人民对...
-				</div>
-			</li>
-			<li class="media">
-				<div class="media-left pull-left">
-					<a href="#">
-						<img class="media-object" src="../../static/imgs/64*64.svg">
-					</a>
-				</div>
-				<div class="media-body">
-					<h4 class="media-heading">健康管理师为何会如此火热？</h4>
-					1.健康管理师待遇如何呢？健康管理是一个热门职业，最基本的收入大多在6000-20000之间，
-					不同地区收入有所差异。从业的越久，收入肯定就越高，特别优秀的，年薪可以达到近百万。
-					并且，伴随着国内慢性病患病率越来越高、老年化、亚健康群体越来越大，人民对...
-				</div>
-			</li>
+			{{ range $index, $blog := .Blog}}
+			<a href="/blog/{{ $blog.BlogID }}">
+				<li class="media">
+					<div class="media-left pull-left">
+						<!-- <a href="#"> -->
+							<img class="media-object" src="{{ $blog.BlogUserAvatar }}">
+						<!-- </a> -->
+					</div>
+					<div class="media-body">
+						<h4 class="media-heading">{{ $blog.BlogTitle }}</h4>
+						{{ $blog.BlogContent }}
+					</div>
+				</li>
+			</a>
+			{{ end }}
 		</ul>
 	</div>
 

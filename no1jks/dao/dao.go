@@ -11,6 +11,10 @@ type Dao struct {
 	mysql *gorm.DB
 }
 
+type DataSet struct {
+	Page, TotalCount int
+}
+
 // New Dao constructor
 func New(c *orm.MysqlConf) (d *Dao) {
 	d = &Dao{mysql: orm.NewMySQL(c)}
