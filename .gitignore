@@ -1,9 +1,8 @@
 *.tar.gz
 *.pem
 *.pyc
-*DS*
+*DS
 
 *.so
-bin
 .vscode/
 .DS_Store
