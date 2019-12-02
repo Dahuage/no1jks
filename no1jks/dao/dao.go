@@ -3,6 +3,7 @@ package dao
 import (
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/mysql"
+	"no1jks/no1jks/models"
 	orm "no1jks/no1jks/utils"
 )
 
@@ -14,6 +15,11 @@ type Dao struct {
 type DataSet struct {
 	Page, TotalCount int
 }
+
+func getOffset(page int) int {
+	return page * models.Limit
+}
+
 
 // New Dao constructor
 func New(c *orm.MysqlConf) (d *Dao) {

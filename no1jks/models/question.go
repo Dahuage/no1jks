@@ -18,4 +18,5 @@ type Question struct {
 	CreatedAt       time.Time `json:"create_at" gorm:""`
 	UpdatedAt       time.Time `json:"update_at" gorm:""`
 	IsDeleted       int       `json:"is_deleted" gorm:"" sql:"TINYINT NOT NULL DEFAULT 0"`
+	IsLocked        int       `json:"is_locked" gorm:"" sql:"TINYINT NOT NULL DEFAULT 0"`
 }

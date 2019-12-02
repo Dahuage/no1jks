@@ -4,7 +4,7 @@ from fabric import Connection, task
 
 
 HOST = '39.100.237.214'
-KEY = './etc/xyz.pem'
+KEY = './etc/jks.pem'
 USER = 'root'
 REMOTE_PROJECT_DIR = '/usr/no1jks'
 

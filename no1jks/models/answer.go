@@ -13,6 +13,7 @@ type Answer struct {
 	CommentCount    int       `json:"comment_count" gorm:"" sql:"TINYINT NOT NULL DEFAULT 0"`
 	DisplayHomepage int       `json:"display_homepage" gorm:"" sql:"TINYINT NOT NULL DEFAULT 0"`
 	IsTop           int       `json:"is_top" gorm:"" sql:"TINYINT NOT NULL DEFAULT 0"`
+	Score           int       `json:"score" gorm:"" sql:"INT NOT NULL DEFAULT 0"`
 	CreatedAt       time.Time `json:"create_at" gorm:""`
 	UpdatedAt       time.Time `json:"update_at" gorm:""`
 	IsDeleted       int       `json:"is_deleted" gorm:"" sql:"TINYINT NOT NULL DEFAULT 0"`

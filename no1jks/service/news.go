@@ -1,10 +1,10 @@
 package service
 
 import (
-	"context"
-	"no1jks/no1jks/models"
+	"no1jks/no1jks/dao"
 )
 
-func (s *Service) GetHomePageNews(c context.Context) (news []*models.News) {
-	return
+func (s *Service) GetNewsHomepage(IsLogin bool, page int, filters *map[string]interface{}) (news *dao.NewsHomepageSet) {
+	news = s.dao.GetNewsHomepage(page, false, nil).(*dao.NewsHomepageSet)
+	return news
 }
