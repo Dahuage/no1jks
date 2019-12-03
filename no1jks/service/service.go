@@ -4,7 +4,7 @@ import (
 	"github.com/astaxie/beego"
 	"log"
 	"no1jks/no1jks/dao"
-	orm "no1jks/no1jks/utils"
+	orm2 "no1jks/no1jks/utils/orm"
 	"sync"
 )
 
@@ -27,7 +27,7 @@ func newService() (s *Service) {
 	if err != nil {
 		log.Fatal()
 	}
-	MySqlConf := &orm.MysqlConf{
+	MySqlConf := &orm2.MysqlConf{
 		MysqlDSN:         beego.AppConfig.String("mysqlDsn"),
 		MysqlActive:      mysqlActive,
 		MysqlIdle:        mysqlIdle,

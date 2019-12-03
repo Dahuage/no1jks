@@ -6,10 +6,6 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="keywords" content="健康管理 健康管理师 第一健康管理师傅 健康考试 护理" />
 
-<script type="application/x-javascript">
-	addEventListener("load", function() {setTimeout(hideURLbar, 0);}, false);
-	function hideURLbar(){ window.scrollTo(0,1); } 
-</script>
 <script src="/static/js/jquery-1.11.1.min.js"></script>
 <script src="/static/bootstrap/js/bootstrap.min.js"></script>
 <link href="/static/bootstrap/css/bootstrap.css" rel='stylesheet' type='text/css' />
@@ -24,100 +20,27 @@
 
 	<!--热门资料下载-->
 	<div class="container">
+		{{ range $idx, $BookLine := .Books.Books}}
 		<div class="row">
-				<div class="col-lg-3 col-md-4 col-sm-6 col-xs-6"><!-- 大屏幕放3张略缩图，pc端放4张，平板和手机放6张-->
-					<div class="thumbnail">
-						<img src="../../static/imgs/book.jpg" alt="..."  class="img-responsive">
-						<div class="caption">
-							<h4>我的前半生</h4>
-							<p style="color:red;">$10.0</p>
-							<p>中信出版社</p>
+			{{range $idx, $book := $BookLine}}
+				<div class="col-lg-3 col-md-4 col-sm-6 col-xs-6">
+						<!-- 大屏幕放3张略缩图，pc端放4张，平板和手机放6张-->
+						<div class="thumbnail">
+							<a href="/book/{{$book.ID}}">
+								<img src="{{ $book.ThumbImg }}" alt="{{ $book.Title }}"  class="img-responsive">
+								<div class="caption">
+									<h4>{{ $book.Title }}</h4>
+									<p style="color:red;">¥{{ $book.Price }}</p>
+									<p>{{ $book.Publisher }}</p>
+								</div>
+							</a>
 						</div>
-					</div>
 				</div>
-				<div class="col-lg-3 col-md-4 col-sm-6 col-xs-6"><!-- 大屏幕放3张略缩图，pc端放4张，平板和手机放6张-->
-					<div class="thumbnail">
-						<img src="../../static/imgs/book.jpg" alt="..."  class="img-responsive">
-						<div class="caption">
-							<h4>vivo X9s Plus</h4>
-							<p style="color:red;">
-							            2000万柔光双摄内置&nbsp;&nbsp;震撼HIFI音效&nbsp;&nbsp;&nbsp;便捷一屏两用
-							 </p>
-						</div>
-					</div>
-				</div>
-				<div class="col-lg-3 col-md-4 col-sm-6 col-xs-6"><!-- 大屏幕放3张略缩图，pc端放4张，平板和手机放6张-->
-					<div class="thumbnail">
-						<img src="../../static/imgs/book.jpg" alt="..."  class="img-responsive">
-						<div class="caption">
-							<h4>vivo X9s Plus</h4>
-							<p style="color:red;">
-							            2000万柔光双摄内置&nbsp;&nbsp;震撼HIFI音效&nbsp;&nbsp;&nbsp;便捷一屏两用
-							 </p>
-						</div>
-					</div>
-				</div>
-				<div class="col-lg-3 col-md-4 col-sm-6 col-xs-6"><!-- 大屏幕放3张略缩图，pc端放4张，平板和手机放6张-->
-					<div class="thumbnail">
-						<img src="../../static/imgs/book.jpg" alt="..."  class="img-responsive">
-						<div class="caption">
-							<h4></h4>
-							<p style="color:red;">
-							            2000万柔光双摄内置&nbsp;&nbsp;震撼HIFI音效&nbsp;&nbsp;&nbsp;便捷一屏两用
-							 </p>
-						</div>
-					</div>
-				</div>
+			{{end}}
 		</div>
-		<div class="row">
-				<div class="col-lg-3 col-md-4 col-sm-6 col-xs-6"><!-- 大屏幕放3张略缩图，pc端放4张，平板和手机放6张-->
-					<div class="thumbnail">
-						<img src="../../static/imgs/book.jpg" alt="..."  class="img-responsive">
-						<div class="caption">
-							<h4>vivo X9s Plus</h4>
-							<p style="color:red;">
-							            2000万柔光双摄内置&nbsp;&nbsp;震撼HIFI音效&nbsp;&nbsp;&nbsp;便捷一屏两用
-							 </p>
-						</div>
-					</div>
-				</div>
-				<div class="col-lg-3 col-md-4 col-sm-6 col-xs-6"><!-- 大屏幕放3张略缩图，pc端放4张，平板和手机放6张-->
-					<div class="thumbnail">
-						<img src="../../static/imgs/book.jpg" alt="..."  class="img-responsive">
-						<div class="caption">
-							<h4>vivo X9s Plus</h4>
-							<p style="color:red;">
-							            2000万柔光双摄内置&nbsp;&nbsp;震撼HIFI音效&nbsp;&nbsp;&nbsp;便捷一屏两用
-							 </p>
-						</div>
-					</div>
-				</div>
-		</div>
+		{{end}}
 		<div class="clearfix"> </div>
 	</div>
-
-
-
-
-	<!--start-smoth-scrolling-->
-	<script type="text/javascript">
-		jQuery(document).ready(function($) {
-			$(".scroll").click(function(event){		
-				event.preventDefault();
-				$('html,body').animate({scrollTop:$(this.hash).offset().top},1000);
-			});
-		});
-	</script>
-
-	<!--start-smoth-scrolling-->
-	<script type="text/javascript">
-		$(document).ready(function() {
-			$().UItoTop({ easingType: 'easeOutQuart' });							
-		});
-	</script>
-	<a href="#home" id="toTop" class="scroll" style="display: block;">
-		<span id="toTopHover" style="opacity: 1;"></span>
-	</a>
 
 </body>
 </html>

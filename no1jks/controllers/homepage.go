@@ -25,7 +25,7 @@ func (c *HomepageController) Get() {
 	banners := []Banner{
 		{1, 1, "/static/imgs/banner2.png", ""},
 		{2, 2, "/static/imgs/banner3.png", ""},
-		{3, 3, "/static/imgs/banner1.png", ""},
+		{3, 3, "/static/imgs/banner1.png", "/train"},
 	}
 	c.Data["Banners"] = &banners
 	c.Data["News"] = (*RenderData)["News"]

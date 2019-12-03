@@ -9,7 +9,6 @@ import (
 	"github.com/jinzhu/gorm"
 )
 
-// MysqlConf As the name said. idot
 type MysqlConf struct {
 	MysqlDSN         string
 	MysqlActive      int
@@ -26,6 +25,7 @@ func (l ormLog) Print(v ...interface{}) {
 // NewMySQL mysql client factory
 func NewMySQL(c *MysqlConf) (db *gorm.DB) {
 	db, err := gorm.Open("mysql", c.MysqlDSN)
+	// TODO
 	//defer db.Close()
 	if err != nil {
 		logs.Error("cant connect (%s)", c.MysqlDSN)

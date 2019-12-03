@@ -4,7 +4,7 @@ import (
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/mysql"
 	"no1jks/no1jks/models"
-	orm "no1jks/no1jks/utils"
+	orm2 "no1jks/no1jks/utils/orm"
 )
 
 // Dao as the name said idiot
@@ -22,8 +22,8 @@ func getOffset(page int) int {
 
 
 // New Dao constructor
-func New(c *orm.MysqlConf) (d *Dao) {
-	d = &Dao{mysql: orm.NewMySQL(c)}
+func New(c *orm2.MysqlConf) (d *Dao) {
+	d = &Dao{mysql: orm2.NewMySQL(c)}
 	return d
 }
 
