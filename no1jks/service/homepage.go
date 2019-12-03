@@ -10,8 +10,5 @@ func (s *Service) GetHomeContent(IsLogin bool) *map[string]interface{} {
 	HomeData["Questions"] = s.dao.GetHomepageQuestions(models.HomepageLimit)
 	HomeData["Books"] = s.dao.GetHomepageBooks(4)
 	HomeData["Blog"] = s.dao.GetHomepageBlog(models.HomepageLimit)
-	// Oh, trying print a value deep in the data, hell the map.
-	// logs.Info(*((*((*(HomeData["Questions"].(*[]*map[string]interface{})))[0]))
-	// 			 ["Answers"].([]*map[string]interface{})[0]))
 	return &HomeData
 }
