@@ -35,13 +35,14 @@
                                             required="" lay-verify="phone" autocomplete="off" class="layui-input">
                                     </div>
                                 </div>
-                                <div class="layui-form-item"> <label for="L_vercode"
-                                        class="layui-form-label">图形码</label>
-                                    <div class="layui-input-inline"> <input type="text" id="L_imagecode"
-                                            name="imagecode" required="" lay-verify="required" autocomplete="off"
-                                            class="layui-input"> </div>
-                                    <div class="layui-form-mid" style="padding: 0!important;"> <img
-                                            src="/auth/imagecode?t=1575360391946" class="fly-imagecode"> </div>
+                                <div class="layui-form-item"> 
+                                    <label for="L_vercode" class="layui-form-label">图形码</label>
+                                    <div class="layui-input-inline">
+                                        <input type="text" id="L_imagecode" name="imagecode" required="" lay-verify="required" autocomplete="off" class="layui-input">
+                                    </div>
+                                    <div class="layui-form-mid" style="padding: 0!important;"> 
+                                        {{ create_captcha }}
+                                    </div>
                                 </div>
                                 <div class="layui-form-item"> <label for="L_vercode"
                                         class="layui-form-label">验证码</label>

@@ -45,7 +45,7 @@ func assembleBookSet(rawBooks *[]models.Book) *BookSet {
 func (d *Dao) GetBooksHomepage(page int, onlyCount bool, filters *map[string]interface{}) interface{} {
 	var rawBooks []models.Book
 	var totalCount int
-	db := d.mysql.
+	db := d.Mysql.
 		Table("book").
 		Scopes(BooksBaseFilter)
 	db.Count(&totalCount)
@@ -68,7 +68,7 @@ func (d *Dao) GetBooksHomepage(page int, onlyCount bool, filters *map[string]int
 // Homepage recommendation
 func (d *Dao) GetHomepageBooks(limit uint8) *BookSet {
 	var rawBooks []models.Book
-	books := d.mysql.
+	books := d.Mysql.
 		Scopes(BooksBaseFilter, BooksHomepageFilter).
 		Find(&rawBooks)
 	if err := books.Error; err != nil {

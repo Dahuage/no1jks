@@ -5,6 +5,6 @@ import (
 )
 
 func (s *Service) GetNewsHomepage(IsLogin bool, page int, filters *map[string]interface{}) (news *dao.NewsHomepageSet) {
-	news = s.dao.GetNewsHomepage(page, false, nil).(*dao.NewsHomepageSet)
+	news = s.Dao.GetNewsHomepage(page, false, nil).(*dao.NewsHomepageSet)
 	return news
 }

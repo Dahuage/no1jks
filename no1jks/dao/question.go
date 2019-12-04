@@ -109,7 +109,7 @@ func assembleQuestions(rawData *[]qa) *[]QuestionSet{
 // 获取首页的博客
 func (d *Dao) GetHomepageBlog(limit uint8) *[]*HomepageBlog {
 	var result []*HomepageBlog
-	db := d.mysql.Table("question").
+	db := d.Mysql.Table("question").
 		Select("question.id as blog_id, "+
 			"question.title as blog_title,"+
 			"question.content as blog_content,"+
@@ -134,7 +134,7 @@ func (d *Dao) GetHomepageBlog(limit uint8) *[]*HomepageBlog {
 // 获取首页的问答
 func (d *Dao) GetHomepageQuestions(limit uint8) *QuestionHomepageDataSet {
 	var rawQuestion []qa
-	db := d.mysql.Table("question").
+	db := d.Mysql.Table("question").
 		Select(_sql).
 		Joins("left join user as question_user on question.user_id = question_user.id").
 		Joins("left join answer on question.id = answer.question_id").
@@ -174,7 +174,7 @@ func (d *Dao) GetNewsHomepageNewsList(page int, onlyCount bool, filters *map[str
 	var rawQuestion []qa
 	var totalCount int
 
-	db := d.mysql.Table("question").
+	db := d.Mysql.Table("question").
 		Select(_sql).
 		Joins("left join user as question_user on question.user_id = question_user.id").
 		Joins("left join answer on question.id = answer.question_id").

@@ -6,9 +6,9 @@ import (
 
 func (s *Service) GetHomeContent(IsLogin bool) *map[string]interface{} {
 	HomeData := make(map[string]interface{})
-	HomeData["News"] = s.dao.GetHomepageNews(models.HomepageLimit)
-	HomeData["Questions"] = s.dao.GetHomepageQuestions(models.HomepageLimit)
-	HomeData["Books"] = s.dao.GetHomepageBooks(4)
-	HomeData["Blog"] = s.dao.GetHomepageBlog(models.HomepageLimit)
+	HomeData["News"] = s.Dao.GetHomepageNews(models.HomepageLimit)
+	HomeData["Questions"] = s.Dao.GetHomepageQuestions(models.HomepageLimit)
+	HomeData["Books"] = s.Dao.GetHomepageBooks(4)
+	HomeData["Blog"] = s.Dao.GetHomepageBlog(models.HomepageLimit)
 	return &HomeData
 }

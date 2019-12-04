@@ -8,7 +8,7 @@ import (
 // GetNewsByID as the name said idiot.
 func (d *Dao) GetNewsByID(id int) *models.News {
 	var news models.News
-	db := d.mysql
+	db := d.Mysql
 	db.First(&news, id)
 	return &news
 }
@@ -16,7 +16,7 @@ func (d *Dao) GetNewsByID(id int) *models.News {
 // GetHomePageNews as the name said idiot.
 func (d *Dao) GetHomepageNews(limit uint8) *[]*models.News {
 	var news []*models.News
-	db := d.mysql
+	db := d.Mysql
 	err := db.Where("display_homepage = ? AND is_deleted = ?",
 		1, models.False).Find(&news)
 	if err.Error != nil {
@@ -38,7 +38,7 @@ func (d *Dao) GetNewsHomepage(page int, onlyCount bool, filters *map[string]inte
 	var news NewsHomepageSet
 	var totalCount int
 
-	db := d.mysql.Table("news").Scopes(listBaseFilter)
+	db := d.Mysql.Table("news").Scopes(listBaseFilter)
 	db.Count(&totalCount)
 	if onlyCount {
 		return totalCount

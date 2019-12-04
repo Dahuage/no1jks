@@ -9,7 +9,7 @@ import (
 )
 
 type Service struct {
-	dao *dao.Dao
+	Dao *dao.Dao
 }
 
 type Composite map[string]interface{}
@@ -34,17 +34,21 @@ func newService() (s *Service) {
 		MysqlIdleTimeout: mysqlIdleTimeout,
 	}
 	s = &Service{
-		dao: dao.New(MySqlConf),
+		Dao: dao.New(MySqlConf),
 	}
 	return
 }
 
-var serviceInstance *Service
+var SvrInstance *Service
 var once sync.Once
 
 func GetService() *Service {
 	once.Do(func() {
-		serviceInstance = newService()
+		SvrInstance = newService()
 	})
-	return serviceInstance
+	return SvrInstance
+}
+
+func init(){
+	GetService()
 }
