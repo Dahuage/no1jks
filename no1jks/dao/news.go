@@ -5,6 +5,27 @@ import (
 	"no1jks/no1jks/models"
 )
 
+
+type NewsHomepageSet struct {
+	DataSet
+	NewsList []models.News
+}
+
+type NewsCommentSet struct {
+	DataSet
+	NewsList []models.NewsComment
+}
+
+func listBaseFilter(db *gorm.DB) *gorm.DB {
+	return db.Where("is_deleted = ?", models.False)
+}
+
+func IdFilter(id int) func (db *gorm.DB) *gorm.DB {
+	return func(db *gorm.DB)*gorm.DB {
+		return db.Where("news.id = ?", id)
+	}
+}
+
 // GetNewsByID as the name said idiot.
 func (d *Dao) GetNewsByID(id int) *models.News {
 	var news models.News
@@ -23,15 +44,6 @@ func (d *Dao) GetHomepageNews(limit uint8) *[]*models.News {
 		panic(err.Error)
 	}
 	return &news
-}
-
-func listBaseFilter(db *gorm.DB) *gorm.DB {
-	return db.Where("is_deleted = ?", models.False)
-}
-
-type NewsHomepageSet struct {
-	DataSet
-	NewsList []models.News
 }
 
 func (d *Dao) GetNewsHomepage(page int, onlyCount bool, filters *map[string]interface{}) interface{} {

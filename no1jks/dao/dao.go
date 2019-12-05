@@ -13,9 +13,9 @@ import (
 
 // Dao as the name said idiot
 type Dao struct {
-	Mysql *gorm.DB
-	Cache *cache.Cache
-	Es    *string
+	Mysql          *gorm.DB
+	Cache          *cache.Cache
+	Es             *string
 }
 
 type DataSet struct {

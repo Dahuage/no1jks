@@ -11,7 +11,7 @@ func init() {
 
 	beego.Router("/", &controllers.HomepageController{})
 	beego.Router("/news", &controllers.NewsHomeController{})
-	beego.Router("/news/:id", &controllers.NewsHomeController{})
+	beego.Router("/news/:id", &controllers.NewsDetailController{})
 	beego.Router("/news/like/:id", &controllers.NewsHomeController{})
 	beego.Router("/news/comm/:id", &controllers.NewsHomeController{})
 
