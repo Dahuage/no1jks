@@ -6,7 +6,6 @@ type NewsHomeController struct {
 
 func (c *NewsHomeController) Get() {
 	c.TplName = "no1jks/news.html"
-	c.Data["IsLogin"] = false
 	c.Data["IsNews"] = "active"
 	c.Data["News"] = c.s.GetNewsHomepage(false, 0, nil)
 }

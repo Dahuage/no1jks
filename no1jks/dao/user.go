@@ -10,3 +10,12 @@ func (d *Dao) GetUserByPhone(phone string) (*models.User, bool) {
 	}
 	return &user, true
 }
+
+func (d *Dao) GetUserById(userId int) (*models.User, bool) {
+	var user models.User
+	err := d.Mysql.Where("user.id = ?", userId).Find(&user).Error
+	if err != nil {
+		return nil, false
+	}
+	return &user, true
+}

@@ -6,6 +6,7 @@ import (
 	_ "github.com/astaxie/beego/utils/captcha"
 	"no1jks/no1jks/service"
 	_ "no1jks/no1jks/service"
+	"no1jks/no1jks/utils"
 )
 
 var cap *captcha.Captcha
@@ -36,31 +37,35 @@ func (c *UserLoginController) Get() {
 }
 
 func (c *UserLoginController) Post() {
-	var err service.UserVerifyErr
 	logs.Info(c.Ctx.Request.Form)
+	var resp JsonViewBase
 
 	verifyCodeErr := cap.VerifyReq(c.Ctx.Request)
 	if !verifyCodeErr {
-		err.Captcha = "验证码错误"
-		c.Data["json"] = err
+		err := utils.Errs["CAPTCHA_ERROR"]
+		resp.Code = err.Code
+		resp.Error = *err
+		c.Data["json"] = resp
 		c.ServeJSON()
 		return
 	}
 	u := service.UserVerify{}
 	if parseErr := c.ParseForm(&u); parseErr != nil {
-		err.Captcha = "输入有误请重新输入"
-		err.Phone = err.Captcha
-		err.Pass = err.Captcha
+		err := utils.Errs["PARAM_ERROR"]
+		resp.Code = err.Code
+		resp.Error = *err
 		c.Data["json"] = err
 		c.ServeJSON()
 		logs.Debug(parseErr)
 		return
 	}
-	user, e := c.s.VerifyUser(&u)
-	if e != nil {
-		c.Data["Err"] = e
-		c.Data["json"] = e
+	user, verifyErr := c.s.VerifyUser(&u)
+	if verifyErr != nil {
+		resp.Code = verifyErr.Code
+		resp.Error = *verifyErr
+		c.Data["json"] = resp
 		c.ServeJSON()
+		logs.Debug(verifyErr)
 		return
 	}
 	c.SetSession("super-jks", user.ID)
@@ -72,21 +77,23 @@ func (c *UserSignupController) Get() {
 }
 
 func (c *UserSignupController) Post() {
-	var err service.UserVerifyErr
+	var resp JsonViewBase
 	logs.Info(c.Ctx.Request.Form)
 
-	verifyCodeErr := cap.VerifyReq(c.Ctx.Request)
-	if !verifyCodeErr {
-		err.Captcha = "验证码错误"
-		c.Data["json"] = err
+	VerifyOk := cap.VerifyReq(c.Ctx.Request)
+	if !VerifyOk {
+		err := utils.Errs["CAPTCHA_ERROR"]
+		resp.Code = err.Code
+		resp.Error = *err
+		c.Data["json"] = resp
 		c.ServeJSON()
 		return
 	}
 	u := service.NewUser{}
 	if parseErr := c.ParseForm(&u); parseErr != nil {
-		err.Captcha = "输入有误请重新输入"
-		err.Phone = err.Captcha
-		err.Pass = err.Captcha
+		err := utils.Errs["PARAM_ERROR"]
+		resp.Code = err.Code
+		resp.Error = *err
 		c.Data["json"] = err
 		c.ServeJSON()
 		logs.Debug(parseErr)
@@ -95,13 +102,19 @@ func (c *UserSignupController) Post() {
 
 	user, createErr := c.s.CreateUser(&u)
 	if createErr != nil {
-		c.Data["json"] = createErr
+		resp.Code = createErr.Code
+		resp.Error = *createErr
+		c.Data["json"] = resp
 		c.ServeJSON()
 		logs.Debug(createErr)
 		return
 	}
+
+	resp.Code = 0
+	c.Data["json"] = resp
 	c.SetSession("super-jks", user.ID)
-	c.Redirect("/", 303)
+	c.ServeJSON()
+	return
 }
 
 func (c *UserTermController) Get() {

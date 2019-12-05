@@ -2,6 +2,7 @@ package service
 
 import (
 	_ "fmt"
+	"github.com/astaxie/beego/logs"
 	"no1jks/no1jks/models"
 	"no1jks/no1jks/utils"
 	_ "no1jks/no1jks/utils"
@@ -21,62 +22,59 @@ type NewUser struct {
 	RePass string `form:"repass"`
 }
 
-type UserVerifyErr struct {
-	Phone   string
-	Pass    string
-	Captcha string
-	Unknown  string
-}
-
-func (s *Service) VerifyUser(u *UserVerify) (*models.User, *UserVerifyErr) {
-	var err UserVerifyErr
+func (s *Service) VerifyUser(u *UserVerify) (*models.User, *utils.ServiceErr) {
 
 	p, e := strconv.Atoi(u.Phone)
 	if e != nil {
-		err.Phone = "手机格式错误"
-		return nil, &err
+		err := utils.Errs["PHONE_ERROR"]
+		return nil, err
 	}
 	codedPhone := utils.EncodeIntString(p)
 	user, ok := s.Dao.GetUserByPhone(codedPhone)
 	if !ok {
-		err.Phone = "手机号错误"
-		return nil, &err
+		logs.Debug("Can't encode ", codedPhone)
+		err := utils.Errs["UNKNOWN_ERROR"]
+		return nil, err
 	}
 
 	saltedPassword, saltErr := utils.EncodeSalt(u.Pass)
 	if saltErr != nil {
-		panic("Can't add salt for " + u.Pass)
+		logs.Debug("Can't add salt for " + u.Pass)
+		err := utils.Errs["UNKNOWN_ERROR"]
+		return nil, err
 	}
 	if saltedPassword == user.Password {
 		return user, nil
 	}
-	err.Pass = "密码错误"
-	return nil, &err
+
+	err := utils.Errs["PASSWORD_ERROR"]
+	return nil, err
 }
 
-func (s *Service) CreateUser(u *NewUser) (*models.User, *UserVerifyErr) {
-	var err UserVerifyErr
-
+func (s *Service) CreateUser(u *NewUser) (*models.User, *utils.ServiceErr) {
 	p, e := strconv.Atoi(u.Phone)
 	if e != nil {
-		err.Phone = "手机格式错误"
-		return nil, &err
+		err := utils.Errs["PHONE_ERROR"]
+		return nil, err
 	}
+
 	codedPhone := utils.EncodeIntString(p)
 	_, ok := s.Dao.GetUserByPhone(codedPhone)
 	if ok {
-		err.Phone = "该手机已经注册"
-		return nil, &err
+		err := utils.Errs["USER_EXIST"]
+		return nil, err
 	}
 
 	saltedPassword, saltErr := utils.EncodeSalt(u.Pass)
 	reSaltedPassword, reSaltErr := utils.EncodeSalt(u.RePass)
 	if saltErr != nil || reSaltErr != nil {
-		panic("Can't add salt for " + u.Pass)
+		logs.Debug("Can't add salt for " + u.Pass)
+		err := utils.Errs["UNKNOWN_ERROR"]
+		return nil, err
 	}
-	if saltedPassword == reSaltedPassword {
-		err.Pass = "两次密码输入不一致"
-		return nil, &err
+	if saltedPassword != reSaltedPassword {
+		err := utils.Errs["PASSWORD_ERROR"]
+		return nil, err
 	}
 
 	var user models.User
@@ -91,8 +89,9 @@ func (s *Service) CreateUser(u *NewUser) (*models.User, *UserVerifyErr) {
 	}
 	db := s.Dao.Mysql.Create(&user)
 	if db.Error != nil {
-		err.Unknown = "未知错误稍后重试"
-		return nil, &err
+		logs.Debug("Create user err ", nil)
+		err := utils.Errs["UNKNOWN_ERROR"]
+		return nil, err
 	}
 	return &user, nil
 }

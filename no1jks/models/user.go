@@ -2,7 +2,7 @@ package models
 
 // blog 本质上作为一个没有答案的问题
 type User struct {
-	ID           uint      `json:"id" gorm:"primary_key" sql:"INT NOT NULL PRIMARY KEY AUTO_INCREMENT"`
+	ID           int      `json:"id" gorm:"primary_key" sql:"INT NOT NULL PRIMARY KEY AUTO_INCREMENT"`
 	Name         string    `json:"name" gorm:"" sql:"VARCHAR(1024) NOT NULL"`
 	Phone        string    `json:"phone" gorm:"" sql:"TEXT"`
 	Password     string    `json:"password" gorm:"" sql:"TINYINT NOT NULL DEFAULT 0"`

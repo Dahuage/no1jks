@@ -20,7 +20,6 @@ type Banner struct {
 func (c *HomepageController) Get() {
 	RenderData := c.s.GetHomeContent(false)
 	c.TplName = "no1jks/home.html"
-	c.Data["IsLogin"] = false
 	c.Data["IsHome"] = "active"
 	banners := []Banner{
 		{1, 1, "/static/imgs/banner2.png", ""},

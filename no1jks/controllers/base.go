@@ -2,9 +2,16 @@ package controllers
 
 import (
 	"github.com/astaxie/beego"
+	"no1jks/no1jks/models"
 	"no1jks/no1jks/service"
-	"time"
+	"no1jks/no1jks/utils"
 )
+
+type JsonViewBase struct {
+	Code  int
+	Error utils.ServiceErr
+	Data  interface{}
+}
 
 type NestPreparer interface {
 	NestPrepare()
@@ -13,29 +20,36 @@ type NestPreparer interface {
 // baseRouter implemented global settings for all other routers.
 type baseController struct {
 	beego.Controller
-	//i18n.Locale
-	s *service.Service
-	//user    models.User
-	//isLogin bool
+	s       *service.Service
+	user    *models.User
+	isLogin bool
 }
 
 // Prepare implemented Prepare method for baseRouter.
 func (this *baseController) Prepare() {
 
-	// page start time
+	// init service
 	this.s = service.GetService()
-	this.Data["PageStartTime"] = time.Now()
 
-	// Setting properties.
-	//this.Data["AppDescription"] = utils.AppDescription
-	//this.Data["AppKeywords"] = utils.AppKeywords
-	//this.Data["AppName"] = utils.AppName
-	//this.Data["AppVer"] = utils.AppVer
-	//this.Data["AppUrl"] = utils.AppUrl
-	//this.Data["AppLogo"] = utils.AppLogo
-	//this.Data["AvatarURL"] = utils.AvatarURL
-	//this.Data["IsProMode"] = utils.IsProMode
-
+	// auth
+	userId := this.GetSession("super-jks")
+	if userId != nil {
+		currentUser, ok := this.s.Dao.GetUserById(userId.(int))
+		if ok {
+			this.isLogin = true
+			this.user = currentUser
+			this.Data["IsLogin"] = true
+			this.Data["User"] = currentUser
+		} else {
+			this.isLogin = false
+			this.user = nil
+			this.Data["IsLogin"] = false
+		}
+	} else {
+		this.isLogin = false
+		this.user = nil
+		this.Data["IsLogin"] = false
+	}
 	if app, ok := this.AppController.(NestPreparer); ok {
 		app.NestPrepare()
 	}

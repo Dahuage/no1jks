@@ -31,7 +31,7 @@
 					</form> -->
 					<ul class="nav navbar-nav navbar-right">
 						  {{ if $.IsLogin }}
-						  	<li><a href="/user/{{ $.UserId }}">{{ $.Nickname }}</a></li> 
+						  	<li><a href="/user/{{ $.User.ID }}">{{ $.User.Name }}</a></li> 
 						  {{ else }}
 						  	<li><a href="/user/login">登录</a></li>
 						  {{ end }}
