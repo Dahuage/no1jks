@@ -33,7 +33,6 @@ type UserCaptchaController struct {
 
 func (c *UserLoginController) Get() {
 	c.TplName = "no1jks/user_login.html"
-	c.Data["Err"] = service.UserVerifyErr{"", "", ""}
 }
 
 func (c *UserLoginController) Post() {
@@ -73,7 +72,36 @@ func (c *UserSignupController) Get() {
 }
 
 func (c *UserSignupController) Post() {
-	c.TplName = "no1jks/user_signup.html"
+	var err service.UserVerifyErr
+	logs.Info(c.Ctx.Request.Form)
+
+	verifyCodeErr := cap.VerifyReq(c.Ctx.Request)
+	if !verifyCodeErr {
+		err.Captcha = "验证码错误"
+		c.Data["json"] = err
+		c.ServeJSON()
+		return
+	}
+	u := service.NewUser{}
+	if parseErr := c.ParseForm(&u); parseErr != nil {
+		err.Captcha = "输入有误请重新输入"
+		err.Phone = err.Captcha
+		err.Pass = err.Captcha
+		c.Data["json"] = err
+		c.ServeJSON()
+		logs.Debug(parseErr)
+		return
+	}
+
+	user, createErr := c.s.CreateUser(&u)
+	if createErr != nil {
+		c.Data["json"] = createErr
+		c.ServeJSON()
+		logs.Debug(createErr)
+		return
+	}
+	c.SetSession("super-jks", user.ID)
+	c.Redirect("/", 303)
 }
 
 func (c *UserTermController) Get() {
