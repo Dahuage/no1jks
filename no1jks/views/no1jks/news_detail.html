@@ -20,18 +20,18 @@
 
     <div class="container">
         <div class="col-md-8 col-xs-12">
-            <h1 class="news-title">{{ .News.Title }}</h1>
+            <h1 class="news-title" style="padding-bottom: 5px;">{{ .News.News.Title }}</h1>
             <!--搜索引擎，h1爬取权重较高-->
-            <div class="new-info">10w阅读 . 2分钟之前发布
-                {{ range $idx, $tag := .News.Tags }}
-                <div class="label label-default">{{ $tag }}</div>
-                {{ end }}
+            <div class="new-info">
+                <span class="label label-warning">{{ .News.News.SourceName }}</span>
+                <span class="label label-warning">{{ .News.News.ViewCount }}阅读</span>
+                <span class="label label-warning"> 2分钟之前 发布</span>
             </div>
             <div class="news-content">
                 <blockquote>
-                    <h2>{{ .News.Brief }}</h2>
+                    <h4>{{ .News.News.Brief }}</h4>
                 </blockquote>
-                {{ .News.Conetent }}
+                {{ .News.News.Content }}
             </div>
         </div>
         <div class="col-md-4 col-xs-12">

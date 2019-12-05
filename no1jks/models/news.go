@@ -5,6 +5,8 @@ import "time"
 type News struct {
 	ID              uint      `json:"title" gorm:"primary_key" sql:"INT NOT NULL PRIMARY KEY AUTO_INCREMENT"`
 	Title           string    `json:"title" gorm:"" sql:"VARCHAR(1024) NOT NULL"`
+	Tags            string
+	Brief           string
 	Content         string    `json:"content" gorm:"" sql:"TEXT"`
 	ViewCount       int       `json:"view_count" gorm:"" sql:"TINYINT NOT NULL DEFAULT 0"`
 	LikeCount       int       `json:"like_count" gorm:"" sql:"TINYINT NOT NULL DEFAULT 0"`
