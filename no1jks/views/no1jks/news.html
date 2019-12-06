@@ -38,7 +38,7 @@
                             <a href="/news/{{ $news.ID }}" class="title">{{ $news.Title }}</a>
                             <div class="info">
                                 <span>{{ $news.SourceName }}</span>
-                                <span>{{ $news.CreatedAt.Format "2006 Jan 02" }}</span>
+                                <span>{{ $news.CreateAt | human_time }}</span>
                                 <span class="label label-warning">{{ $news.ViewCount }}阅读</span>
                                 <span class="label label-warning">{{ $news.CommentCount }}评论</span>
                             </div>

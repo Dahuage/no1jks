@@ -5,8 +5,10 @@ import (
 	"errors"
 	"fmt"
 	"io"
+	"math"
 	"os"
 	"strings"
+	"time"
 )
 
 var (
@@ -102,4 +104,37 @@ func DecodeIntString(s string) (i int) {
 		ret = charsReverse[char] + ret * base
 	}
 	return ret
+}
+
+func TimeAdd(t time.Time, duration string) time.Time{
+	d, e := time.ParseDuration(duration)
+	if e != nil {
+		panic(e)
+	}
+	return t.Add(d)
+}
+
+func Stamp2Str(t int64) string {
+	if t == 0 {
+		return "时间未知"
+	}
+
+	now := time.Now()
+	then := time.Unix(t, 0)
+	duration := now.Unix() - t
+	if then.After(now){
+		return "来自未来"
+	}else if then.After(TimeAdd(now, "-1m")){
+		return "刚刚"
+	}else if then.After(TimeAdd(now, "-1h")){
+		minute := int(math.Ceil(float64(duration / 60)))
+		return  fmt.Sprintf("%d分钟前", minute)
+	}else if then.After(TimeAdd(now, "-8h")){
+		hour := int(math.Ceil(float64(duration / 60 / 60)))
+		return  fmt.Sprintf("%d小时前", hour)
+	}else if then.After(TimeAdd(now, "-24h")){
+		return "1天前"
+	}else {
+		return then.Format(DateFormat)
+	}
 }

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>健康管理师头条</title>
+    <script src="/static/js/jquery-1.11.1.min.js"></script>
+    <script src="/static/bootstrap/js/bootstrap.min.js"></script>
+    <link href="/static/bootstrap/css/bootstrap.css" rel='stylesheet' type='text/css' />
+    <link href="/static/css/style.css" rel='stylesheet' type='text/css' />
+    <link rel="stylesheet" type="text/css" href="/static/css/question_detail.css">
+</head>
+<style>
+    body {
+        background-color: #f6f6f6;
+    }
+</style>
+
+<body>
+    <!-- 菜单 -->
+    {{template "no1jks/common/navi.html" .}}
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="row question">
+                    <h1 class="news-title">{{ .Question.Question.QuestionTitle }}</h1>
+                    <div class="new-info">
+                        <!-- Standard button -->
+                        <button type="button" class="btn btn-default">写答案</button>
+
+                        <span class="label label-warning">已冻结</span>
+                        <span class="label label-warning">{{ .Question.Question.QuestionViewCount }}阅读</span>
+                        <span class="label label-warning"> {{ .Question.Question.QuestionUpdateTime | human_time }} 发布</span>
+                    </div>
+                    <div class="question-desc">
+                        <blockquote>
+                            <h4>{{ .Question.Question.QuestionContent }}</h4>
+                        </blockquote>
+                    </div>
+                </div>
+
+                {{range $index, $answer := .Question.Answers }}
+                <div class="row answer">
+                    <div class="answer-info">
+                        <span><strong>{{$answer.AnswerUserName}}</strong> · {{ $answer.AnswerUpdateTime | human_time }} 贡献</span>
+                        <span class="label label-warning">标准答案</span>
+                        <span class="label label-warning">{{ $answer.AnswerViewCount }}阅读</span>
+                        <span class="label label-warning">{{ $answer.AnswerLikeCount }}赞同</span>
+                    </div>
+                    <div class="answer-conclusion">
+                        <blockquote>
+                                    <a role="button" data-toggle="collapse" data-parent="#accordion" data-original-title="点我展开答案"
+                                        href="#answer1" aria-expanded="true"
+                                        aria-controls="answer1">
+                                        <div class="alert alert-info" data-toggle="tooltip" data-placement="right" role="alert">
+                                            <strong>先说结论: </strong>
+                                            {{ $answer.AnswerConclusion }}
+                                        </div>
+                                    </a>
+                        </blockquote>
+                    </div>
+                    <hr>
+                    <div id="answer1" class="panel-collapse collapse answer-content" role="tabpanel" aria-labelledby="headingOne">
+                        {{ $answer.AnswerConclusion }}
+                    </div>
+                </div>
+                {{end}}
+            </div>
+            <div class="col-md-4">
+                <div class="side-bar-card ">
+                    <div class="card-title">相关阅读</div>
+                    <div class="card-body">
+                        <div class="list">
+                            <div class="item">
+                                <div class="title">清华大学</div>
+                                <div class="desc">300w点赞，20w评论</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="side-bar-card">
+                    <div class="card-title">猜你喜欢</div>
+                    <div class="card-body">
+                        <div class="list">
+                            <div class="item clearfix">
+                                <div class="col-xs-5 clear-image-padding">
+                                    <img src="https://dummyimage.com/600x400/666/ccc">
+                                </div>
+                                <div class="col-xs-7">
+                                    <div class="title">清华大学</div>
+                                    <div class="dest">300w阅读 100w评论</div>
+                                </div>
+                            </div>
+                            <div class="item clearfix">
+                                <div class="col-xs-5 clear-image-padding">
+                                    <img src="https://dummyimage.com/600x400/666/ccc">
+                                </div>
+                                <div class="col-xs-7">
+                                    <div class="title">清华大学</div>
+                                    <div class="dest">300w阅读 100w评论</div>
+                                </div>
+                            </div>
+                            <div class="item clearfix">
+                                <div class="col-xs-5 clear-image-padding">
+                                    <img src="https://dummyimage.com/600x400/666/ccc">
+                                </div>
+                                <div class="col-xs-7">
+                                    <div class="title">清华大学</div>
+                                    <div class="dest">300w阅读 100w评论</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

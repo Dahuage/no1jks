@@ -186,3 +186,22 @@ a:hover{
 .info span {
     padding-right: 7px;
 }
+
+.question{
+    margin-bottom:25px;
+    padding: 5px;
+    border: 1px solid #eee;
+    background-color: white;
+}
+
+.news-title, .question-desc, .new-info, .answer-info, .answer-conclusion, .answer-content {
+    padding: 21px 0px 10px 28px
+}
+
+.answer {
+    margin-bottom:25px;
+    padding: 5px;
+    border: 1px solid #eee;
+    background-color: white;
+}
+

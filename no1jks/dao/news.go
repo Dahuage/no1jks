@@ -1,6 +1,7 @@
 package dao
 
 import (
+	"github.com/astaxie/beego/logs"
 	"github.com/jinzhu/gorm"
 	"no1jks/no1jks/models"
 )
@@ -62,7 +63,7 @@ func (d *Dao) GetNewsHomepage(page int, onlyCount bool, filters *map[string]inte
 	if err != nil {
 		panic(err)
 	}
-
+	logs.Info("whats wrong???????",news.NewsList )
 	news.Page = page
 	news.TotalCount = totalCount
 	return &news

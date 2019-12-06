@@ -5,6 +5,7 @@ import (
 	"no1jks/no1jks/models"
 	"time"
 )
+
 // 暂时不晓得如何join后全行扫描，先用这个东西
 type qa struct {
 	QuestionID         int
@@ -13,7 +14,7 @@ type qa struct {
 	QuestionViewCount  int
 	QuestionLikeCount  int
 	QuestionCommCount  int
-	QuestionUpdateTime time.Time
+	QuestionUpdateTime int64
 	QuestionUserID     int
 	QuestionUserName   string
 	QuestionUserAvatar string
@@ -25,7 +26,8 @@ type qa struct {
 	AnswerViewCount  int
 	AnswerLikeCount  int
 	AnswerCommCount  int
-	AnswerUpdateTime time.Time
+	AnswerConclusion string
+	AnswerUpdateTime int64
 	AnswerUserID     int
 	AnswerUserName   string
 	AnswerUserAvatar string
@@ -33,6 +35,7 @@ type qa struct {
 	AnswerScore      int
 	QuestionIsLocked int
 }
+
 // 返回给首页的博客-自问自答的问题
 type HomepageBlog struct {
 	BlogID         int
@@ -47,12 +50,14 @@ type HomepageBlog struct {
 	BlogUserAvatar string
 	BlogUserName   string
 }
+
 // 手动聚合问题答案
 type QuestionSet struct {
 	Question qa
-	Answers []qa
+	Answers  []qa
 }
-// 返回给客户端的问题与答案
+
+// 返回给问答首页的问题与答案列表
 type QuestionHomepageDataSet struct {
 	DataSet
 	Questions *[]QuestionSet
@@ -76,15 +81,39 @@ const _sql = "question.id as question_id, " +
 	"answer.content as answer_content," +
 	"answer.view_count as answer_view_count," +
 	"answer.like_count as answer_like_count," +
-	"answer.comment_count as answer_comm_count," +
+	"answer.like_count as answer_like_count," +
+	"answer.conclusion as answer_conclusion," +
 	"answer.update_at as answer_update_time," +
 	"answer.score as answer_score," +
 	"answer_user.id as answer_user_id," +
 	"answer_user.name as answer_user_name," +
 	"answer_user.avatar as answer_user_avatar"
 
+// Where Scopes
+func questionBaseFilter(db *gorm.DB) *gorm.DB {
+	return db.Where("question.is_deleted = ?", models.False)
+}
+
+func answerBaseFilter(db *gorm.DB) *gorm.DB {
+	return db.Where("answer.is_deleted = ?", models.False)
+}
+
+func questionIdFilter(id int) func(db *gorm.DB)*gorm.DB {
+	return func (db *gorm.DB) *gorm.DB {
+		return db.Where("answer.is_deleted = ?", models.False)
+	}
+}
+
+func blogFilter(db *gorm.DB) *gorm.DB {
+	return db.Where("question.is_blog = ?", models.True)
+}
+
+func questionFilter(db *gorm.DB) *gorm.DB {
+	return db.Where("question.is_blog = ?", models.False)
+}
+
 // 组装问题及答案
-func assembleQuestions(rawData *[]qa) *[]QuestionSet{
+func assembleQuestions(rawData *[]qa) *[]QuestionSet {
 	var set []QuestionSet
 	container := make(map[int]QuestionSet)
 	for _, question := range *rawData {
@@ -100,7 +129,7 @@ func assembleQuestions(rawData *[]qa) *[]QuestionSet{
 			container[question.QuestionID] = temp
 		}
 	}
-	for _, v := range container{
+	for _, v := range container {
 		set = append(set, v)
 	}
 	return &set
@@ -152,24 +181,7 @@ func (d *Dao) GetHomepageQuestions(limit uint8) *QuestionHomepageDataSet {
 	return &ret
 }
 
-
-// 上Scope
-func questionBaseFilter(db *gorm.DB) *gorm.DB {
-	return db.Where("question.is_deleted = ?", models.False)
-}
-
-func answerBaseFilter(db *gorm.DB) *gorm.DB {
-	return db.Where("answer.is_deleted = ?", models.False)
-}
-
-func blogFilter(db *gorm.DB) *gorm.DB {
-	return db.Where("question.is_blog = ?", models.True)
-}
-
-func questionFilter(db *gorm.DB) *gorm.DB {
-	return db.Where("question.is_blog = ?", models.False)
-}
-
+// 获取问答首页的问题列表
 func (d *Dao) GetNewsHomepageNewsList(page int, onlyCount bool, filters *map[string]interface{}) interface{} {
 	var rawQuestion []qa
 	var totalCount int
@@ -200,4 +212,25 @@ func (d *Dao) GetNewsHomepageNewsList(page int, onlyCount bool, filters *map[str
 	return &ret
 }
 
-// 方案三 优化方案2的TODO
+// 获取问题详情页
+func (d *Dao) GetNewsDetail(questionId int, filters *map[string]interface{}) *QuestionSet{
+	var rawQuestion []qa
+
+	db := d.Mysql.Table("question").
+		Select(_sql).
+		Joins("left join user as question_user on question.user_id = question_user.id").
+		Joins("left join answer on question.id = answer.question_id").
+		Joins("left join user as answer_user on answer.user_id = answer_user.id").
+		Scopes(questionBaseFilter, questionIdFilter(questionId)).
+		Order("question.is_top asc, question.create_at desc, answer.score desc").
+		Scan(&rawQuestion)
+	if err := db.Error; err != nil {
+		panic(err)
+	}
+
+	ret := *assembleQuestions(&rawQuestion)
+	if len(ret) > 0 {
+		return &ret[0]
+	}
+	return nil
+}

@@ -1,6 +1,8 @@
 package controllers
 
-import "github.com/astaxie/beego/logs"
+import (
+	"strconv"
+)
 
 type NewsHomeController struct {
 	baseController
@@ -21,7 +23,10 @@ func (c *NewsDetailController) Get() {
 	c.Data["IsNews"] = "active"
 
 	newsId := c.Ctx.Input.Param(":id")
-	c.Data["News"] = c.s.GetNewsDetail(newsId)
-
-	logs.Info("==============", newsId)
+	newsIdInt, err := strconv.Atoi(newsId)
+	if err != nil {
+		// TODO RETURN 404
+		panic("Login")
+	}
+	c.Data["News"] = c.s.GetNewsDetail(newsIdInt, nil)
 }
