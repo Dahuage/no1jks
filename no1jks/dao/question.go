@@ -3,7 +3,6 @@ package dao
 import (
 	"github.com/jinzhu/gorm"
 	"no1jks/no1jks/models"
-	"time"
 )
 
 // 暂时不晓得如何join后全行扫描，先用这个东西
@@ -44,7 +43,7 @@ type HomepageBlog struct {
 	BlogViewCount  int
 	BlogLikeCount  int
 	BlogCommCount  int
-	BlogUpdateTime time.Time
+	BlogUpdateTime int64
 	BlogCover      string
 	BlogUserID     int
 	BlogUserAvatar string

@@ -178,7 +178,7 @@
 					<h1>
 			</div>
 			<div class="col-md-8 col-xs-12 news-list">
-				{{ range $index, $question :=  .Questions.Questions }}
+				{{ range $index, $question := .Questions.Questions }}
 				<div class="news-list-item clearfix">
 					<!--一定要清除浮动，不然排版不规范-->
 
@@ -257,24 +257,29 @@
 			<div class="page-header news-header">
 				<h1>考证心得 <small>相互学习</small></h1>
 			</div>
-			<ul class="media-list">
-				
+
+			<div class="new-content">
 				{{ range $index, $blog := .Blog}}
-				<a href="/blog/{{ $blog.BlogID }}">
-					<li class="media">
-						<div class="media-left pull-left">
-							<!-- <a href="#"> -->
-							<img class="media-object" src="{{ $blog.BlogUserAvatar }}">
-							<!-- </a> -->
-						</div>
-						<div class="media-body">
-							<h4 class="media-heading">{{ $blog.BlogTitle }}</h4>
-							{{ $blog.BlogContent }}
-						</div>
-					</li>
-				</a>
+				<div class="news-list-item clearfix question">
+					<div class="news-title">
+						<a href="/blog/{{ $blog.BlogID }}">
+							<h3 class="media-heading">{{ $blog.BlogTitle }}</h3>
+						</a>
+					</div>
+					<div class="answer-info">
+							<span>{{ $blog.BlogUserName }}</span> ·
+							<span>{{ $blog.BlogUpdateTime | human_time }}</span>
+							<span class="label label-warning">{{ $blog.BlogViewCount }}阅读</span>
+							<span class="label label-warning">{{ $blog.BlogLikeCount }}喜欢</span>
+					</div>
+					<hr>
+					<div class="answer-conclusion">
+						{{ $blog.BlogContent }}
+						<a href="/blog/{{ $blog.BlogID }}">查看全文</a>
+					</div>
+				</div>
 				{{ end }}
-			</ul>
+			</div>
 		</div>
 	</div>
 
