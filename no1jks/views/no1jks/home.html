@@ -11,9 +11,15 @@
 	<script src="/static/bootstrap/js/bootstrap.min.js"></script>
 	<link href="/static/bootstrap/css/bootstrap.min.css" rel='stylesheet' type='text/css' />
 	<link href="/static/css/style.css" rel='stylesheet' type='text/css' />
+	<link rel="stylesheet" href="/static/css/home.css">
 </head>
 
 <body>
+	<style>
+		body {
+			background-color: #f6f6f6;
+		}
+	</style>
 	<!--start-home-->
 	<!-- 菜单 -->
 	{{ template "no1jks/common/navi.html" .}}
@@ -21,7 +27,7 @@
 	<div class="container">
 		<!-- banner -->
 		<div class="row">
-			<div class="banner col-xs-16 col-md-10">
+			<div class="banner col-xs-12 col-md-10">
 				<!-- Slider-starts-Here -->
 				<script src="/static/js/responsiveslides.min.js"></script>
 				<script>
@@ -56,9 +62,9 @@
 					</ul>
 				</div>
 			</div>
-			<div class="statistics col-xs-6 col-md-2">
+			<div class="statistics col-xs-12 col-md-2">
 				<div class="alert alert-success" role="alert">
-					国家健康管理师<span class="caret"></span>
+					国家健康管理师(本站及全网统计)<span class="caret"></span>
 				</div>
 				<ul class="list-group">
 					<li class="list-group-item">
@@ -127,109 +133,149 @@
 		<div class="clearfix"> </div>
 	</div>
 
-	<!--热门资讯&问答 -->
-	<div class="container news_question">
-		<div class="page-header" id="section-news-question">
-			<h1>资讯问答 <small>有问必答</small></h1>
-		</div>
-		<div class="row">
-			<div class="col-md-6 panel panel-success">
-				<div class="panel-heading">热门提问</div>
-
-				<!-- List group -->
-				<div class="panel-body">
-					<div class="list-group">
-						{{ range $index, $question :=  .Questions.Questions }}
-						<a href="/question/{{ $question.Question.QuestionID }}" class="list-group-item">
-							<h4 class="list-group-item-heading">{{ $question.Question.QuestionTitle }}</h4>
-							{{ if gt ($question.Answers|len) 0 }}
-							<p class="list-group-item-text">
-								{{ (index $question.Answers 0).AnswerContent | str2html }}
-							</p>
-							{{ else }}
-							<p class="list-group-item-text">
-								无人知晓...
-								<a href="/question/answer/$question.QuestionId">我有一计</a>
-							</p>
-							{{ end }}
-						</a>
-						{{ end }}
-					</div>
-				</div>
-				<div class="clearfix"> </div>
+	<!-- 热门消息 -->
+	<div class="container news">
+		<div class="row news-content">
+			<div class="page-header news-header" id="section-news-question">
+				<h1 class="page-header-title">考试通告
+					<small>前沿直击</small>
+					<h1>
 			</div>
-			<div class="col-md-6 panel panel-success">
-				<div class="panel-heading">
-					<div class="center-block">最新资讯</div>
-				</div>
+			<div class="col-md-8 col-xs-12 news-list">
+				{{ range $index, $news := .News }}
+				<div class="row news-item">
+					<div class="col-xs-3 news-item-imgs">
+						<img src="/static/imgs/qiaobiluo.jpeg" alt="">
+					</div>
+					<div class="col-xs-9 news-item-content">
+						<div class="news-item-title">
+							<a href="/news/{{ $news.ID }}" class="title">{{ $news.Title }}</a>
+						</div>
 
-				<!-- List group -->
-				<div class="panel-body">
-					<div class="list-group">
-						{{ range $index, $news := .News }}
-						<a href="/news/{{ $news.ID }}" class="list-group-item">
-							<h4 class="list-group-item-heading">{{ $news.Title }}</h4>
-							<p class="list-group-item-text"> {{  substr (html2str $news.Content) 0 20 }} ... </p>
-						</a>
-						{{ end }}
+						<div class="news-item-info">
+							<span>{{ $news.SourceName }}</span>
+							<span>{{ $news.CreateAt | human_time }}</span>
+							<span class="label label-warning">{{ $news.ViewCount }}阅读</span>
+							<span class="label label-warning">{{ $news.CommentCount }}评论</span>
+						</div>
 					</div>
 				</div>
-				<div class="clearfix"> </div>
+				{{ end }}
+			</div>
+
+			<div class="col-md-4 col-xs-12 ad">
+				<img src="/static/imgs/call_for_add.jpg" alt="">
+			</div>
+		</div>
+	</div>
+
+	<!-- 热门问答 -->
+	<div class="container news">
+		<div class="row news-content">
+			<div class="page-header news-header" id="section-news-question">
+				<h1 class="page-header-title">
+					备考指南<small> 有问必答</small>
+					<h1>
+			</div>
+			<div class="col-md-8 col-xs-12 news-list">
+				{{ range $index, $question :=  .Questions.Questions }}
+				<div class="news-list-item clearfix">
+					<!--一定要清除浮动，不然排版不规范-->
+
+					<!-- Perfect when len(title) <= 40 -->
+					<div class="row question">
+						<div class="news-title">
+							<a href="/question/{{ $question.Question.QuestionID }}" class="title">
+
+								<h3>{{ $question.Question.QuestionTitle }}
+									<!-- <i class="layui-icon layui-icon-fire"></i>
+													<i class="layui-icon layui-icon-snowflake"></i> -->
+								</h3>
+							</a>
+						</div>
+
+						<div class="answer-conclusion">
+							<blockquote>
+
+								<div class="alert alert-info" data-toggle="tooltip" data-placement="right" role="alert">
+									<strong>先说结论: </strong>
+									{{ or (index $question.Answers 0).AnswerConclusion "没写结论，直接看答案" }}
+								</div>
+
+							</blockquote>
+						</div>
+						<div class="answer-info">
+							<span><strong>{{(index $question.Answers 0).AnswerUserName}}</strong> ·
+								{{ (index $question.Answers 0).AnswerUpdateTime | human_time }} 贡献</span>
+							<span class="label label-warning">标准答案</span>
+							<span class="label label-warning">{{ (index $question.Answers 0).AnswerViewCount }}阅读</span>
+							<span class="label label-warning">{{ (index $question.Answers 0).AnswerLikeCount }}赞同</span>
+						</div>
+					</div>
+				</div>
+				{{ end }}
+			</div>
+
+			<div class="col-md-4 col-xs-12 ad">
+				<img src="/static/imgs/call_for_add.jpg" alt="">
 			</div>
 		</div>
 	</div>
 
 	<!--热门资料下载-->
-	<div class="container" id="section-downloads">
-		<div class="page-header">
-			<h1>权威教辅 <small>免费下载</small></h1>
-		</div>
+	<div class="container news" id="section-downloads">
 		{{ range $idx, $BookLine := .Books.Books}}
-		<div class="row">
+		<div class="row news-content">
+			{{ if lt $idx 1 }}
+			<div class="page-header news-header">
+				<h1>权威教辅 <small>免费下载</small></h1>
+			</div>
+			{{ end }}
 			{{range $idx, $book := $BookLine}}
 			<div class="col-lg-3 col-md-4 col-sm-6 col-xs-6">
-					<!-- 大屏幕放3张略缩图，pc端放4张，平板和手机放6张-->
-					<div class="thumbnail">
-						<a href="/book/{{$book.ID}}">
-							<img src="{{ $book.ThumbImg }}" alt="{{ $book.Title }}"  class="img-responsive">
-							<div class="caption">
-								<h4>{{ $book.Title }}</h4>
-								<p style="color:red;">¥{{ $book.Price }}</p>
-								<p>{{ $book.Publisher }}</p>
-							</div>
-						</a>
-					</div>
+				<!-- 大屏幕放3张略缩图，pc端放4张，平板和手机放6张-->
+				<div class="thumbnail">
+					<a href="/book/{{$book.ID}}">
+						<img src="{{ $book.ThumbImg }}" alt="{{ $book.Title }}"  class="img-responsive">
+						<div class="caption">
+							<h4>{{ $book.Title }}</h4>
+							<p style="color:red;">¥{{ $book.Price }}</p>
+							<p>{{ $book.Publisher }}</p>
+						</div>
+					</a>
+				</div>
 			</div>
 			{{end}}
 		</div>
 		{{end}}
 
 	</div>
-	<div class="clearfix"> </div>
-	</div>
 
 	<!--考证分享-->
-	<div class="container">
-		<div class="page-header">
-			<h1>考证心得 <small>相互学习</small></h1>
+	<div class="container news">
+		<div class="row news-content">
+			<div class="page-header news-header">
+				<h1>考证心得 <small>相互学习</small></h1>
+			</div>
+			<ul class="media-list">
+				
+				{{ range $index, $blog := .Blog}}
+				<a href="/blog/{{ $blog.BlogID }}">
+					<li class="media">
+						<div class="media-left pull-left">
+							<!-- <a href="#"> -->
+							<img class="media-object" src="{{ $blog.BlogUserAvatar }}">
+							<!-- </a> -->
+						</div>
+						<div class="media-body">
+							<h4 class="media-heading">{{ $blog.BlogTitle }}</h4>
+							{{ $blog.BlogContent }}
+						</div>
+					</li>
+				</a>
+				{{ end }}
+			</ul>
 		</div>
-		<ul class="media-list">
-			{{ range $index, $blog := .Blog}}
-			<a href="/blog/{{ $blog.BlogID }}">
-				<li class="media">
-					<div class="media-left pull-left">
-						<!-- <a href="#"> -->
-						<img class="media-object" src="{{ $blog.BlogUserAvatar }}">
-						<!-- </a> -->
-					</div>
-					<div class="media-body">
-						<h4 class="media-heading">{{ $blog.BlogTitle }}</h4>
-						{{ $blog.BlogContent }}
-					</div>
-				</li>
-			</a>
-			{{ end }}
-		</ul>
 	</div>
 
 	<!--工作前景-->
@@ -250,10 +296,10 @@
 					<li>
 						<div class="biseller-column">
 							<a class="lightbox" href="#goofy">
-								<img src="../../static/imgs/job_a.jpeg" />
+								<img src="/static/imgs/job_a.jpeg" />
 							</a>
 							<div class="lightbox-target" id="goofy">
-								<img src="../../static/imgs/job_a.jpeg" />
+								<img src="/static/imgs/job_a.jpeg" />
 								<a class="lightbox-close" href="#"> </a>
 								<div class="clearfix"> </div>
 							</div>
@@ -375,39 +421,7 @@
 		</div>
 	</div>
 
-	<!--页脚--->
-	<div class="footer text-center">
-		<div class="container">
-			<div class="footer-grids">
-				<div class="col-md-6 footer-text">
-					<h3>关于我们</h3>
-					<p>第一健康管理师网是围绕国家健康管理师展开的集教辅材料、最新咨询、
-						网友论坛社区、考试培训、求职信息为一体的专业网站
-					</p>
-					<!-- <a class="read" href="about.html">Read More</a> -->
-				</div>
-				<div class="col-md-6 footer-info">
-					<h3>联系我们</h3>
-					<p>输入手机号码获取随时最新健康管理师咨询</p>
-					<div class="support">
-						<div class="input-group">
-							<input type="text" class="form-control text" placeholder="手机号码">
-							<span class="input-group-btn">
-								<button class="btn btn-default" type="button">更多咨询</button>
-							</span>
-						</div><!-- /input-group -->
-						<!-- <input type="text" class="text" value="Phone" onFocus="this.value = '';" onBlur="if (this.value == 'Enter email...') {this.value = 'Enter email...';}">
-					<input type="submit" value="获取更多咨询" class="botton"> -->
-					</div>
-				</div>
-				<div class="clearfix"> </div>
-			</div>
-			<div class="copy">
-				<p>Copyright &copy; 第一健康管理师网 2019. All rights reserved.</p>
-			</div>
-		</div>
-	</div>
-
+	<!-- TODO footer -->
 </body>
 
 </html>

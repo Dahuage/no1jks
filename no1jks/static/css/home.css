@@ -1,0 +1,72 @@
+
+.news {
+    margin-top: 30px;
+    background-color: #fff;
+}
+
+.news-header, .news-list, .question {
+    padding: 0px 0px 0px 20px;
+}
+
+.page-header-title {
+    /* font-size: 20px; */
+}
+
+.news-item {
+    padding: 20px 0px 20px 0px;
+}
+
+.news-item-title {
+    display: block;
+    /*后面的内容才会在内容上继承下来样式*/
+    color: #444;
+    /*颜色#000黑色，#999白色*/
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 25px;
+    line-height: 1.5;
+}
+
+.important {
+    color:red;
+}
+
+.quick-entry {
+	display: inline-block;
+	vertical-align: middle;
+	width: 180px;
+	margin-left: 20px;
+	margin-bottom: 20px;
+	padding: 20px 10px;
+	color: #fff;
+	background-color: #FFB800;
+	text-align: center;
+	border-radius: 2px;
+	line-height: 22px;
+	font-size: 14px;
+}
+
+
+.ad img{
+    width: 100%;
+    height: 100%;
+}
+
+
+/* home ask answer */
+.news-list-item {
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #eee;
+}
+
+.news-title {
+    display: block;
+    /*后面的内容才会在内容上继承下来样式*/
+    color: #444;
+    /*颜色#000黑色，#999白色*/
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 25px;
+    line-height: 1.5;
+}
