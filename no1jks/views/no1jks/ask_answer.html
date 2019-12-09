@@ -14,7 +14,7 @@
     <link href="/static/bootstrap/css/bootstrap.css" rel='stylesheet' type='text/css' />
     <link href="/static/css/style.css" rel='stylesheet' type='text/css' />
 
-    <link rel="stylesheet" type="text/css" href="../../static/css/question.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/question.css">
 </head>
 
 <body>
@@ -246,48 +246,57 @@
     <div class="container">
         <div class="row">
             <!--用来抵消，下面栅格的内部，跟标题保持一样的样式-->
-            <div class="col-sm-9 content-main">
-                <div class="news-list" style="margin-top: 17px; border-radius: 10px;">
+            <div class="col-md-8">
+                <div class="news-list">
                     {{ range $index, $question :=  .Questions.Questions }}
                     <div class="news-list-item clearfix">
                         <!--一定要清除浮动，不然排版不规范-->
-                        <div class="col-xs-12">
-                            <!-- Perfect when len(title) <= 40 -->
-                            <div class="row">
-                                <a href="/question/{{ $question.Question.QuestionID }}" class="title">
-                                    
-                                    <h3>{{ $question.Question.QuestionTitle }}
-                                        <!-- <i class="layui-icon layui-icon-fire"></i>
-                                        <i class="layui-icon layui-icon-snowflake"></i> -->
-                                    </h3>
-                                </a>
+
+                        <!-- Perfect when len(title) <= 40 -->
+                        <div class="row question">
+                            <div class="news-title">
+                                    <a href="/question/{{ $question.Question.QuestionID }}" class="title">
+
+                                        <h3>{{ $question.Question.QuestionTitle }}
+                                            <!-- <i class="layui-icon layui-icon-fire"></i>
+                                                <i class="layui-icon layui-icon-snowflake"></i> -->
+                                        </h3>
+                                    </a>
                             </div>
-                            <div class="row">
+
+                            <div class="answer-conclusion">
+                                <div class="answer-info">
+                                            <span><strong>{{(index $question.Answers 0).AnswerUserName}}</strong> · {{ (index $question.Answers 0).AnswerUpdateTime | human_time }} 贡献</span>
+                                            <span class="label label-warning">标准答案</span>
+                                            <span class="label label-warning">{{ (index $question.Answers 0).AnswerViewCount }}阅读</span>
+                                            <span class="label label-warning">{{ (index $question.Answers 0).AnswerLikeCount }}赞同</span>
+                                </div>
                                 <blockquote>
                                     <a role="button" data-toggle="collapse" data-parent="#accordion"
-                                        data-original-title="点我展开答案" href="#answer{{ (index $question.Answers 0).AnswerId }}" aria-expanded="true"
+                                        data-original-title="点我展开答案"
+                                        href="#answer{{ (index $question.Answers 0).AnswerId }}" aria-expanded="true"
                                         aria-controls="answer{{ (index $question.Answers 0).AnswerId }}">
-                                        <div class="alert alert-info" data-toggle="tooltip" data-placement="right" role="alert">
-                                            <strong>先说结论: </strong> {{ or (index $question.Answers 0).AnswerConclusion "没写结论，直接看答案" }}
+                                        <div class="alert alert-info" data-toggle="tooltip" data-placement="right"
+                                            role="alert">
+                                            <strong>先说结论: </strong>
+                                            {{ or (index $question.Answers 0).AnswerConclusion "没写结论，直接看答案" }}
                                         </div>
                                     </a>
                                 </blockquote>
-                                <div id="answer{{ (index $question.Answers 0).AnswerId }}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
-                                    {{ (index $question.Answers 0).AnswerContent }}
-                                </div>
-                                <div class="info">
-                                    <span>标准答案</span>
-                                    <span class="label label-warning">{{ (index $question.Answers 0).QuestionLikeCount }}喜欢</span>
-                                    <span class="label label-warning">{{ (index $question.Answers 0).QuestionViewCount }}阅读</span>
-                                    {{ (index $question.Answers 0).AnswerUpdateTime | human_time }} 发布
-                                </div>
+                            </div>
+
+                            <div id="answer{{ (index $question.Answers 0).AnswerId }}"
+                                class="panel-collapse collapse answer-content" role="tabpanel"
+                                aria-labelledby="headingOne">
+                                <hr>
+                                {{ (index $question.Answers 0).AnswerContent }}
                             </div>
                         </div>
                     </div>
                     {{ end }}
                 </div>
             </div>
-            <div class="col-sm-3">
+            <div class="col-md-4">
                 <div class="side-bar-card police clearfix">
                     <!--清除浮动-->
                     <div class="col-xs-5">

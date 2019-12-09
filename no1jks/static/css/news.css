@@ -1,3 +1,30 @@
+body {
+    background-color: #f6f6f6;
+}
+
+.news-list, .news-detail {
+    margin-bottom:25px;
+    padding: 5px;
+    border: 1px solid #eee;
+    background-color: white;
+}
+
+.news-title, .new-info, .news-content, .news-brief {
+    padding: 21px 0px 10px 28px
+}
+
+
+/* .news-title, .question-desc, .new-info, .answer-info, .answer-conclusion, .answer-content {
+    padding: 21px 0px 10px 28px
+}
+
+.answer {
+    margin-bottom:25px;
+    padding: 5px;
+    border: 1px solid #eee;
+    background-color: white;
+} */
+
 .side-bar .list-group-item{
     border: 0px;
     border-radius: 8px;
@@ -7,6 +34,7 @@
     /*属性选择器中，选取类名时，不是一个类时，用空格隔开，同一个类的多个名字中间不加空格*/
     background-color: firebrick;
 }
+
 img{
     display: block;
     max-width: 100%;
@@ -25,11 +53,10 @@ img{
     border-bottom: 1px solid #eee;
 }
 
-.news-list-item:first-child{
+/* .news-list-item:first-child{
     padding-top: 0px;
     padding-bottom: 17px;
-    
-}
+} */
 /*除第一条上边距不需要边距，父亲孩子选择器*/
  
 .news-list-item .title{
@@ -53,21 +80,15 @@ img{
 }
 .author{
     display: inline-block;
-    
 }
-.author img{
-    display: inline-block;
-    width: 27px;
-    height: 27px;
-    margin-right: 5px;    
-}
+
 a:hover{
     text-decoration: none;
     /*链接样式去掉*/
 }
+
+
 /*主题内容样式*/
- 
- 
  
 .side-bar-card{
     background: rgba(0,0,0,0.05);
@@ -135,17 +156,6 @@ a:hover{
 /*跳转网页样式*/
  
  
- 
-.footer{
-    margin-top: 50px;
-    margin-bottom: 50px;
-    padding: 20px auto;
-    text-align: center;
-    color: #adadad;
-}
-/*底部*/
- 
- 
 .container-small{
     max-width: 500px;
 }
@@ -180,9 +190,7 @@ a:hover{
     color: #333333;
 }
 
-
-
-
 .info span {
     padding-right: 7px;
 }
+

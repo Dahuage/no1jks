@@ -1,12 +1,18 @@
+body {
+    background-color: #f6f6f6;
+}
+
 .side-bar .list-group-item{
     border: 0px;
     border-radius: 8px;
     margin-bottom: 7px;
 }
+
 .side-bar .list-group-item.active{
     /*属性选择器中，选取类名时，不是一个类时，用空格隔开，同一个类的多个名字中间不加空格*/
     background-color: firebrick;
 }
+
 img{
     display: block;
     max-width: 100%;
@@ -22,14 +28,9 @@ img{
     border-bottom:1px solid #eee; */
 
     padding: 15px 0;
-    border-bottom: 1px solid #eee;
+    /* border-bottom: 1px solid #eee; */
 }
 
-.news-list-item:first-child{
-    padding-top: 0px;
-    padding-bottom: 12px;
-    
-}
 /*除第一条上边距不需要边距，父亲孩子选择器*/
  
 .news-list-item .title{
@@ -181,8 +182,29 @@ a:hover{
 }
 
 
-
-
 .info span {
     padding-right: 7px;
+}
+
+
+.question{
+    margin-bottom:25px;
+    padding: 5px;
+    border: 1px solid #eee;
+    background-color: white;
+}
+
+.news-title, .question-desc, .new-info, .answer-info, .answer-conclusion, .answer-content {
+    padding: 21px 0px 0px 28px
+}
+
+.answer-conclusion {
+    padding: 0px 0px 0px 28px
+}
+
+.answer {
+    margin-bottom:25px;
+    padding: 5px;
+    border: 1px solid #eee;
+    background-color: white;
 }
