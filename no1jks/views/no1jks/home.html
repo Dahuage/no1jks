@@ -244,11 +244,6 @@
 		<hr>
 		{{ range $idx, $BookLine := .Books.Books}}
 		<div class="row news-content">
-			{{ if lt $idx 1 }}
-			<div class="page-header news-header">
-				<h1>权威教辅 <small>免费下载</small></h1>
-			</div>
-			{{ end }}
 			{{range $idx, $book := $BookLine}}
 			<div class="col-lg-3 col-md-4 col-sm-6 col-xs-6">
 				<!-- 大屏幕放3张略缩图，pc端放4张，平板和手机放6张-->
