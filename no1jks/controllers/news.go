@@ -28,5 +28,11 @@ func (c *NewsDetailController) Get() {
 		// TODO RETURN 404
 		panic("Login")
 	}
-	c.Data["News"] = c.s.GetNewsDetail(newsIdInt, nil)
+	news := c.s.GetNewsDetail(newsIdInt, nil)
+	c.Data["News"] = news
+	breadcrumbs := Breadcrumbs{
+		[]struct{Href, Word string}{{"/news", "最新资讯"}},
+		(*news).News.Title,
+	}
+	c.Data["Navigation"] = breadcrumbs
 }

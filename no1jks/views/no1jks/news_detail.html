@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>健康管理师头条</title>
+    <link rel="stylesheet" href="/static/css/login.css">
+
     <script src="/static/js/jquery-1.11.1.min.js"></script>
     <script src="/static/bootstrap/js/bootstrap.min.js"></script>
     <link href="/static/bootstrap/css/bootstrap.css" rel='stylesheet' type='text/css' />
@@ -18,65 +20,70 @@
     {{template "no1jks/common/navi.html" .}}
 
     <div class="container">
-        <div class="col-md-8 col-xs-12 news-detail">
-            <h1 class="news-title" style="padding-bottom: 5px;">{{ .News.News.Title }}</h1>
-            <!--搜索引擎，h1爬取权重较高-->
-            <div class="new-info">
-                <span class="label label-warning">{{ .News.News.SourceName }}</span>
-                <span class="label label-warning">{{ .News.News.ViewCount }}阅读</span>
-                <span class="label label-warning"> {{ .News.News.CreateAt | human_time }} 发布</span>
-            </div>
-            <div class="news-brief">
-                <blockquote>
-                    <h4>{{ .News.News.Brief }}</h4>
-                </blockquote>
-            </div>
-            <hr>
-            <div class="news-content">
-                {{ .News.News.Content | str2html }}
-            </div>
+        <div class="row">
+            {{template "no1jks/common/breadcrumbs.html" .}}
         </div>
-        <div class="col-md-4 col-xs-12">
-            <div class="side-bar-card ">
-                <div class="card-title">相关阅读</div>
-                <div class="card-body">
-                    <div class="list">
-                        <div class="item">
-                            <div class="title">清华大学</div>
-                            <div class="desc">300w点赞，20w评论</div>
+        <div class="row">
+            <div class="col-md-8 col-xs-12 news-detail">
+                <h1 class="news-title" style="padding-bottom: 5px;">{{ .News.News.Title }}</h1>
+                <!--搜索引擎，h1爬取权重较高-->
+                <div class="new-info">
+                    <span class="label label-warning">{{ .News.News.SourceName }}</span>
+                    <span class="label label-warning">{{ .News.News.ViewCount }}阅读</span>
+                    <span class="label label-warning"> {{ .News.News.CreateAt | human_time }} 发布</span>
+                </div>
+                <div class="news-brief">
+                    <blockquote>
+                        <h4>{{ .News.News.Brief }}</h4>
+                    </blockquote>
+                </div>
+                <hr>
+                <div class="news-content">
+                    {{ .News.News.Content | str2html }}
+                </div>
+            </div>
+            <div class="col-md-4 col-xs-12">
+                <div class="side-bar-card ">
+                    <div class="card-title">相关阅读</div>
+                    <div class="card-body">
+                        <div class="list">
+                            <div class="item">
+                                <div class="title">清华大学</div>
+                                <div class="desc">300w点赞，20w评论</div>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="side-bar-card">
-                <div class="card-title">猜你喜欢</div>
-                <div class="card-body">
-                    <div class="list">
-                        <div class="item clearfix">
-                            <div class="col-xs-5 clear-image-padding">
-                                <img src="https://dummyimage.com/600x400/666/ccc">
+                <div class="side-bar-card">
+                    <div class="card-title">猜你喜欢</div>
+                    <div class="card-body">
+                        <div class="list">
+                            <div class="item clearfix">
+                                <div class="col-xs-5 clear-image-padding">
+                                    <img src="https://dummyimage.com/600x400/666/ccc">
+                                </div>
+                                <div class="col-xs-7">
+                                    <div class="title">清华大学</div>
+                                    <div class="dest">300w阅读 100w评论</div>
+                                </div>
                             </div>
-                            <div class="col-xs-7">
-                                <div class="title">清华大学</div>
-                                <div class="dest">300w阅读 100w评论</div>
+                            <div class="item clearfix">
+                                <div class="col-xs-5 clear-image-padding">
+                                    <img src="https://dummyimage.com/600x400/666/ccc">
+                                </div>
+                                <div class="col-xs-7">
+                                    <div class="title">清华大学</div>
+                                    <div class="dest">300w阅读 100w评论</div>
+                                </div>
                             </div>
-                        </div>
-                        <div class="item clearfix">
-                            <div class="col-xs-5 clear-image-padding">
-                                <img src="https://dummyimage.com/600x400/666/ccc">
-                            </div>
-                            <div class="col-xs-7">
-                                <div class="title">清华大学</div>
-                                <div class="dest">300w阅读 100w评论</div>
-                            </div>
-                        </div>
-                        <div class="item clearfix">
-                            <div class="col-xs-5 clear-image-padding">
-                                <img src="https://dummyimage.com/600x400/666/ccc">
-                            </div>
-                            <div class="col-xs-7">
-                                <div class="title">清华大学</div>
-                                <div class="dest">300w阅读 100w评论</div>
+                            <div class="item clearfix">
+                                <div class="col-xs-5 clear-image-padding">
+                                    <img src="https://dummyimage.com/600x400/666/ccc">
+                                </div>
+                                <div class="col-xs-7">
+                                    <div class="title">清华大学</div>
+                                    <div class="dest">300w阅读 100w评论</div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -84,5 +91,8 @@
             </div>
         </div>
     </div>
+
+    {{ template "no1jks/common/footer.html" .}}
 </body>
+
 </html>

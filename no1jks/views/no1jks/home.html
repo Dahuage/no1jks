@@ -6,6 +6,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta name="keywords" content="健康管理 健康管理师 健康管理师资格证 第一健康管理师 健康管理师考试" />
+	<link rel="stylesheet" href="/static/css/login.css">
 
 	<script src="/static/js/jquery-1.11.1.min.js"></script>
 	<script src="/static/bootstrap/js/bootstrap.min.js"></script>
@@ -135,12 +136,16 @@
 
 	<!-- 热门消息 -->
 	<div class="container news">
-		<div class="row news-content">
-			<div class="page-header news-header" id="section-news-question">
-				<h1 class="page-header-title">考试通告
-					<small>前沿直击</small>
-					<h1>
+		<div class="row page-header-title">
+			<div class="col-md-10 col-xs-8 section-name">
+				<span>重要讯息</span>
 			</div>
+			<div class="col-md-2 col-xs-4 section-more">
+				<span><a href="/news">查看更多</a></span>
+			</div>
+		</div>
+		<hr>
+		<div class="row news-content">
 			<div class="col-md-8 col-xs-12 news-list">
 				{{ range $index, $news := .News }}
 				<div class="row news-item">
@@ -171,12 +176,16 @@
 
 	<!-- 热门问答 -->
 	<div class="container news">
-		<div class="row news-content">
-			<div class="page-header news-header" id="section-news-question">
-				<h1 class="page-header-title">
-					备考指南<small> 有问必答</small>
-					<h1>
+		<div class="row page-header-title">
+			<div class="col-md-10 col-xs-8 section-name">
+				<span>疑问解答</span>
 			</div>
+			<div class="col-md-2 col-xs-4 section-more">
+				<span><a href="/question">查看更多</a></span>
+			</div>
+		</div>
+		<hr>
+		<div class="row news-content">
 			<div class="col-md-8 col-xs-12 news-list">
 				{{ range $index, $question := .Questions.Questions }}
 				<div class="news-list-item clearfix">
@@ -224,6 +233,15 @@
 
 	<!--热门资料下载-->
 	<div class="container news" id="section-downloads">
+		<div class="row page-header-title">
+			<div class="col-md-10 col-xs-8 section-name">
+				<span>指定教材</span>
+			</div>
+			<div class="col-md-2 col-xs-4 section-more">
+				<span><a href="/material">更多下载</a></span>
+			</div>
+		</div>
+		<hr>
 		{{ range $idx, $BookLine := .Books.Books}}
 		<div class="row news-content">
 			{{ if lt $idx 1 }}
@@ -253,10 +271,16 @@
 
 	<!--考证分享-->
 	<div class="container news">
-		<div class="row news-content">
-			<div class="page-header news-header">
-				<h1>考证心得 <small>相互学习</small></h1>
+		<div class="row page-header-title">
+			<div class="col-md-10 col-xs-8 section-name">
+				<span>考证历程</span>
 			</div>
+			<div class="col-md-2 col-xs-4 section-more">
+				<span><a href="/question">查看更多</a></span>
+			</div>
+		</div>
+		<hr>
+		<div class="row news-content">
 
 			<div class="new-content">
 				{{ range $index, $blog := .Blog}}
@@ -267,10 +291,10 @@
 						</a>
 					</div>
 					<div class="answer-info">
-							<span>{{ $blog.BlogUserName }}</span> ·
-							<span>{{ $blog.BlogUpdateTime | human_time }}</span>
-							<span class="label label-warning">{{ $blog.BlogViewCount }}阅读</span>
-							<span class="label label-warning">{{ $blog.BlogLikeCount }}喜欢</span>
+						<span>{{ $blog.BlogUserName }}</span> ·
+						<span>{{ $blog.BlogUpdateTime | human_time }}</span>
+						<span class="label label-warning">{{ $blog.BlogViewCount }}阅读</span>
+						<span class="label label-warning">{{ $blog.BlogLikeCount }}喜欢</span>
 					</div>
 					<hr>
 					<div class="answer-conclusion">
@@ -286,9 +310,15 @@
 	<!--工作前景-->
 	<div class="top-games-section">
 		<div class="container">
-			<div class="page-header">
-				<h1>就业前景 <small>选择未来</small></h1>
+			<div class="row page-header-title">
+				<div class="col-md-10 col-xs-8 section-name">
+					<span>就业前景</span>
+				</div>
+				<div class="col-md-2 col-xs-4 section-more">
+					<!-- <span><a href="/material">更多下载</a></span> -->
+				</div>
 			</div>
+			<hr>
 			<div class="col-md-3 top-games">
 				<h3>就业市场</h3>
 				<p>2023年 产业规模达到14.09万亿</p>
@@ -426,7 +456,7 @@
 		</div>
 	</div>
 
-	<!-- TODO footer -->
+	{{ template "no1jks/common/footer.html" .}}
 </body>
 
 </html>

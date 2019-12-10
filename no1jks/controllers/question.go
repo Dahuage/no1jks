@@ -1,7 +1,6 @@
 package controllers
 
 import (
-	"github.com/astaxie/beego/logs"
 	"strconv"
 )
 
@@ -19,6 +18,7 @@ func (c *QuestionHomeController) Get() {
 	c.Data["Questions"] = c.s.GetQuestionHomepage(0, false, nil)
 }
 
+
 func (c *QuestionDetailController) Get() {
 	c.TplName = "no1jks/ask_answer_detail.html"
 	c.Data["IsQuestion"] = "active"
@@ -28,6 +28,11 @@ func (c *QuestionDetailController) Get() {
 	if err != nil {
 		// TODO RETURN 404
 	}
-	c.Data["Question"] = c.s.GetQuestionDetail(questionIdInt, nil)
-	logs.Info("=======================????", c.Data["Question"])
+	question := c.s.GetQuestionDetail(questionIdInt, nil)
+	c.Data["Question"] = question
+	breadcrumbs := Breadcrumbs{
+		[]struct{Href, Word string}{{"/question", "我有疑问"}},
+		(*question).Question.QuestionTitle,
+	}
+	c.Data["Navigation"] = breadcrumbs
 }

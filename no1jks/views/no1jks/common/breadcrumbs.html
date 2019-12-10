@@ -1,0 +1,15 @@
+<!-- <span class="layui-breadcrumb">
+    <a href="/">首页</a>
+    {{ range $index, $navi := $.Navigation.Parent }}
+    <a href="{{$navi.Href}}">{{ $navi.Word }}</a>
+    {{ end }}
+    <a><cite>{{ $.Navigation.CurrentTitle }}</cite></a>
+</span> -->
+
+<ol class="breadcrumb" style="background-color: white;">
+    <li><a href="/">首页</a></li>
+    {{ range $index, $navi := $.Navigation.Parent }}
+    <li><a href="{{$navi.Href}}">{{ $navi.Word }}</a></li>
+    {{end}}
+    <li class="active">{{ $.Navigation.CurrentTitle }}</li>
+</ol>

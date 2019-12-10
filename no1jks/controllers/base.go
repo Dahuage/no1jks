@@ -54,3 +54,8 @@ func (this *baseController) Prepare() {
 		app.NestPrepare()
 	}
 }
+
+type Breadcrumbs struct {
+	Parent       []struct{ Href, Word string }
+	CurrentTitle string
+}
