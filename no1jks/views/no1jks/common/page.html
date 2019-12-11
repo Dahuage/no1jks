@@ -1,0 +1,23 @@
+
+<nav aria-label="...">
+    <ul class="pager">
+        <li class="previous {{or $.Pager.IsFirst ``}}"><a href="{{ $.Pager.PrePage }}"><span aria-hidden="true">&larr;</span> 前一页</a></li>
+        <li class="next {{or $.Pager.IsLast ``}}"><a href="{{ $.Pager.NextPage }}">后一页 <span aria-hidden="true">&rarr;</span></a></li>
+    </ul>
+</nav>
+
+
+<style>
+.pager {
+    font-size: 16px;
+    font-style: unset;
+    font-weight: 100;
+    color: #D0104C;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+.pager li > a {
+    border: 1px solid #D0104C;
+}
+</style>

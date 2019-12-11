@@ -3,7 +3,6 @@ package service
 import (
 	"no1jks/no1jks/dao"
 	"no1jks/no1jks/models"
-	_ "no1jks/no1jks/models"
 )
 
 type NewsDetail struct {
@@ -13,9 +12,10 @@ type NewsDetail struct {
 	AD            *string
 }
 
-func (s *Service) GetNewsHomepage(IsLogin bool, page int, filters *map[string]interface{}) (news *dao.NewsHomepageSet) {
+func (s *Service) GetNewsHomepage(IsLogin bool, page int, filters *map[string]interface{}) (news *dao.NewsHomepageSet, pager *Page) {
 	news = s.Dao.GetNewsHomepage(page, false, nil).(*dao.NewsHomepageSet)
-	return news
+	pager = MakePager(page, (*news).TotalCount, "/news?page=")
+	return news, pager
 }
 
 func (s *Service) GetNewsDetail(newsId int, other *map[string]interface{}) *NewsDetail {

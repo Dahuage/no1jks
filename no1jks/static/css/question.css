@@ -27,7 +27,7 @@ img{
     padding-bottom: 12px;
     border-bottom:1px solid #eee; */
 
-    padding: 15px 0;
+    padding: 3px 0;
     /* border-bottom: 1px solid #eee; */
 }
 
@@ -188,7 +188,6 @@ a:hover{
 
 
 .question{
-    margin-bottom:25px;
     padding: 5px;
     border: 1px solid #eee;
     background-color: white;

@@ -5,9 +5,10 @@ import (
 )
 
 func (s *Service) GetQuestionHomepage(page int, isLogin bool,
-	filters *map[string]interface{}) *dao.QuestionHomepageDataSet {
+	filters *map[string]interface{}) (*dao.QuestionHomepageDataSet, *Page) {
 	res := s.Dao.GetNewsHomepageNewsList(page, false, filters).(*dao.QuestionHomepageDataSet)
-	return res
+	pager := MakePager(page, (*res).TotalCount, "/question?page=")
+	return res, pager
 }
 
 func (s *Service) GetQuestionDetail(questionId int, other *map[string]interface{}) *dao.QuestionSet {

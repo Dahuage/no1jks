@@ -256,21 +256,24 @@
                         <!-- Perfect when len(title) <= 40 -->
                         <div class="row question">
                             <div class="news-title">
-                                    <a href="/question/{{ $question.Question.QuestionID }}" class="title">
+                                <a href="/question/{{ $question.Question.QuestionID }}" class="title">
 
-                                        <h3>{{ $question.Question.QuestionTitle }}
-                                            <!-- <i class="layui-icon layui-icon-fire"></i>
+                                    <h3>{{ $question.Question.QuestionTitle }}
+                                        <!-- <i class="layui-icon layui-icon-fire"></i>
                                                 <i class="layui-icon layui-icon-snowflake"></i> -->
-                                        </h3>
-                                    </a>
+                                    </h3>
+                                </a>
                             </div>
 
                             <div class="answer-conclusion">
                                 <div class="answer-info">
-                                            <span><strong>{{(index $question.Answers 0).AnswerUserName}}</strong> · {{ (index $question.Answers 0).AnswerUpdateTime | human_time }} 贡献</span>
-                                            <span class="label label-warning">标准答案</span>
-                                            <span class="label label-warning">{{ (index $question.Answers 0).AnswerViewCount }}阅读</span>
-                                            <span class="label label-warning">{{ (index $question.Answers 0).AnswerLikeCount }}赞同</span>
+                                    <span><strong>{{(index $question.Answers 0).AnswerUserName}}</strong> ·
+                                        {{ (index $question.Answers 0).AnswerUpdateTime | human_time }} 贡献</span>
+                                    <span class="label label-warning">标准答案</span>
+                                    <span
+                                        class="label label-warning">{{ (index $question.Answers 0).AnswerViewCount }}阅读</span>
+                                    <span
+                                        class="label label-warning">{{ (index $question.Answers 0).AnswerLikeCount }}赞同</span>
                                 </div>
                                 <blockquote>
                                     <a role="button" data-toggle="collapse" data-parent="#accordion"
@@ -295,6 +298,11 @@
                         </div>
                     </div>
                     {{ end }}
+                    <div class="news-list-item clearfix">
+                        <div class="row question">
+                        {{ template "no1jks/common/page.html" . }}
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="col-md-4">

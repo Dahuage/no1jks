@@ -15,7 +15,13 @@ type NewsDetailController struct {
 func (c *NewsHomeController) Get() {
 	c.TplName = "no1jks/news.html"
 	c.Data["IsNews"] = "active"
-	c.Data["News"] = c.s.GetNewsHomepage(false, 0, nil)
+	page, err := c.GetInt("page")
+	if err != nil {
+		page = 0
+	}
+	news, pager := c.s.GetNewsHomepage(false, page, nil)
+	c.Data["News"] = news
+	c.Data["Pager"] = pager
 }
 
 func (c *NewsDetailController) Get() {

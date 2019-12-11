@@ -15,7 +15,13 @@ type QuestionDetailController struct {
 func (c *QuestionHomeController) Get() {
 	c.TplName = "no1jks/ask_answer.html"
 	c.Data["IsQuestion"] = "active"
-	c.Data["Questions"] = c.s.GetQuestionHomepage(0, false, nil)
+	page, err := c.GetInt("page")
+	if err != nil {
+		page = 0
+	}
+	question, pager := c.s.GetQuestionHomepage(page, false, nil)
+	c.Data["Questions"] = question
+	c.Data["Pager"] = pager
 }
 
 
