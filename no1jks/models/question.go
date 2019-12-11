@@ -13,8 +13,8 @@ type Question struct {
 	DisplayHomepage int    `json:"display_homepage" gorm:"" sql:"TINYINT NOT NULL DEFAULT 0"`
 	IsTop           int    `json:"is_top" gorm:"" sql:"TINYINT NOT NULL DEFAULT 0"`
 	IsBlog          int    `json:"is_blog" gorm:"" sql:"TINYINT NOT NULL DEFAULT 0"`
-	CreatedAt       int64  `json:"create_at" gorm:""`
-	UpdatedAt       int64  `json:"update_at" gorm:""`
+	CreateAt       int64  `json:"create_at" gorm:""`
+	UpdateAt       int64  `json:"update_at" gorm:""`
 	IsDeleted       int    `json:"is_deleted" gorm:"" sql:"TINYINT NOT NULL DEFAULT 0"`
 	IsLocked        int    `json:"is_locked" gorm:"" sql:"TINYINT NOT NULL DEFAULT 0"`
 }

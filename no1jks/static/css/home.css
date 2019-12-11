@@ -109,3 +109,336 @@
     line-height: 1.5;
 }
 
+.ad {
+    padding: 16px;
+    border-left: 1px solid #f6f6f6;
+}
+
+.side-carousel {
+    margin-bottom: 10px;
+}
+
+.statistics {
+	font-weight:150;
+	padding: 0;
+}
+.statistics .alert {
+    margin: 0;
+}
+
+
+/* 最后一部分那个轮播 */
+
+.biseller-column {
+	text-align: left;
+	padding: 1em 0em 1em 0em;
+}
+
+.biseller-column img{
+	margin-bottom:1em;
+	width:100%;
+}
+ #flexiselDemo3 {
+	display: none;
+}
+
+.nbs-flexisel-container {
+	position: relative;
+	max-width: 100%;
+}
+.nbs-flexisel-ul {
+	position: relative;
+	width: 9999px;
+	margin: 0px;
+	padding: 0px;
+	list-style-type: none;
+	text-align: center;
+}
+.nbs-flexisel-inner {
+	overflow: hidden;
+	margin: 0 auto;
+}
+.nbs-flexisel-item {
+	float: left;
+	margin:0px;
+	padding:0px;
+	cursor: pointer;
+	position: relative;
+	line-height: 0px;
+}
+.nbs-flexisel-item > img {
+	cursor: pointer;
+	position: relative;
+	margin-top:10px;
+	margin-bottom: 10px;
+	max-width:250px;
+	max-height:500px;
+}
+.grid-flex{
+	margin:10px 0 20px 0;
+}
+.nbs-flexisel-item > img {
+	cursor: pointer;
+	position: relative;
+}
+.biseller-info {
+	margin:1em 0 0 0; 
+}
+
+.nbs-flexisel-nav-left, .nbs-flexisel-nav-right {
+	width:39px;
+	height:70px;
+	position: absolute;
+	cursor: pointer;
+	z-index: 100;
+	margin-top:-1em;
+}
+.nbs-flexisel-nav-left {
+   left: 0%;
+  background: url(/static/imgs/arrows.png) no-repeat -39px -0px;
+}
+.nbs-flexisel-nav-right {
+  right: 0%;
+  background: url(/static/imgs/arrows.png) no-repeat 1px -0px;
+}
+li.nbs-flexisel-item {
+ width:370px;
+}
+/* Styles the thumbnail */
+/*Eliminates padding, centers the thumbnail */
+a.lightbox img {
+width:100%;
+-webkit-transition: .5s ease-in-out;
+-moz-transition: .5s ease-in-out;
+-o-transition: .5s ease-in-out;
+transition: .5s ease-in-out;
+   border: 3px solid #FEC63F;
+}
+
+/* Styles the lightbox, removes it from sight and adds the fade-in transition */
+
+.lightbox-target {
+position: fixed;
+top: -100%;
+width: 100%;
+background: rgba(0,0,0,.7);
+width: 100%;
+opacity: 0;
+-webkit-transition: opacity .5s ease-in-out;
+-moz-transition: opacity .5s ease-in-out;
+-o-transition: opacity .5s ease-in-out;
+transition: opacity .5s ease-in-out;
+overflow: hidden;
+z-index: 999;
+}
+
+/* Styles the lightbox image, centers it vertically and horizontally, adds the zoom-in transition and makes it responsive using a combination of margin and absolute positioning */
+
+.lightbox-target img {
+margin: auto;
+position: absolute;
+top: 0;
+left:0;
+right:0;
+bottom: 0;
+max-height: 0%;
+max-width: 0%;
+border: 3px solid white;
+box-shadow: 0px 0px 8px rgba(0,0,0,.3);
+box-sizing: border-box;
+-webkit-transition: .5s ease-in-out;
+-moz-transition: .5s ease-in-out;
+-o-transition: .5s ease-in-out;
+transition: .5s ease-in-out;
+}
+.lightbox-target img:hover{
+	opacity: 0.5;
+}
+/* Styles the close link, adds the slide down transition */
+
+a.lightbox-close {
+display: block;
+width:50px;
+height:50px;
+box-sizing: border-box;
+background: white;
+color: black;
+text-decoration: none;
+position: absolute;
+top: -80px;
+right: 0;
+-webkit-transition: .5s ease-in-out;
+-moz-transition: .5s ease-in-out;
+-o-transition: .5s ease-in-out;
+transition: .5s ease-in-out;
+}
+
+/* Provides part of the "X" to eliminate an image from the close link */
+
+a.lightbox-close:before {
+content: "";
+display: block;
+height: 30px;
+width: 1px;
+background: black;
+position: absolute;
+left: 26px;
+top:10px;
+-webkit-transform:rotate(45deg);
+-moz-transform:rotate(45deg);
+-o-transform:rotate(45deg);
+transform:rotate(45deg);
+}
+
+/* Provides part of the "X" to eliminate an image from the close link */
+
+a.lightbox-close:after {
+content: "";
+display: block;
+height: 30px;
+width: 1px;
+background: black;
+position: absolute;
+left: 26px;
+top:10px;
+-webkit-transform:rotate(-45deg);
+-moz-transform:rotate(-45deg);
+-o-transform:rotate(-45deg);
+transform:rotate(-45deg);
+}
+
+/* Uses the :target pseudo-class to perform the animations upon clicking the .lightbox-target anchor */
+
+.lightbox-target:target {
+opacity: 1;
+top: 0;
+bottom: 0;
+left: 0%;
+}
+.lightbox-target:target img {
+	max-height:70%;
+	  max-width: 20%;
+}
+.lightbox-target:target a.lightbox-close {
+top: 0px;
+}
+a.lightbox img:hover { 
+ background:#21A957;
+}
+.g-views {
+  padding: 0;
+}
+/*----trainers----*/
+.top-games-section {
+  padding: 4em 0;
+}
+.top-games {
+  margin: 0;
+  background-color: #FEC63F;
+  min-height: 609px;
+  padding: 2em 2em;
+  text-align: left;
+}
+.top-games  h3 {
+    font-size: 2.5em;
+  color: #fff;
+  line-height: 1.4em;
+  text-align: left;
+    font-family: 'Fugaz One', cursive;
+}
+.top-games  p {
+  line-height: 1.7em;
+  font-size: 0.9em;
+  color: #fff;
+  margin: 1em 0;
+}
+
+@media (max-width:1440px){
+	.nbs-flexisel-nav-left, .nbs-flexisel-nav-right {
+	  margin-top:0em;
+	}
+	.top-games-section {
+	padding: 2em 0 1em 0;
+	}
+}
+@media (max-width:1366px){
+	.lightbox-target:target img {
+	  max-height: 70%;
+	  max-width: 27%;
+	}
+}
+@media (max-width:1280px){
+ 
+}
+@media (max-width:1024px){
+	
+  .top-games h3 {
+  font-size: 2.3em;
+  line-height: 1.3em;
+  }
+  .top-games {
+  min-height: 502px;
+  padding: 2em 2em;
+  }
+  
+}
+
+@media (max-width:768px){
+
+	.top-games {
+	  min-height: 121px;
+	  padding: 1em 1em;
+	}
+	.top-games p {
+	  font-size: 0.9em;
+	  margin: 0.3em 0;
+	}
+	.top-games-section {
+	  padding: 2em 0 0em 0;
+	}
+
+}
+@media (max-width:640px){
+	.icon-text {
+	  float: right;
+	  text-align: center;
+	  width: 100%;
+	}
+}
+
+@media (max-width:480px){
+
+	.top-games h3 {
+	  font-size: 2em;
+	  }
+   .nbs-flexisel-nav-left, .nbs-flexisel-nav-right {
+	  margin-top: -1em;
+	}
+
+}
+@media (max-width: 414px){
+	.grid figure {
+	  margin: 3px 3px;
+	  min-width: 360px;
+	  width: 47%;
+	}
+}
+@media (max-width:384px){
+	.grid figure {
+	  margin: 3px 3px;
+	  min-width: 319px;
+	  width: 47%;
+	}
+}
+@media (max-width:320px){
+
+	.top-games h3 {
+	  font-size: 1.6em;
+	}
+	.top-games {
+	  min-height: 75px;
+	  padding: 10px 10px;
+	}
+
+}
+

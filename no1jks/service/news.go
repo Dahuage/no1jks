@@ -20,10 +20,14 @@ func (s *Service) GetNewsHomepage(IsLogin bool, page int, filters *map[string]in
 
 func (s *Service) GetNewsDetail(newsId int, other *map[string]interface{}) *NewsDetail {
 	var ret NewsDetail
-	// TODO set view + 1
-	// TODO log user pict
 	// TODO get ad
+	// set autocommit false
+	// 高并发下一定会出岔子 for update
+	// 更好的解决方案是异步+1
 	news := s.Dao.GetNewsByID(newsId)
+	if news != nil {
+		s.Dao.Mysql.Model(news).Update("view_count", news.ViewCount + 1)
+	}
 	comment := dao.NewsCommentSet{}
 	ret.News = news
 	ret.NewsComment = &comment

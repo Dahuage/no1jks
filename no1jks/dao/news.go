@@ -38,13 +38,16 @@ func (d *Dao) GetNewsByID(id int) *models.News {
 // GetHomePageNews as the name said idiot.
 func (d *Dao) GetHomepageNews(limit uint8) *[]*models.News {
 	var news []*models.News
-	db := d.Mysql
-	err := db.Where("display_homepage = ? AND is_deleted = ?",
+	db := d.Mysql.Where("display_homepage = ? AND is_deleted = ?",
 		1, models.False).Find(&news)
-	if err.Error != nil {
-		panic(err.Error)
+	if db.Error != nil {
+		panic(db.Error)
 	}
 	return &news
+}
+
+func (d *Dao) NewsUpdate(id int, attrs *map[string]interface{}) {
+	d.Mysql.Model(&models.User{}).Where("id=?", id).Update(*attrs)
 }
 
 func (d *Dao) GetNewsHomepage(page int, onlyCount bool, filters *map[string]interface{}) interface{} {
