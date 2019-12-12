@@ -4,6 +4,7 @@ import (
 	"github.com/astaxie/beego/logs"
 	"no1jks/no1jks/dao"
 	"no1jks/no1jks/models"
+	"no1jks/no1jks/utils"
 )
 
 func (s *Service) GetQuestionHomepage(page int, isLogin bool,
@@ -25,4 +26,12 @@ func (s *Service) GetQuestionDetail(questionId int, other *map[string]interface{
 		}
 	}
 	return question
+}
+
+func (s *Service) CreateQuestion(user *models.User, title, desc string) (bool, *utils.ServiceErr) {
+	ok := s.Dao.QuestionCreate(user.ID, title, desc)
+	if ok {
+		return ok, utils.Errs["UNKNOWN_ERROR"]
+	}
+	return ok, nil
 }

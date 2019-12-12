@@ -12,6 +12,10 @@ type QuestionDetailController struct {
 	baseController
 }
 
+type QuestionCreate struct {
+	baseController
+}
+
 func (c *QuestionHomeController) Get() {
 	c.TplName = "no1jks/ask_answer.html"
 	c.Data["IsQuestion"] = "active"
@@ -41,4 +45,22 @@ func (c *QuestionDetailController) Get() {
 		(*question).Question.QuestionTitle,
 	}
 	c.Data["Navigation"] = breadcrumbs
+}
+
+func (c *QuestionCreate) Post(){
+	if c.user == nil {
+		c.Redirect("/user/login", 302)
+		return
+	}
+	var resp JsonViewBase
+	title := c.GetString("title")
+	desc := c.GetString("desc")
+	ok, err := c.s.CreateQuestion(c.user, title, desc)
+	if ok {
+		resp.Code = 200
+	} else {
+		resp.Code = err.Code
+		resp.Error = *err
+	}
+	c.ServeJSON()
 }

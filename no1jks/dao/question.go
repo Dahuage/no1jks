@@ -1,6 +1,7 @@
 package dao
 
 import (
+	"github.com/astaxie/beego/logs"
 	"github.com/jinzhu/gorm"
 	"no1jks/no1jks/models"
 )
@@ -232,4 +233,18 @@ func (d *Dao) GetNewsDetail(questionId int, filters *map[string]interface{}) *Qu
 		return &ret[0]
 	}
 	return nil
+}
+
+// 创建问题
+func (d *Dao) QuestionCreate(uid int, title, content string) bool {
+	var question models.Question
+	question.UserID = uid
+	question.Title = title
+	question.Content = content
+	db := d.Mysql.Create(&question)
+	if err := db.Error;  err != nil {
+		logs.Error("Create question err", uid, title, content)
+		return false
+	}
+	return true
 }

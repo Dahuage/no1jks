@@ -1,6 +1,8 @@
 package controllers
 
 import (
+	"no1jks/no1jks/models"
+	"no1jks/no1jks/utils"
 	"strconv"
 )
 
@@ -9,6 +11,10 @@ type NewsHomeController struct {
 }
 
 type NewsDetailController struct {
+	baseController
+}
+
+type NewsLikeController struct {
 	baseController
 }
 
@@ -41,4 +47,33 @@ func (c *NewsDetailController) Get() {
 		(*news).News.Title,
 	}
 	c.Data["Navigation"] = breadcrumbs
+}
+
+func (c *NewsLikeController) Post() {
+	if c.user == nil {
+		c.Redirect("/user/login", 302)
+		return
+	}
+	var resp JsonViewBase
+	NewsId, err := c.GetInt("NewsId")
+	if err != nil {
+		e := utils.Errs["PARAM_ERROR"]
+		resp.Code = e.Code
+		resp.Error = *e
+		c.ServeJSON()
+		return
+	}
+	var news models.News
+	db := c.s.Dao.Mysql.First(&news, NewsId)
+	if db.Error != nil || news.ID == 0 {
+		e := utils.Errs["PARAM_ERROR"]
+		resp.Code = e.Code
+		resp.Error = *e
+		c.ServeJSON()
+		return
+	}
+	c.s.Dao.Mysql.Model(&news).Update("like_count", news.LikeCount + 1)
+	resp.Code = 0
+	c.ServeJSON()
+	return
 }
