@@ -114,8 +114,21 @@
     border-left: 1px solid #f6f6f6;
 }
 
-.side-carousel {
+.side-carousel, .wechat-group {
     margin-bottom: 10px;
+}
+
+.wechat-group-text {
+	text-decoration:none;
+    margin:0 auto;
+    text-align:center;
+	font-weight:100;
+	font-size: 25px;
+	color: #D0104C;
+	padding: 5px;
+}
+.wechat-group-qr, .ad-posi {
+	padding: 8px;
 }
 
 .statistics {

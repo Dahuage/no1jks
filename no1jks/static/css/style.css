@@ -47,3 +47,6 @@ nav a:hover, nav a:focus {
 	outline: none;
 }
 
+.badge-danger {
+	background-color: #D0104C;
+}

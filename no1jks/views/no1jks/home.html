@@ -94,11 +94,11 @@
 					</div>
 				</div>
 				<div class="statistics">
-						<div class="alert alert-success " role="alert">
-								国家健康管理师(本站及全网统计)<span class="caret"></span>
-							</div>
+					<div class="alert alert-success " role="alert">
+						国家健康管理师(本站及全网统计)<span class="caret"></span>
+					</div>
 					<ul class="list-group">
-							
+
 						<li class="list-group-item">
 							关注中<span class="badge badge-danger">13837人</span>
 						</li>
@@ -125,17 +125,17 @@
 
 	<!-- 热门问答 -->
 	<div class="container news">
-		<div class="row page-header-title">
-			<div class="col-md-10 col-xs-8 section-name">
-				<span>疑问解答</span>
-			</div>
-			<div class="col-md-2 col-xs-4 section-more">
-				<span><a href="/question">查看更多</a></span>
-			</div>
-		</div>
-		<hr>
 		<div class="row news-content">
 			<div class="col-md-8 col-xs-12 news-list">
+				<div class="row page-header-title">
+					<div class="col-md-10 col-xs-8 section-name">
+						<span>疑问解答</span>
+					</div>
+					<div class="col-md-2 col-xs-4 section-more">
+						<span><a href="/question">查看更多</a></span>
+					</div>
+				</div>
+				<hr>
 				{{ range $index, $question := .Questions.Questions }}
 				<div class="news-list-item clearfix">
 					<!--一定要清除浮动，不然排版不规范-->
@@ -175,43 +175,65 @@
 			</div>
 
 			<div class="col-md-4 col-xs-12 ad">
-				<img src="/static/imgs/call_for_add.jpg" alt="">
+				<div class="wechat-group">
+					<div class="wechat-group-text">
+						<p>扫码加入社区 获取更多信息</p>
+					</div>
+					<div class="wechat-group-qr">
+						<img src="/static/imgs/call_for_add.jpg" alt="">
+					</div>
+
+					<div class="ad-posi">
+						<img src="/static/imgs/call_for_add.jpg" alt="">
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
 
 	<!--热门资料下载-->
 	<div class="container news" id="section-downloads">
-		<div class="row page-header-title">
-			<div class="col-md-10 col-xs-8 section-name">
-				<span>指定教材</span>
-			</div>
-			<div class="col-md-2 col-xs-4 section-more">
-				<span><a href="/material">更多下载</a></span>
-			</div>
-		</div>
-		<hr>
-		{{ range $idx, $BookLine := .Books.Books}}
-		<div class="row news-content">
-			{{range $idx, $book := $BookLine}}
-			<div class="col-lg-3 col-md-4 col-sm-6 col-xs-6">
-				<!-- 大屏幕放3张略缩图，pc端放4张，平板和手机放6张-->
-				<div class="thumbnail">
-					<a href="/book/{{$book.ID}}">
-						<img src="{{ $book.ThumbImg }}" alt="{{ $book.Title }}"  class="img-responsive">
-						<div class="caption">
-							<h4>{{ $book.Title }}</h4>
-							<p style="color:red;">¥{{ $book.Price }}</p>
-							<p>{{ $book.Publisher }}</p>
-						</div>
-					</a>
+		<div class="col-md-8 col-xs-12 news-list">
+			<div class="row page-header-title">
+
+				<div class="col-md-10 col-xs-8 section-name">
+					<span>教辅下载</span>
+				</div>
+				<div class="col-md-2 col-xs-4 section-more">
+					<span><a href="/material">更多下载</a></span>
 				</div>
 			</div>
+			<hr>
+			{{ range $idx, $BookLine := .Books.Books}}
+			<div class="row news-content">
+				{{range $idx, $book := $BookLine}}
+				<div class="col-lg-3 col-md-4 col-sm-6 col-xs-6">
+					<!-- 大屏幕放3张略缩图，pc端放4张，平板和手机放6张-->
+					<div class="thumbnail">
+						<a href="/book/{{$book.ID}}">
+							<img src="{{ $book.ThumbImg }}" alt="{{ $book.Title }}"  class="img-responsive">
+							<div class="caption">
+								<h4>{{ $book.Title }}</h4>
+								<p style="color:red;">¥{{ $book.Price }}</p>
+								<p>{{ $book.Publisher }}</p>
+							</div>
+						</a>
+					</div>
+				</div>
+				{{end}}
+			</div>
 			{{end}}
-		</div>
-		{{end}}
 
+		</div>
+		<div class="col-md-4 col-xs-12 ad">
+			<div class="download-rank">
+				<div class="wechat-group-text">
+					<p>热门下载</p>
+				</div>
+			</div>
+		</div>
 	</div>
+
 
 	<!--考证分享-->
 	<div class="container news">
