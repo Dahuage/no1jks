@@ -27,7 +27,7 @@ func assembleBookSet(rawBooks *[]models.Book) *BookSet {
 	if length == 0 {
 		return &bootSet
 	}
-	lines := int(math.Ceil(float64(length / numPerLine)))
+	lines := int(math.Ceil(float64(length) / float64(numPerLine)))
 	for i := 0; i < lines; i++ {
 		start, end := i*numPerLine, i*numPerLine+numPerLine
 		if i == lines-1 {

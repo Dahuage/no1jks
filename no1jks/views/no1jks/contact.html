@@ -5,25 +5,39 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>健康管理师头条</title>
+    <title>健康管理师朋友圈</title>
 
     <link rel="stylesheet" href="/static/css/login.css">
     <script src="/static/js/jquery-1.11.1.min.js"></script>
     <script src="/static/bootstrap/js/bootstrap.min.js"></script>
     <link href="/static/bootstrap/css/bootstrap.css" rel='stylesheet' type='text/css' />
     <link href="/static/css/style.css" rel='stylesheet' type='text/css' />
-
 </head>
 
 <body>
     <!-- 菜单 -->
     {{template "no1jks/common/navi.html" .}}
-
+    <!------ Include the above in your HEAD tag ---------->
     <div class="container">
         <div class="row">
-            敬请期待
+            <div class="col-md-8 col-xs-12">
+                <div class="wechat-group">
+                    <div class="qr-code"></div>
+                    <div class="qr-desc"></div>
+                </div>
+                <div class="wechat-group">
+                    <div class="qq-code"></div>
+                    <div class="qq-desc"></div>
+                </div>
+                <div class="wechat-group">
+                    <div class="mm-code"></div>
+                    <div class="mm-desc"></div>
+                </div>
+            </div>
+
+            <div class="col-md-4 col-xs-12">
+            </div>
         </div>
     </div>
-
     {{ template "no1jks/common/footer.html" .}}
 </body>
