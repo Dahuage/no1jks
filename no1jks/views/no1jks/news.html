@@ -13,7 +13,7 @@
     <link href="/static/bootstrap/css/bootstrap.css" rel='stylesheet' type='text/css' />
     <link href="/static/css/style.css" rel='stylesheet' type='text/css' />
 
-    <link rel="stylesheet" type="text/css" href="../../static/css/news.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/news.css">
 </head>
 
 <body>
@@ -21,61 +21,36 @@
     {{template "no1jks/common/navi.html" .}}
 
     <div class="container">
-        <div class="row">
+        <div class="row main-content">
             <!--用来抵消，下面栅格的内部，跟标题保持一样的样式-->
-            <div class="col-sm-9">
-                <div class="news-list">
+            <div class="col-md-8 news-list">
+                {{ range $index, $news :=  .News.NewsList }}
+                <div class="news-list-item clearfix">
+                    <!--一定要清除浮动，不然排版不规范-->
 
-                    {{ range $index, $news :=  .News.NewsList }}
-                    <div class="news-list-item clearfix">
-                        <!--一定要清除浮动，不然排版不规范-->
+                    <div class="col-xs-3">
+                        <a href="/news/{{ $news.ID }}">
+                            <img src="/static/imgs/qiaobiluo.jpeg" style="" alt="{{ $news.Title }}">
+                        </a>
+                    </div>
 
-                        <div class="col-xs-3">
-                            <a href="/news/{{ $news.ID }}">
-                                <img src="/static/imgs/qiaobiluo.jpeg" style="" alt="{{ $news.Title }}">
-                            </a>
-                        </div>
-
-                        <div class="col-xs-9">
-                            <!-- Perfect when len(title) <= 40 -->
-                            <a href="/news/{{ $news.ID }}" class="title">{{ $news.Title }}</a>
-                            <div class="info">
-                                <span>{{ $news.SourceName }}</span>
-                                <span>{{ $news.CreateAt | human_time }}</span>
-                                <span class="label label-warning">{{ $news.ViewCount }}阅读</span>
-                                <span class="label label-warning">{{ $news.CommentCount }}评论</span>
-                            </div>
+                    <div class="col-xs-9">
+                        <!-- Perfect when len(title) <= 40 -->
+                        <a href="/news/{{ $news.ID }}" class="title">{{ $news.Title }}</a>
+                        <div class="info">
+                            <span>{{ $news.SourceName }}</span>
+                            <span>{{ $news.CreateAt | human_time }}</span>
+                            <span class="label label-warning">{{ $news.ViewCount }}阅读</span>
+                            <span class="label label-warning">{{ $news.CommentCount }}评论</span>
                         </div>
                     </div>
-                    {{ end }}
-                    {{ template "no1jks/common/page.html" . }}
                 </div>
+                {{ end }}
+                {{ template "no1jks/common/page.html" . }}
             </div>
-            <div class="col-sm-3">
-                <div class="side-bar-card police clearfix">
-                    <!--清除浮动-->
-                    <div class="col-xs-5">
-                        <img src="../../static/imgs/64*64.svg" alt="举报图片">
-                    </div>
-                    <div class="col-xs-7">
-                        <div class="note">我有一计</div>
-                        <div>虚位以待</div>
-                        <div>热线888888</div>
-                    </div>
-                </div>
-                <div class="side-bar-card ">
-                    <div class="card-title">一周热点</div>
-                    <div class="card-body">
-                        <div class="list">
-                            <div class="item">
-                                <div class="title">清华大学</div>
-                                <div class="desc">
-                                    <span>300点赞</span>
-                                    <span>20评论</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+            <div class="col-md-4 side">
+                <div class="side-bar">
+                    Coming soon
                 </div>
             </div>
         </div>

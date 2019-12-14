@@ -50,3 +50,18 @@ nav a:hover, nav a:focus {
 .badge-danger {
 	background-color: #D0104C;
 }
+
+
+/* 非home页的主格局 */
+.main-content {
+	margin-top: 15px;
+}
+
+.side {
+	padding: 0px;
+}
+.side-bar {
+	background-color: white;
+	margin-left: 15px;
+    border-bottom: 1px solid #eee;
+}
