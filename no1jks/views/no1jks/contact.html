@@ -12,32 +12,59 @@
     <script src="/static/bootstrap/js/bootstrap.min.js"></script>
     <link href="/static/bootstrap/css/bootstrap.css" rel='stylesheet' type='text/css' />
     <link href="/static/css/style.css" rel='stylesheet' type='text/css' />
+    <style>
+        .main-content {
+            background-color: white;
+        }
+
+        .wechat-img {
+            width: 320px;
+            height: 320px;
+            float: none;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+    </style>
 </head>
+
 
 <body>
     <!-- 菜单 -->
     {{template "no1jks/common/navi.html" .}}
     <!------ Include the above in your HEAD tag ---------->
     <div class="container">
-        <div class="row">
-            <div class="col-md-8 col-xs-12">
-                <div class="wechat-group">
-                    <div class="qr-code"></div>
-                    <div class="qr-desc"></div>
-                </div>
-                <div class="wechat-group">
-                    <div class="qq-code"></div>
-                    <div class="qq-desc"></div>
-                </div>
-                <div class="wechat-group">
-                    <div class="mm-code"></div>
-                    <div class="mm-desc"></div>
+        <div class="row main-content">
+            <div class="col-sm-6 col-md-4">
+                <div class="thumbnail">
+                    <img src="/static/imgs/wechat_group.jpeg" alt="...">
+                    <div class="caption qr-desc" style="padding: 34px; color: #D0104C; padding-top:7px;">
+                        <h3 style="font-weight: 150; padding-bottom: 4px;">交流3群</h3>
+                        <p  style="font-weight: 100; padding-bottom: 4px;">加群获取 更多考试资讯</p>
+                        <p  style="font-weight: 100; padding-bottom: 4px;">二维码过期请加苗苗老师</p>
+                    </div>
                 </div>
             </div>
-
-            <div class="col-md-4 col-xs-12">
+            <div class="col-sm-6 col-md-4">
+                    <div class="thumbnail">
+                        <img src="/static/imgs/wechat_mm.jpeg" alt="...">
+                        <div class="caption qr-desc" style="padding: 34px; color: #D0104C; padding-top:7px;">
+                            <h3 style="font-weight: 150; padding-bottom: 4px;">苗苗老师</h3>
+                            <p style="font-weight: 100; padding-bottom: 4px;">答疑解惑 欢迎骚扰</p>
+                            <p style="font-weight: 100; padding-bottom: 4px;">Tel: 13311280386</p>
+                        </div>
+                    </div>
             </div>
         </div>
+        <style>
+            .main-content {
+                background-color: white;
+            }
+            .thumbnail img {
+                width: 280px;
+                height: auto;
+            }
+        </style>
     </div>
     {{ template "no1jks/common/footer.html" .}}
 </body>
