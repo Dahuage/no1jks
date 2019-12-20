@@ -120,13 +120,17 @@ func assembleQuestions(rawData *[]qa) *[]QuestionSet {
 		q, ok := container[question.QuestionID]
 		if ok {
 			q.Answers = append(q.Answers, question)
-			container[question.QuestionID] = q
+			if question.AnswerId != 0 {
+				container[question.QuestionID] = q
+			}
 		} else {
 			var q QuestionSet
 			var answers []qa
 			q.Question = question
 			q.Answers = answers
-			q.Answers = append(q.Answers, question)
+			if question.AnswerId != 0 {
+				q.Answers = append(q.Answers, question)
+			}
 			container[question.QuestionID] = q
 		}
 	}
@@ -192,7 +196,7 @@ func (d *Dao) GetQuestionHomepageQuestionList(page int, onlyCount bool, filters 
 		Joins("left join user as question_user on question.user_id = question_user.id").
 		Joins("left join answer on question.id = answer.question_id").
 		Joins("left join user as answer_user on answer.user_id = answer_user.id").
-		Scopes(questionBaseFilter, answerBaseFilter)
+		Scopes(questionBaseFilter)
 	db.Count(&totalCount)
 	if onlyCount {
 		return totalCount
@@ -210,6 +214,7 @@ func (d *Dao) GetQuestionHomepageQuestionList(page int, onlyCount bool, filters 
 	ret.Questions = assembleQuestions(&rawQuestion)
 	ret.Page = page
 	ret.TotalCount = totalCount
+	logs.Info("=========", ret)
 	return &ret
 }
 

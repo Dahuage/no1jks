@@ -293,7 +293,7 @@
                                 class="panel-collapse collapse answer-content" role="tabpanel"
                                 aria-labelledby="headingOne">
                                 <hr>
-                                {{ (index $question.Answers 0).AnswerContent }}
+                                {{ (index $question.Answers 0).AnswerContent | str2html }}
                             </div>
                         </div>
                     </div>
