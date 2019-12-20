@@ -9,13 +9,13 @@ import (
 
 func (s *Service) GetQuestionHomepage(page int, isLogin bool,
 	filters *map[string]interface{}) (*dao.QuestionHomepageDataSet, *Page) {
-	res := s.Dao.GetNewsHomepageNewsList(page, false, filters).(*dao.QuestionHomepageDataSet)
+	res := s.Dao.GetQuestionHomepageQuestionList(page, false, filters).(*dao.QuestionHomepageDataSet)
 	pager := MakePager(page, (*res).TotalCount, "/question?page=")
 	return res, pager
 }
 
 func (s *Service) GetQuestionDetail(questionId int, other *map[string]interface{}) *dao.QuestionSet {
-	question := s.Dao.GetNewsDetail(questionId, other)
+	question := s.Dao.GetQuestionDetail(questionId, other)
 	if question != nil {
 		var question models.Question
 		db := s.Dao.Mysql.First(&question, questionId)
