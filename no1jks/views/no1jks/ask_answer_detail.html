@@ -46,7 +46,6 @@
                     <h1 class="news-title">{{ .Question.Question.QuestionTitle }}</h1>
                     <div class="new-info">
                         <!-- Standard button -->
-                        {{ print .Question.Question.QuestionIsLocked }}
                         {{ if eq .Question.Question.QuestionIsLocked 1 }}
                         <button type="button" class="btn btn-default" onclick="pop('该问题已有正确答案!')">写答案</button>
                         <span class="label label-warning">已锁定</span>
@@ -59,7 +58,7 @@
                     </div>
                     <div class="question-desc">
                         <blockquote>
-                            <h4>{{ .Question.Question.QuestionContent }}</h4>
+                            <h4>{{ .Question.Question.QuestionContent}}</h4>
                         </blockquote>
                     </div>
                 </div>
@@ -82,7 +81,7 @@
                                 aria-controls="answer{{$answer.AnswerId}}">
                                 <div class="alert alert-info" data-toggle="tooltip" data-placement="right" role="alert">
                                     <strong>先说结论: </strong>
-                                    {{ $answer.AnswerConclusion }}
+                                    {{ $answer.AnswerConclusion}}
                                 </div>
                             </a>
                         </blockquote>
@@ -90,7 +89,7 @@
                     <hr>
                     <div id="answer{{$answer.AnswerId}}" class="panel-collapse collapse answer-content" role="tabpanel"
                         aria-labelledby="headingOne">
-                        {{ $answer.AnswerContent }}
+                        {{ $answer.AnswerContent | str2html}}
                     </div>
                 </div>
                 {{end}}
