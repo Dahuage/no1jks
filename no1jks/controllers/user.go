@@ -32,8 +32,13 @@ type UserCaptchaController struct {
 	baseController
 }
 
+type UserContactController struct {
+	baseController
+}
+
 func (c *UserLoginController) Get() {
 	c.TplName = "no1jks/user_login.html"
+	c.Data["Login"] = "active"
 }
 
 func (c *UserLoginController) Post() {
@@ -74,6 +79,7 @@ func (c *UserLoginController) Post() {
 
 func (c *UserSignupController) Get() {
 	c.TplName = "no1jks/user_signup.html"
+	c.Data["Login"] = "active"
 }
 
 func (c *UserSignupController) Post() {
@@ -120,3 +126,10 @@ func (c *UserSignupController) Post() {
 func (c *UserTermController) Get() {
 	c.TplName = "no1jks/user_term.html"
 }
+
+func (c *UserContactController) Get() {
+	c.TplName = "no1jks/contact.html"
+	c.Data["IsContact"] = "active"
+}
+
+

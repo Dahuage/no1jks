@@ -18,12 +18,11 @@
 					<ul class="nav navbar-nav">
 
 						  <li class="{{ $.IsHome }}"><a href="/">首页 <span class="sr-only">(current)</span></a></li>
-						  <li class="{{ $.IsNews }}"><a href="/news">行业资讯</a></li>
+						  <li class="{{ $.IsNews }}"><a href="/news">大道消息</a></li>
 						  <li class="{{ $.IsQuestion }}"><a href="/question">我有疑问</a></li>
-						  <!-- <li class="{{ $.IsExamination }}"><a href="/examination">历年真题</a></li> -->
-						  <li class="{{ $.IsMaterial }}"><a href="/material">教辅下载</a></li>
+						  <li class="{{ $.IsMaterial }}"><a href="/material">资料下载</a></li>
 						  <li class="{{ $.IsTrain }}"><a href="/train">考试培训</a></li>
-						  <li class="{{ $.IsExamination }}"><a href="/examination">加入社区</a></li>
+						  <li class="{{ $.IsContact }}"><a href="/contact">朋友圈</a></li>
 					</ul>
 						<!-- <form class="navbar-form navbar-left">
 						  <div class="form-group">
@@ -35,7 +34,7 @@
 						  {{ if $.IsLogin }}
 						  	<li><a href="/user/{{ $.User.ID }}">{{ $.User.Name }}</a></li> 
 						  {{ else }}
-						  	<li><a href="/user/login">登录</a></li>
+						  	<li class="{{ $.Login }}"><a href="/user/login">登录</a></li>
 						  {{ end }}
 					</ul>
 				</div><!-- /.navbar-collapse -->

@@ -9,17 +9,26 @@
 
     <link rel="stylesheet" href="/static/layui/css/layui.css">
     <link rel="stylesheet" href="/static/css/login.css">
+    
     <script src="/static/js/jquery-1.11.1.min.js"></script>
     <script src="/static/bootstrap/js/bootstrap.min.js"></script>
     <link href="/static/bootstrap/css/bootstrap.css" rel='stylesheet' type='text/css' />
     <link href="/static/css/style.css" rel='stylesheet' type='text/css' />
     <link rel="stylesheet" type="text/css" href="/static/css/question_detail.css">
+    <script src="/static/layui/layui.js"></script>
 </head>
 <style>
     body {
         background-color: #f6f6f6;
     }
 </style>
+
+<script>
+    function pop(msg){
+        layui.use('layer', ()=>{let layer = layui.layer; layer.msg(msg)});
+    }
+    
+</script>
 
 <body>
     <!-- 菜单 -->
@@ -37,15 +46,19 @@
                     <h1 class="news-title">{{ .Question.Question.QuestionTitle }}</h1>
                     <div class="new-info">
                         <!-- Standard button -->
+                        {{ if eq .Question.Question.QuestionIsLocked 1 }}
+                        <button type="button" class="btn btn-default" onclick="pop('该问题已有正确答案!')">写答案</button>
+                        <span class="label label-warning">已锁定</span>
+                        {{ else }}
                         <button type="button" class="btn btn-default">写答案</button>
-
-                        <span class="label label-warning">已冻结</span>
+                        {{ end }}
                         <span class="label label-warning">{{ .Question.Question.QuestionViewCount }}阅读</span>
-                        <span class="label label-warning"> {{ .Question.Question.QuestionUpdateTime | human_time }} 发布</span>
+                        <span class="label label-warning"> {{ .Question.Question.QuestionUpdateTime | human_time }}
+                            发布</span>
                     </div>
                     <div class="question-desc">
                         <blockquote>
-                            <h4>{{ .Question.Question.QuestionContent }}</h4>
+                            <h4>{{ .Question.Question.QuestionContent}}</h4>
                         </blockquote>
                     </div>
                 </div>
@@ -53,75 +66,37 @@
                 {{range $index, $answer := .Question.Answers }}
                 <div class="row answer">
                     <div class="answer-info">
-                        <span><strong>{{$answer.AnswerUserName}}</strong> · {{ $answer.AnswerUpdateTime | human_time }} 贡献</span>
-                        <span class="label label-warning">标准答案</span>
+                        <span><strong>{{$answer.AnswerUserName}}</strong> · {{ $answer.AnswerUpdateTime | human_time }}
+                            贡献</span>
+                        {{ if eq $answer.AnswerScore 1 }}
+                            <span class="label label-warning">标准答案</span>
+                        {{ end }}
                         <span class="label label-warning">{{ $answer.AnswerViewCount }}阅读</span>
                         <span class="label label-warning">{{ $answer.AnswerLikeCount }}赞同</span>
                     </div>
                     <div class="answer-conclusion">
                         <blockquote>
-                                    <a role="button" data-toggle="collapse" data-parent="#accordion" data-original-title="点我展开答案"
-                                        href="#answer1" aria-expanded="true"
-                                        aria-controls="answer1">
-                                        <div class="alert alert-info" data-toggle="tooltip" data-placement="right" role="alert">
-                                            <strong>先说结论: </strong>
-                                            {{ $answer.AnswerConclusion }}
-                                        </div>
-                                    </a>
+                            <a role="button" data-toggle="collapse" data-parent="#accordion"
+                                data-original-title="点我展开答案" href="#answer{{$answer.AnswerId}}" aria-expanded="true"
+                                aria-controls="answer{{$answer.AnswerId}}">
+                                <div class="alert alert-info" data-toggle="tooltip" data-placement="right" role="alert">
+                                    <strong>先说结论: </strong>
+                                    {{ $answer.AnswerConclusion}}
+                                </div>
+                            </a>
                         </blockquote>
                     </div>
                     <hr>
-                    <div id="answer1" class="panel-collapse collapse answer-content" role="tabpanel" aria-labelledby="headingOne">
-                        {{ $answer.AnswerConclusion }}
+                    <div id="answer{{$answer.AnswerId}}" class="panel-collapse collapse answer-content" role="tabpanel"
+                        aria-labelledby="headingOne">
+                        {{ $answer.AnswerContent | str2html}}
                     </div>
                 </div>
                 {{end}}
             </div>
-            <div class="col-md-4">
-                <div class="side-bar-card ">
-                    <div class="card-title">相关阅读</div>
-                    <div class="card-body">
-                        <div class="list">
-                            <div class="item">
-                                <div class="title">清华大学</div>
-                                <div class="desc">300w点赞，20w评论</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="side-bar-card">
-                    <div class="card-title">猜你喜欢</div>
-                    <div class="card-body">
-                        <div class="list">
-                            <div class="item clearfix">
-                                <div class="col-xs-5 clear-image-padding">
-                                    <img src="https://dummyimage.com/600x400/666/ccc">
-                                </div>
-                                <div class="col-xs-7">
-                                    <div class="title">清华大学</div>
-                                    <div class="dest">300w阅读 100w评论</div>
-                                </div>
-                            </div>
-                            <div class="item clearfix">
-                                <div class="col-xs-5 clear-image-padding">
-                                    <img src="https://dummyimage.com/600x400/666/ccc">
-                                </div>
-                                <div class="col-xs-7">
-                                    <div class="title">清华大学</div>
-                                    <div class="dest">300w阅读 100w评论</div>
-                                </div>
-                            </div>
-                            <div class="item clearfix">
-                                <div class="col-xs-5 clear-image-padding">
-                                    <img src="https://dummyimage.com/600x400/666/ccc">
-                                </div>
-                                <div class="col-xs-7">
-                                    <div class="title">清华大学</div>
-                                    <div class="dest">300w阅读 100w评论</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+            <div class="col-md-4 side">
+                <div class="side-bar">
+                    Coming soon
                 </div>
             </div>
         </div>

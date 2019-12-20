@@ -151,15 +151,13 @@
 								</h3>
 							</a>
 						</div>
-
+						{{ if gt ($question.Answers | len) 0 }}
 						<div class="answer-conclusion">
 							<blockquote>
-
 								<div class="alert alert-info" data-toggle="tooltip" data-placement="right" role="alert">
 									<strong>先说结论: </strong>
 									{{ or (index $question.Answers 0).AnswerConclusion "没写结论，直接看答案" }}
 								</div>
-
 							</blockquote>
 						</div>
 						<div class="answer-info">
@@ -169,6 +167,9 @@
 							<span class="label label-warning">{{ (index $question.Answers 0).AnswerViewCount }}阅读</span>
 							<span class="label label-warning">{{ (index $question.Answers 0).AnswerLikeCount }}赞同</span>
 						</div>
+						{{ else }}
+							<div><span>还没有答案  </span><button class="btn btn-primary">我来回答</button></div>
+						{{ end }}
 					</div>
 				</div>
 				{{ end }}
@@ -180,7 +181,7 @@
 						<p>扫码加入社区 获取更多信息</p>
 					</div>
 					<div class="wechat-group-qr">
-						<img src="/static/imgs/call_for_add.jpg" alt="">
+						<img src="/static/imgs/wechat_group.jpeg" alt="">
 					</div>
 
 					<div class="ad-posi">
@@ -214,7 +215,7 @@
 							<img src="{{ $book.ThumbImg }}" alt="{{ $book.Title }}"  class="img-responsive">
 							<div class="caption">
 								<h4>{{ $book.Title }}</h4>
-								<p style="color:red;">¥{{ $book.Price }}</p>
+								<p style="color:red;">免费</p>
 								<p>{{ $book.Publisher }}</p>
 							</div>
 						</a>
@@ -230,13 +231,17 @@
 				<div class="wechat-group-text">
 					<p>热门下载</p>
 				</div>
+				<hr>
+				<div class="rank">
+					
+				</div>
 			</div>
 		</div>
 	</div>
 
 
 	<!--考证分享-->
-	<div class="container news">
+	<!-- <div class="container news">
 		<div class="row page-header-title">
 			<div class="col-md-10 col-xs-8 section-name">
 				<span>考证历程</span>
@@ -271,7 +276,7 @@
 				{{ end }}
 			</div>
 		</div>
-	</div>
+	</div> -->
 
 	<!--工作前景-->
 	<div class="top-games-section">

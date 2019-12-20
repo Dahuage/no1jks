@@ -39,7 +39,7 @@ func (d *Dao) GetNewsByID(id int) *models.News {
 func (d *Dao) GetHomepageNews(limit uint8) *[]*models.News {
 	var news []*models.News
 	db := d.Mysql.Where("display_homepage = ? AND is_deleted = ?",
-		1, models.False).Find(&news)
+		1, models.False).Order("is_top").Find(&news)
 	if db.Error != nil {
 		panic(db.Error)
 	}

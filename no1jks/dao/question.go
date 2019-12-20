@@ -100,7 +100,7 @@ func answerBaseFilter(db *gorm.DB) *gorm.DB {
 
 func questionIdFilter(id int) func(db *gorm.DB)*gorm.DB {
 	return func (db *gorm.DB) *gorm.DB {
-		return db.Where("answer.is_deleted = ?", models.False)
+		return db.Where("question.id = ?", id)
 	}
 }
 
@@ -120,13 +120,18 @@ func assembleQuestions(rawData *[]qa) *[]QuestionSet {
 		q, ok := container[question.QuestionID]
 		if ok {
 			q.Answers = append(q.Answers, question)
+			if question.AnswerId != 0 {
+				container[question.QuestionID] = q
+			}
 		} else {
-			var temp QuestionSet
+			var q QuestionSet
 			var answers []qa
-			temp.Question = question
-			temp.Answers = answers
-			temp.Answers = append(temp.Answers, question)
-			container[question.QuestionID] = temp
+			q.Question = question
+			q.Answers = answers
+			if question.AnswerId != 0 {
+				q.Answers = append(q.Answers, question)
+			}
+			container[question.QuestionID] = q
 		}
 	}
 	for _, v := range container {
@@ -182,7 +187,7 @@ func (d *Dao) GetHomepageQuestions(limit uint8) *QuestionHomepageDataSet {
 }
 
 // 获取问答首页的问题列表
-func (d *Dao) GetNewsHomepageNewsList(page int, onlyCount bool, filters *map[string]interface{}) interface{} {
+func (d *Dao) GetQuestionHomepageQuestionList(page int, onlyCount bool, filters *map[string]interface{}) interface{} {
 	var rawQuestion []qa
 	var totalCount int
 
@@ -191,7 +196,7 @@ func (d *Dao) GetNewsHomepageNewsList(page int, onlyCount bool, filters *map[str
 		Joins("left join user as question_user on question.user_id = question_user.id").
 		Joins("left join answer on question.id = answer.question_id").
 		Joins("left join user as answer_user on answer.user_id = answer_user.id").
-		Scopes(questionBaseFilter, answerBaseFilter)
+		Scopes(questionBaseFilter)
 	db.Count(&totalCount)
 	if onlyCount {
 		return totalCount
@@ -209,11 +214,12 @@ func (d *Dao) GetNewsHomepageNewsList(page int, onlyCount bool, filters *map[str
 	ret.Questions = assembleQuestions(&rawQuestion)
 	ret.Page = page
 	ret.TotalCount = totalCount
+	logs.Info("=========", ret)
 	return &ret
 }
 
 // 获取问题详情页
-func (d *Dao) GetNewsDetail(questionId int, filters *map[string]interface{}) *QuestionSet{
+func (d *Dao) GetQuestionDetail(questionId int, filters *map[string]interface{}) *QuestionSet{
 	var rawQuestion []qa
 
 	db := d.Mysql.Table("question").
@@ -227,7 +233,6 @@ func (d *Dao) GetNewsDetail(questionId int, filters *map[string]interface{}) *Qu
 	if err := db.Error; err != nil {
 		panic(err)
 	}
-
 	ret := *assembleQuestions(&rawQuestion)
 	if len(ret) > 0 {
 		return &ret[0]
