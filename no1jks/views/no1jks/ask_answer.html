@@ -264,7 +264,8 @@
                                     </h3>
                                 </a>
                             </div>
-
+                            
+                            {{ if gt ($question.Answers | len) 0 }}
                             <div class="answer-conclusion">
                                 <div class="answer-info">
                                     <span><strong>{{(index $question.Answers 0).AnswerUserName}}</strong> ·
@@ -288,13 +289,15 @@
                                     </a>
                                 </blockquote>
                             </div>
-
                             <div id="answer{{ (index $question.Answers 0).AnswerId }}"
                                 class="panel-collapse collapse answer-content" role="tabpanel"
                                 aria-labelledby="headingOne">
                                 <hr>
                                 {{ (index $question.Answers 0).AnswerContent | str2html }}
                             </div>
+                            {{ else }}
+                                <div><span>还没有答案  </span><button class="btn btn-primary">我来回答</button></div>
+                            {{ end }}
                         </div>
                     </div>
                     {{ end }}
