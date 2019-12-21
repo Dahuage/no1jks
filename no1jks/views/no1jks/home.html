@@ -7,12 +7,13 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta name="keywords" content="健康管理 健康管理师 健康管理师资格证 第一健康管理师 健康管理师考试" />
 	<link rel="stylesheet" href="/static/css/login.css">
-
+	<script src="/static/layui/layui.js"></script>
 	<script src="/static/js/jquery-1.11.1.min.js"></script>
 	<script src="/static/bootstrap/js/bootstrap.min.js"></script>
 	<link href="/static/bootstrap/css/bootstrap.min.css" rel='stylesheet' type='text/css' />
 	<link href="/static/css/style.css" rel='stylesheet' type='text/css' />
 	<link rel="stylesheet" href="/static/css/home.css">
+	<script src="/static/js/common-util.js"></script>
 </head>
 
 <body>
@@ -206,12 +207,15 @@
 			</div>
 			<hr>
 			{{ range $idx, $BookLine := .Books.Books}}
+			<div id="tong" style="width: 380px; height: 380px; display: none;">
+				<img src="/static/imgs/wechat_mm.jpeg" style="max-width: 100%;">
+			</div>
 			<div class="row news-content">
 				{{range $idx, $book := $BookLine}}
 				<div class="col-lg-3 col-md-4 col-sm-6 col-xs-6">
 					<!-- 大屏幕放3张略缩图，pc端放4张，平板和手机放6张-->
 					<div class="thumbnail">
-						<a href="/book/{{$book.ID}}">
+						<a id="download" onclick="pop_img('#tong')">
 							<img src="{{ $book.ThumbImg }}" alt="{{ $book.Title }}"  class="img-responsive">
 							<div class="caption">
 								<h4>{{ $book.Title }}</h4>
