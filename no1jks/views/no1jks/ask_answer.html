@@ -110,6 +110,22 @@
                             //监听提交
                             form.on('submit(formDemo)', function (data) {
                                 layer.msg(JSON.stringify(data.field));
+                                console.log($("#id").val(), '=====')
+                                $.post('/question/create', JSON.stringify(data.field), (resp) => {
+                                    console.log(resp);
+                                    if (resp.Code === 4004) {
+                                        layer.confirm('我们需要知道你是谁？', {
+                                            btn: ['去登陆', '闲看'] //按钮
+                                        },
+                                            () => { window.location.href = '/user/login' },
+                                            () => { }
+                                        );
+                                    }
+
+                                    if (resp.Code === 200){
+                                        window.location.href = window.location.href;
+                                    }
+                                })
                                 return false;
                             });
                         });
@@ -122,7 +138,7 @@
     </div>
 
     <!-- Modal2 -->
-    <div class="modal fade" id="blog" tabindex="-1" role="dialog" aria-labelledby="blogModalLabel">
+    <!-- <div class="modal fade" id="blog" tabindex="-1" role="dialog" aria-labelledby="blogModalLabel">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -130,7 +146,7 @@
                 </div>
                 <div class="modal-body">
                     <form class="layui-form" action="">
-                        <!-- <div class="layui-form-item">
+                        <div class="layui-form-item">
                                 <label class="layui-form-label">输入框</label>
                                 <div class="layui-input-block">
                                     <input type="text" name="title" required lay-verify="required" placeholder="请输入标题" autocomplete="off"
@@ -178,7 +194,7 @@
                                     <input type="radio" name="sex" value="男" title="男">
                                     <input type="radio" name="sex" value="女" title="女" checked>
                                 </div>
-                            </div> -->
+                            </div> 
                         <div class="layui-form-item layui-form-text">
                             <label class="layui-form-label">标题</label>
                             <div class="layui-input-block">
@@ -219,28 +235,33 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div>-->
 
     <div class="container">
-        <div class="row">
+        <div class="row" style="background-color: white; padding: 5px;">
+            <div class="btn-group" role="group">
+                <button type="button" class="btn btn-default" data-toggle="modal" data-target="#question">
+                    我有疑问
+                </button>
+            </div>
+            <!-- 
             <div class="col-sm-12">
                 <div class="content-header btn-group btn-group-justified" role="group"
                     style="background:rgba(0,0,0,0.05); border-radius: 10px;" data-container="body">
-                    <!-- Button trigger modal -->
+
                     <div class="btn-group" role="group">
                         <button type="button" class="btn btn-primary btn-lg" data-toggle="modal"
                             data-target="#question">
                             我有疑问
                         </button>
                     </div>
-                    <!-- Button trigger modal -->
                     <div class="btn-group" role="group">
                         <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#blog">
                             我要分享
                         </button>
-                    </div>
+                    </div> 
                 </div>
-            </div>
+            </div> -->
         </div>
     </div>
 
@@ -264,7 +285,7 @@
                                     </h3>
                                 </a>
                             </div>
-                            
+
                             {{ if gt ($question.Answers | len) 0 }}
                             <div class="answer-conclusion">
                                 <div class="answer-info">
@@ -296,14 +317,15 @@
                                 {{ (index $question.Answers 0).AnswerContent | str2html }}
                             </div>
                             {{ else }}
-                                <div><span>还没有答案  </span><button class="btn btn-primary">我来回答</button></div>
+                            <div class="answer-info"><span>还没有答案 </span><button class="btn btn-default">我来回答</button>
+                            </div>
                             {{ end }}
                         </div>
                     </div>
                     {{ end }}
                     <div class="news-list-item clearfix">
                         <div class="row question">
-                        {{ template "no1jks/common/page.html" . }}
+                            {{ template "no1jks/common/page.html" . }}
                         </div>
                     </div>
                 </div>

@@ -24,6 +24,7 @@ func init(){
 	errs["PHONE_ERROR"] = &ServiceErr{4002, "badPhone", "手机格式错误"}
 	errs["PASSWORD_ERROR"] = &ServiceErr{4003, "passwordError", "密码错误"}
 	errs["USER_EXIST"] = &ServiceErr{4004, "userExist", "用户已经存在"}
+	errs["NEED_LOGIN"] = &ServiceErr{4004, "needLogin", "请登录"}
 
 	// 服务
 	errs["UNKNOWN_ERROR"] = &ServiceErr{5000, "serviceErr", "服务错误请烧熟再试"}

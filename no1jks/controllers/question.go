@@ -1,6 +1,9 @@
 package controllers
 
 import (
+	"encoding/json"
+	"github.com/astaxie/beego/logs"
+	"no1jks/no1jks/utils"
 	"strconv"
 )
 
@@ -48,13 +51,25 @@ func (c *QuestionDetailController) Get() {
 }
 
 func (c *QuestionCreate) Post(){
+	var resp JsonViewBase
 	if c.user == nil {
-		c.Redirect("/user/login", 302)
+		resp.Code = utils.Errs["NEED_LOGIN"].Code
+		c.Data["json"] = resp
+		c.ServeJSON()
 		return
 	}
-	var resp JsonViewBase
-	title := c.GetString("title")
-	desc := c.GetString("desc")
+
+	logs.Info("===========????", c.Ctx.Input.RequestBody)
+	var ob struct{title string; desc string}
+	if e := json.Unmarshal(c.Ctx.Input.RequestBody, &ob); e != nil {
+		logs.Info("===========", ob, e)
+		panic(e)
+		return
+	}
+
+	title := ob.title
+	desc := ob.desc
+	logs.Info("????????",title, desc, "=============")
 	ok, err := c.s.CreateQuestion(c.user, title, desc)
 	if ok {
 		resp.Code = 200
@@ -62,5 +77,6 @@ func (c *QuestionCreate) Post(){
 		resp.Code = err.Code
 		resp.Error = *err
 	}
+	c.Data["json"] = resp
 	c.ServeJSON()
 }
