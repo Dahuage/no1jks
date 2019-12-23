@@ -12,8 +12,8 @@ type Answer struct {
 	DisplayHomepage int    `json:"display_homepage" gorm:"" sql:"TINYINT NOT NULL DEFAULT 0"`
 	IsTop           int    `json:"is_top" gorm:"" sql:"TINYINT NOT NULL DEFAULT 0"`
 	Score           int    `json:"score" gorm:"" sql:"INT NOT NULL DEFAULT 0"`
-	CreatedAt       int64  `json:"create_at" gorm:""`
-	UpdatedAt       int64  `json:"update_at" gorm:""`
+	CreateAt        int    `json:"create_at" gorm:""`
+	UpdateAt        int    `json:"update_at" gorm:""`
 	IsDeleted       int    `json:"is_deleted" gorm:"" sql:"TINYINT NOT NULL DEFAULT 0"`
-	Conclusion      string  `json:"conclusion"`
+	Conclusion      string `json:"conclusion"`
 }

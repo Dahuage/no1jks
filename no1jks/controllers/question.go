@@ -60,11 +60,13 @@ func (c *QuestionCreate) Post(){
 	desc := c.GetString("desc")
 
 	ok, err := c.s.CreateQuestion(c.user, title, desc)
-	if ok {
+	if ok{
 		resp.Code = 200
 	} else {
-		resp.Code = err.Code
-		resp.Error = *err
+		if err != nil {
+			resp.Code = err.Code
+			resp.Error = *err
+		}
 	}
 	c.Data["json"] = resp
 	c.ServeJSON()

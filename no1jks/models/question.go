@@ -2,8 +2,8 @@ package models
 
 // blog 本质上作为一个没有答案的问题
 type Question struct {
-	ID              int   `json:"id" gorm:"primary_key" sql:"INT NOT NULL PRIMARY KEY AUTO_INCREMENT"`
-	UserID          int   `json:"user_id" gorm:"" sql:"INT NOT NULL INDEX"`
+	ID              int    `json:"id" gorm:"primary_key" sql:"INT NOT NULL PRIMARY KEY AUTO_INCREMENT"`
+	UserID          int    `json:"user_id" gorm:"" sql:"INT NOT NULL INDEX"`
 	Title           string `json:"title" gorm:"" sql:"VARCHAR(1024) NOT NULL"`
 	Content         string `json:"content" gorm:"" sql:"TEXT"`
 	ViewCount       int    `json:"view_count" gorm:"" sql:"TINYINT NOT NULL DEFAULT 0"`
@@ -13,8 +13,8 @@ type Question struct {
 	DisplayHomepage int    `json:"display_homepage" gorm:"" sql:"TINYINT NOT NULL DEFAULT 0"`
 	IsTop           int    `json:"is_top" gorm:"" sql:"TINYINT NOT NULL DEFAULT 0"`
 	IsBlog          int    `json:"is_blog" gorm:"" sql:"TINYINT NOT NULL DEFAULT 0"`
-	CreateAt       int64  `json:"create_at" gorm:""`
-	UpdateAt       int64  `json:"update_at" gorm:""`
+	CreateAt        int    `json:"create_at" gorm:""`
+	UpdateAt        int    `json:"update_at" gorm:""`
 	IsDeleted       int    `json:"is_deleted" gorm:"" sql:"TINYINT NOT NULL DEFAULT 0"`
 	IsLocked        int    `json:"is_locked" gorm:"" sql:"TINYINT NOT NULL DEFAULT 0"`
 }

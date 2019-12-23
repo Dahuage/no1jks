@@ -115,7 +115,7 @@
                             var form = layui.form;
                             //监听提交
                             form.on('submit(formDemo)', function (data) {
-                                layer.msg(JSON.stringify(data.field));
+                                console.log(JSON.stringify(data.field));
                                 $.post('/question/create', data.field, (resp) => {
                                     console.log(resp);
                                     if (resp.Code === 4004) {

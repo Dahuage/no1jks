@@ -1,6 +1,7 @@
 package controllers
 
 import (
+	"github.com/astaxie/beego/logs"
 	"no1jks/no1jks/models"
 	"no1jks/no1jks/utils"
 )
@@ -18,22 +19,30 @@ type AnswerCommentController struct {
 }
 
 func (c *AnswerCreateController) Post() {
+	var resp JsonViewBase
 	if c.user == nil {
-		c.Redirect("/user/login", 302)
+		resp.Code = utils.Errs["NEED_LOGIN"].Code
+		c.Data["json"] = resp
+		c.ServeJSON()
 		return
 	}
-	var resp JsonViewBase
 	conclusion := c.GetString("conclusion")
 	content := c.GetString("content")
 	questionId, _ := c.GetInt("questionId")
+
 	ok, err := c.s.AnswerCreate(c.user, questionId, conclusion, content)
+	logs.Info("=============???", ok, err, conclusion, content)
 	if ok {
 		resp.Code = 200
 	} else {
-		resp.Code = err.Code
-		resp.Error = *err
+		if err != nil {
+			resp.Code = err.Code
+			resp.Error = *err
+		}
 	}
+	c.Data["json"] = resp
 	c.ServeJSON()
+	return
 }
 
 func (c *AnswerLikeController) Post() {

@@ -4,6 +4,7 @@ import (
 	"github.com/astaxie/beego/logs"
 	"github.com/jinzhu/gorm"
 	"no1jks/no1jks/models"
+	"time"
 )
 
 // 暂时不晓得如何join后全行扫描，先用这个东西
@@ -214,7 +215,6 @@ func (d *Dao) GetQuestionHomepageQuestionList(page int, onlyCount bool, filters 
 	ret.Questions = assembleQuestions(&rawQuestion)
 	ret.Page = page
 	ret.TotalCount = totalCount
-	logs.Info("=========", ret)
 	return &ret
 }
 
@@ -246,6 +246,8 @@ func (d *Dao) QuestionCreate(uid int, title, content string) bool {
 	question.UserID = uid
 	question.Title = title
 	question.Content = content
+	question.CreateAt = int(time.Now().Unix())
+	question.UpdateAt = int(time.Now().Unix())
 	db := d.Mysql.Create(&question)
 	if err := db.Error;  err != nil {
 		logs.Error("Create question err", uid, title, content)

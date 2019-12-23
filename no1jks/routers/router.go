@@ -19,6 +19,7 @@ func init() {
 	beego.Router("/question/:id", &controllers.QuestionDetailController{})
 	beego.Router("/question/create", &controllers.QuestionCreate{})
 	beego.Router("/question/answer/:id", &controllers.QuestionDetailController{})
+	beego.Router("/answer/create", &controllers.AnswerCreateController{})
 	beego.Router("/answer/like/:id", &controllers.QuestionHomeController{})
 	beego.Router("/answer/comm/:id", &controllers.QuestionHomeController{})
 
