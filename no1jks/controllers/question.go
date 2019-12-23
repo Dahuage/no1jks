@@ -1,8 +1,6 @@
 package controllers
 
 import (
-	"encoding/json"
-	"github.com/astaxie/beego/logs"
 	"no1jks/no1jks/utils"
 	"strconv"
 )
@@ -58,18 +56,9 @@ func (c *QuestionCreate) Post(){
 		c.ServeJSON()
 		return
 	}
+	title := c.GetString("title")
+	desc := c.GetString("desc")
 
-	logs.Info("===========????", c.Ctx.Input.RequestBody)
-	var ob struct{title string; desc string}
-	if e := json.Unmarshal(c.Ctx.Input.RequestBody, &ob); e != nil {
-		logs.Info("===========", ob, e)
-		panic(e)
-		return
-	}
-
-	title := ob.title
-	desc := ob.desc
-	logs.Info("????????",title, desc, "=============")
 	ok, err := c.s.CreateQuestion(c.user, title, desc)
 	if ok {
 		resp.Code = 200

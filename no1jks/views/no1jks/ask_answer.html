@@ -82,10 +82,16 @@
                         <div class="layui-form-item layui-form-text">
                             <label class="layui-form-label">标题</label>
                             <div class="layui-input-block">
-                                <textarea name="desc" placeholder="一句话描述问题" class="layui-textarea"></textarea>
+                                <textarea name="title" placeholder="一句话描述问题" class="layui-textarea"></textarea>
                             </div>
                         </div>
                         <div class="layui-form-item layui-form-text">
+                            <label class="layui-form-label">详细描述</label>
+                            <div class="layui-input-block">
+                                <textarea name="desc" placeholder="详细描述问题" class="layui-textarea"></textarea>
+                            </div>
+                        </div>
+                        <!-- <div class="layui-form-item layui-form-text">
                             <label class="layui-form-label">描述</label>
                             <div class="layui-input-block">
                                 <textarea id="ask" style="display: none;"></textarea>
@@ -96,7 +102,7 @@
                                 var layedit = layui.layedit;
                                 layedit.build('ask'); //建立编辑器
                             });
-                        </script>
+                        </script> -->
                         <div class="layui-form-item">
                             <div class="layui-input-block">
                                 <button class="layui-btn" lay-submit lay-filter="formDemo">立即提交</button>
@@ -110,8 +116,7 @@
                             //监听提交
                             form.on('submit(formDemo)', function (data) {
                                 layer.msg(JSON.stringify(data.field));
-                                console.log($("#id").val(), '=====')
-                                $.post('/question/create', JSON.stringify(data.field), (resp) => {
+                                $.post('/question/create', data.field, (resp) => {
                                     console.log(resp);
                                     if (resp.Code === 4004) {
                                         layer.confirm('我们需要知道你是谁？', {
@@ -122,12 +127,12 @@
                                         );
                                     }
 
-                                    if (resp.Code === 200){
+                                    if (resp.Code === 200) {
                                         window.location.href = window.location.href;
                                     }
                                 })
                                 return false;
-                            });
+                            }, 'json');
                         });
                     </script>
                 </div>
