@@ -7,12 +7,27 @@ HOST = '39.100.237.214'
 KEY = './etc/jks.pem'
 USER = 'root'
 REMOTE_PROJECT_DIR = '/usr/no1jks'
+REMOTE_VUE_DIR = '/usr/share/nginx/html/vue'
+LOCAL_PROJECT_DIR = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
 
 connection = Connection(HOST, user=USER, connect_kwargs={'key_filename':KEY})
 go_path = lambda: os.environ.get('GOPATH')
 go_bin = lambda: os.path.join(go_path(), 'bin')
 go_bee = lambda: os.path.join(go_bin(), 'bee')
 
+def _run_on_subprocess(c):
+    child = subprocess.Popen(c, stdout=subprocess.PIPE, shell=True)
+    _ = child.stdout.read()
+    child.wait()
+
+def _put_and_release(local_code_pack, remote_tmp_tar, remote_project_path):
+    connection.run(f'rm -f {remote_tmp_tar}')
+    connection.put(local_code_pack, remote=remote_tmp_tar)
+    connection.run(f'rm -rf {remote_project_path}')
+    connection.run(f'mkdir -p {remote_project_path}')
+    with connection.cd(remote_project_path):
+        connection.run(f'tar -xzvf {remote_tmp_tar}')
 
 def bulid_beego():
     bee = go_bee()
@@ -22,20 +37,32 @@ def bulid_beego():
     exfiles = ['$*.tar.gz^', '$*.pyc^', '$*.pem^', '$*.py^']
     exrs = ' '.join(["-exr='%s'" % e for e in exfiles])
 
-    # TODO connection.local can not find
-    c = f"{bee} pack -be GOOS=linux {exrs}", os.environ['PATH']
-    child = subprocess.Popen(c, stdout=subprocess.PIPE, shell=True)
-    output = child.stdout.read()
-    child.wait()
+    # TODO connection.local can not find, use subprocess intead.
+    c = f'{bee} pack -be GOOS=linux {exrs}', os.environ['PATH']
+    _run_on_subprocess(c)
     # connection.local(f"{bee} pack -be GOOS=linux {exrs}")
 
+def bulid_vue():
+    """build vue"""
+    vue_path = os.path.join(LOCAL_PROJECT_DIR, 'vue-element-admin')
+
+    c = f'npm run --prefix {vue_path} build:prod', os.environ['PATH']
+    _run_on_subprocess(c)
+
+    files = ' '.join(['dist/favicon.ico', 'dist/index.html', 'dist/static/'])
+    connection.local(f'tar -czvf no1jks_vue.tar.gz -C {vue_path} {files}')
+
+    remote_tmp_tar = '/tmp/no1jks_vue.tar.gz'
+    remote_project_path = REMOTE_VUE_DIR
+    local_code_pack = 'no1jks_vue.tar.gz'
+    _put_and_release(local_code_pack, remote_tmp_tar, remote_project_path)
 
 @task
 def deploy(c):
     """部署"""
-    # global connection
+    bulid_vue()
     bulid_beego()
-    print('开始发布代码')
+    print('release code')
     remote_tmp_tar = '/tmp/no1jks.tar.gz'
     connection.run(f'rm -f {remote_tmp_tar}')
     # 上传tar文件至远程服务器
