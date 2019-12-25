@@ -47,7 +47,7 @@
 
       <el-button :loading="loading" type="primary" style="width:100%;margin-bottom:30px;" @click.native.prevent="handleLogin">Login</el-button>
 
-      <div style="position:relative">
+      <!-- <div style="position:relative">
         <div class="tips">
           <span>Username : admin</span>
           <span>Password : any</span>
@@ -60,7 +60,7 @@
         <el-button class="thirdparty-button" type="primary" @click="showDialog=true">
           Or connect with
         </el-button>
-      </div>
+      </div> -->
     </el-form>
 
     <el-dialog title="Or connect with" :visible.sync="showDialog">
@@ -97,8 +97,8 @@ export default {
     }
     return {
       loginForm: {
-        username: 'admin',
-        password: '111111'
+        username: '',
+        password: ''
       },
       loginRules: {
         username: [{ required: true, trigger: 'blur', validator: validateUsername }],
@@ -115,6 +115,7 @@ export default {
   watch: {
     $route: {
       handler: function(route) {
+        console.log('route=======', route)
         const query = route.query
         if (query) {
           this.redirect = query.redirect
@@ -166,10 +167,13 @@ export default {
           this.loading = true
           this.$store.dispatch('user/login', this.loginForm)
             .then(() => {
+              // this.$router.push({ path: '/dashbord' });
               this.$router.push({ path: this.redirect || '/', query: this.otherQuery })
+              console.log(this.$router)
               this.loading = false
             })
-            .catch(() => {
+            .catch((err) => {
+              console.log('dispatch.user/login errr ========', err)
               this.loading = false
             })
         } else {

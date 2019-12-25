@@ -73,8 +73,10 @@ func (c *UserLoginController) Post() {
 		logs.Debug(verifyErr)
 		return
 	}
+	resp.Code = 0
+	c.Data["json"] = resp
 	c.SetSession("super-jks", user.ID)
-	c.Redirect("/", 302)
+	c.ServeJSON()
 }
 
 func (c *UserSignupController) Get() {

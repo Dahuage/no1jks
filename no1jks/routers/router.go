@@ -41,4 +41,7 @@ func init() {
 	beego.Router("/user/home/:id", &controllers.UserLoginController{})
 	beego.Router("/user/set/:id", &controllers.UserLoginController{})
 
+	//admin start
+	beego.Router("/admin-api/user/login", &controllers.AdminUserLoginController{})
+	beego.Router("/admin-api/user/info", &controllers.AdminUserInfoController{})
 }

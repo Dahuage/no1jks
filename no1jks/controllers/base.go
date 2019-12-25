@@ -25,6 +25,38 @@ type baseController struct {
 	isLogin bool
 }
 
+type adminBaseController struct {
+	baseController
+}
+
+// maybe different logic for admin
+func (this *adminBaseController) Prepare() {
+	// init service
+	this.s = service.GetService()
+	// auth
+	userId := this.GetSession("super-jks-admin")
+	if userId != nil {
+		currentUser, ok := this.s.Dao.GetUserById(userId.(int))
+		if ok {
+			this.isLogin = true
+			this.user = currentUser
+			this.Data["IsLogin"] = true
+			this.Data["User"] = currentUser
+		} else {
+			this.isLogin = false
+			this.user = nil
+			this.Data["IsLogin"] = false
+		}
+	} else {
+		this.isLogin = false
+		this.user = nil
+		this.Data["IsLogin"] = false
+	}
+	if app, ok := this.AppController.(NestPreparer); ok {
+		app.NestPrepare()
+	}
+}
+
 // Prepare implemented Prepare method for baseRouter.
 func (this *baseController) Prepare() {
 
