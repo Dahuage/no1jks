@@ -108,7 +108,7 @@ export default {
       capsTooltip: false,
       loading: false,
       showDialog: false,
-      redirect: undefined,
+      redirect: '/dashbord',
       otherQuery: {}
     }
   },
