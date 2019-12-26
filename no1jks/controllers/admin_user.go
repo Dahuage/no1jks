@@ -17,6 +17,10 @@ type AdminUserInfoController struct {
 	adminBaseController
 }
 
+type AdminUserUploadController struct {
+	adminBaseController
+}
+
 type adminJsonView struct {
 	JsonViewBase
 	Token string
@@ -87,3 +91,21 @@ func (c *AdminUserInfoController) Post(){
 	c.Data["json"] = resp
 	c.ServeJSON()
 }
+
+func (c *AdminUserUploadController) Post(){
+	var resp adminJsonView
+	_, fileHead, _ := c.GetFile("file")
+	filePath, visitPath, err := utils.UploadTo(fileHead, "images")
+	if err != nil {
+		panic(err)
+	}
+	logs.Info("=======", fileHead.Filename, filePath, visitPath)
+	saveErr := c.SaveToFile("file", filePath)
+	if saveErr != nil {
+		panic(saveErr)
+	}
+	resp.Data = map[string]string{"file_path": visitPath}
+	c.Data["json"] = resp
+	c.ServeJSON()
+}
+

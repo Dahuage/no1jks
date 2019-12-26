@@ -12,7 +12,6 @@ const whiteList = ['/login', '/dashbord'] // no redirect whitelist
 
 router.beforeEach(async(to, from, next) => {
   // start progress bar
-  console.log('what does this mean? router.beforeEach', to, from, next)
   NProgress.start()
 
   // set page title
@@ -57,7 +56,6 @@ router.beforeEach(async(to, from, next) => {
     }
   } else {
     /* has no token*/
-    console.log('have no token')
     if (whiteList.indexOf(to.path) !== -1) {
       // in the free login whitelist, go directly
       next()

@@ -6,12 +6,17 @@ import (
 	"crypto/rand"
 	"errors"
 	"fmt"
+	"github.com/astaxie/beego/logs"
 	"io"
 	"math"
 	"math/big"
+	"mime/multipart"
 	"os"
+	"path"
 	"strings"
 	"time"
+
+	mathRand "math/rand"
 )
 
 var (
@@ -153,4 +158,57 @@ func CreateRandomString(len int) string  {
 		container += string(str[randomInt.Int64()])
 	}
 	return container
+}
+
+var AllowExtMap = map[string]bool{
+	".jpg":true,
+	".jpeg":true,
+	".png":true,
+}
+
+func PathExists(path string) (bool, error) {
+	_, err := os.Stat(path)
+	if err == nil {
+		return true, nil
+	}
+	if os.IsNotExist(err) {
+		return false, nil
+	}
+	return false, err
+}
+
+func HashFileName(base string, ext string) (fileName string) {
+	mathRand.Seed(time.Now().UnixNano())
+	randNum := fmt.Sprintf("%d", mathRand.Intn(9999) + 1000)
+	hashName := md5.Sum([]byte(time.Now().Format("2006_01_02_15_04_05_") + randNum ))
+
+	name := fmt.Sprintf("%x",hashName) + ext
+	return base + name
+}
+
+func UploadTo(fileHead *multipart.FileHeader, fileType string) (string, string, *ServiceErr) {
+	ext := path.Ext(fileHead.Filename)
+	if _, ok := AllowExtMap[ext]; !ok{
+		logs.Info("============= noy allw" )
+		return "", "", Errs[""]
+	}
+
+	baseDir := "/user/local/www/files/"
+	if name, _ := os.Hostname(); name == "dahuadeMacBook-Pro.local"{
+		baseDir = "/tmp/"
+	}
+	uploadDir := path.Join(baseDir, fileType)
+	exist, _ := PathExists(uploadDir)
+	if !exist {
+		osErr := os.MkdirAll(uploadDir , 777)
+		if osErr != nil{
+			logs.Info("=======", osErr, uploadDir)
+			return "", "", Errs[""]
+		}
+	}
+	fileName := HashFileName("", ext)
+
+	uploadPath :=  path.Join(uploadDir, fileName)
+	visitPath := path.Join("/static/", fileType, fileName)
+	return uploadPath, visitPath, nil
 }
