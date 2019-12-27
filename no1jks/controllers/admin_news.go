@@ -1,13 +1,24 @@
 package controllers
 
+import (
+	"encoding/json"
+	"no1jks/no1jks/models"
+	"github.com/astaxie/beego/logs"
+	"no1jks/no1jks/utils"
+)
+
 type AdminNewsController struct {
 	baseController
 }
 
-
 type AdminNewsDetailController struct {
 	baseController
 }
+
+type AdminNewsCreateController struct{
+	baseController
+}
+
 
 func (c *AdminNewsController) Get(){
 	var resp adminJsonView
@@ -53,4 +64,31 @@ func (c *AdminNewsDetailController) Get(){
 	resp.Data = data
 	c.Data["json"] = resp
 	c.ServeJSON()
+}
+
+func (c *AdminNewsCreateController) Post(){
+	var news models.News
+	var resp adminJsonView
+	if parseErr := json.Unmarshal(c.Ctx.Input.RequestBody, &news); parseErr != nil {
+		logs.Info("REQUEST body", c.Ctx.Request.Body, parseErr)
+		resp.Code = utils.Errs["PARAM_ERROR"].Code
+		c.Data["json"] = resp
+		c.ServeJSON()
+		return
+	}
+	db := c.s.Dao.Mysql.Create(&news)
+	if err := db.Error;  err != nil {
+		logs.Error("Create question err", err, news)
+		resp.Code = utils.Errs["PARAM_ERROR"].Code
+		c.Data["json"] = resp
+		c.ServeJSON()
+		return
+	}
+	resp.Code = 0
+	c.Data["json"] = resp
+	c.ServeJSON()
+}
+
+func (c *AdminNewsCreateController) Put(){
+
 }

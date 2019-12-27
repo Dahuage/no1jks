@@ -26,14 +26,14 @@
               </MDinput>
             </el-form-item>
 
-            <el-form-item style="margin-bottom: 40px;" prop="content_short">
-              <MDinput v-model="postForm.content_short" :maxlength="100" name="name" required>
+            <el-form-item style="margin-bottom: 40px;" prop="brief">
+              <MDinput v-model="postForm.brief" :maxlength="100" name="name" required>
                 讯息概要
               </MDinput>
             </el-form-item>
 
             <!-- <el-form-item style="margin-bottom: 40px;" label-width="70px" label="总结:">
-              <el-input v-model="postForm.content_short" :rows="1" type="textarea" class="article-textarea" autosize placeholder="讯息概要" />
+              <el-input v-model="postForm.brief" :rows="1" type="textarea" class="article-textarea" autosize placeholder="讯息概要" />
               <span v-show="contentShortLength" class="word-counter">{{ contentShortLength }}words</span>
             </el-form-item> -->
 
@@ -41,12 +41,12 @@
               <el-row>
                 <el-col :span="8">
                   <el-form-item label-width="60px" label="来源:" class="postInfo-container-item">
-                    <el-input v-model="postForm.source" ></el-input>
+                    <el-input v-model="postForm.source_name" ></el-input>
                   </el-form-item>
                 </el-col>
                 <el-col :span="6">
                   <el-form-item label-width="90px" label="排序:" class="postInfo-container-item">
-                    <el-input v-model="postForm.order" placeholder="请输入内容"></el-input>
+                    <el-input v-model="postForm.is_top" placeholder="请输入内容"></el-input>
                   </el-form-item>
                 </el-col>
 
@@ -90,8 +90,8 @@
           <Tinymce ref="editor" v-model="postForm.content" :height="400" />
         </el-form-item>
 
-        <el-form-item prop="image_uri" style="margin-bottom: 30px;">
-          <Upload v-model="postForm.image_uri" />
+        <el-form-item prop="thumb_img" style="margin-bottom: 30px;">
+          <Upload v-model="postForm.thumb_img" />
         </el-form-item>
       </div>
     </el-form>
@@ -104,7 +104,7 @@ import Upload from '@/components/Upload/SingleImage3'
 import MDinput from '@/components/MDinput'
 import Sticky from '@/components/Sticky' // 粘性header组件
 import { validURL } from '@/utils/validate'
-import { fetchArticle } from '@/api/article'
+import { fetchArticle, createArticle } from '@/api/article'
 import { searchUser } from '@/api/remote-search'
 // import Warning from './Warning'
 import { CommentDropdown, PlatformDropdown, SourceUrlDropdown, DisplayHomepage } from './Dropdown'
@@ -113,17 +113,17 @@ const defaultForm = {
   status: 'draft',
   title: '', // 文章题目
   content: '', // 文章内容
-  content_short: '', // 文章摘要
+  brief: '', // 文章摘要
   // source_uri: '', // 文章外链
-  image_uri: '', // 文章图片
+  thumb_img: '', // 文章图片
   display_time: undefined, // 前台展示时间
   id: undefined,
   platforms: ['a-platform'],
   comment_disabled: false,
   display_homepage: false,
   importance: 0,
-  source: '原创',
-  order: 9999
+  source_name: '原创',
+  is_top: 9999
 }
 
 export default {
@@ -167,9 +167,9 @@ export default {
       loading: false,
       userListOptions: [],
       rules: {
-        // image_uri: [{ validator: validateRequire }],
+        // thumb_img: [{ validator: validateRequire }],
         title: [{ validator: validateRequire }],
-        content_short: [{ validator: validateRequire }],
+        brief: [{ validator: validateRequire }],
         content: [{ validator: validateRequire }],
         // source_uri: [{ validator: validateSourceUri, trigger: 'blur' }]
       },
@@ -178,7 +178,7 @@ export default {
   },
   computed: {
     contentShortLength() {
-      return this.postForm.content_short.length
+      return this.postForm.brief.length
     },
     displayTime: {
       // set and get is useful when the data
@@ -207,11 +207,10 @@ export default {
   methods: {
     fetchData(id) {
       fetchArticle(id).then(response => {
-        this.postForm = response.data
-        console.log("detail response=====", response)
+        this.postForm = response.Data
         // just for test
         this.postForm.title += `   Article Id:${this.postForm.id}`
-        this.postForm.content_short += `   Article Id:${this.postForm.id}`
+        this.postForm.brief += `   Article Id:${this.postForm.id}`
 
         // set tagsview title
         this.setTagsViewTitle()
@@ -236,14 +235,20 @@ export default {
       this.$refs.postForm.validate(valid => {
         if (valid) {
           this.loading = true
-          this.$notify({
-            title: '成功',
-            message: '发布文章成功',
-            type: 'success',
-            duration: 2000
+          createArticle(this.postForm).then(response => {
+            if (response.Code === 0) {
+              this.$notify({
+                title: '成功',
+                message: '发布文章成功',
+                type: 'success',
+                duration: 2000
+              })
+              this.postForm.status = 'published'
+              this.loading = false
+            } else {
+              this.loading = false
+            }
           })
-          this.postForm.status = 'published'
-          this.loading = false
         } else {
           console.log('error submit!!')
           return false
