@@ -120,7 +120,7 @@ const defaultForm = {
   id: undefined,
   platforms: ['a-platform'],
   comment_disabled: false,
-  display_homepage: false,
+  display_homepage: 0,
   importance: 0,
   source_name: '原创',
   is_top: 9999
@@ -170,7 +170,7 @@ export default {
         // thumb_img: [{ validator: validateRequire }],
         title: [{ validator: validateRequire }],
         brief: [{ validator: validateRequire }],
-        content: [{ validator: validateRequire }],
+        content: [{ validator: validateRequire }]
         // source_uri: [{ validator: validateSourceUri, trigger: 'blur' }]
       },
       tempRoute: {}
@@ -248,6 +248,14 @@ export default {
             } else {
               this.loading = false
             }
+          }).catch(err => {
+            this.$notify({
+              title: '失败',
+              message: '未知错误',
+              type: 'fail',
+              duration: 2000
+            })
+            console.log(err)
           })
         } else {
           console.log('error submit!!')

@@ -70,8 +70,10 @@ func (c *AdminNewsCreateController) Post(){
 	var news models.News
 	var resp adminJsonView
 	if parseErr := json.Unmarshal(c.Ctx.Input.RequestBody, &news); parseErr != nil {
+		panic(parseErr)
 		logs.Info("REQUEST body", c.Ctx.Request.Body, parseErr)
 		resp.Code = utils.Errs["PARAM_ERROR"].Code
+		resp.Error.Display = utils.Errs["PARAM_ERROR"].Display
 		c.Data["json"] = resp
 		c.ServeJSON()
 		return
