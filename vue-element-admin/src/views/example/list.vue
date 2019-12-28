@@ -9,25 +9,25 @@
 
       <el-table-column width="180px" align="center" label="Date">
         <template slot-scope="scope">
-          <span>{{ scope.row.timestamp | parseTime('{y}-{m}-{d} {h}:{i}') }}</span>
+          <span>{{ scope.row.create_at | parseTime('{y}-{m}-{d} {h}:{i}') }}</span>
         </template>
       </el-table-column>
 
       <el-table-column width="120px" align="center" label="Author">
         <template slot-scope="scope">
-          <span>{{ scope.row.author }}</span>
+          <span>{{ scope.row.source_name }}</span>
         </template>
       </el-table-column>
 
-      <el-table-column width="100px" label="Importance">
+      <!-- <el-table-column width="100px" label="Importance">
         <template slot-scope="scope">
           <svg-icon v-for="n in +scope.row.importance" :key="n" icon-class="star" class="meta-item__icon" />
         </template>
-      </el-table-column>
+      </el-table-column> -->
 
       <el-table-column class-name="status-col" label="Status" width="110">
         <template slot-scope="{row}">
-          <el-tag :type="row.status | statusFilter">
+          <el-tag :type="row.is_deleted | statusFilter">
             {{ row.status }}
           </el-tag>
         </template>
@@ -66,10 +66,11 @@ export default {
   filters: {
     statusFilter(status) {
       const statusMap = {
-        published: 'success',
-        draft: 'info',
+        0 : 'success',
+        1 : 'info',
         deleted: 'danger'
       }
+      console.log(status, typeof status)
       return statusMap[status]
     }
   },
@@ -91,9 +92,11 @@ export default {
     getList() {
       this.listLoading = true
       fetchList(this.listQuery).then(response => {
-        console.log("response======", response)
-        this.list = response.Data.News
-        this.total = response.Data.Total
+        console.log("response======", response,
+        response.Data.News.NewsList, '\n',
+        typeof response.Data.News.NewsList, '\n', response.Data.News.NewsList.length )
+        this.list = response.Data.News.NewsList
+        this.total = response.Data.News.TotalCount
         this.listLoading = false
       })
     }

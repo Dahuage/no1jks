@@ -59,6 +59,7 @@ func (d *Dao) GetNewsHomepage(page int, onlyCount bool, filters *map[string]inte
 	if onlyCount {
 		return totalCount
 	}
+	logs.Info("page======", page, getOffset(page), models.Limit)
 	err := db.Order("news.is_top asc, news.create_at desc").
 		Offset(getOffset(page)).
 		Limit(models.Limit).

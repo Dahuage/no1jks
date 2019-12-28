@@ -22,20 +22,17 @@ type AdminNewsCreateController struct{
 
 func (c *AdminNewsController) Get(){
 	var resp adminJsonView
-	var data = []map[string]interface{} {{
-		"id": 1,
-		"timestamp": 1577361111,
-		"author": "原创",
-		"importance": 1,
-		"status": 1,
-		"title": "考试时间发布",
-	},
+	page, err := c.GetInt("page")
+	if err != nil {
+		page = 0
+	} else {
+		page -= 1
 	}
-
+	newsList, pager := c.s.GetNewsHomepage(false, page, nil)
 	resp.Code = 0
 	resp.Data = map[string]interface{}{
-		"News": data,
-		"Total": 100,
+		"News": newsList,
+		"Page": pager,
 	}
 	c.Data["json"] = resp
 	c.ServeJSON()
@@ -43,15 +40,24 @@ func (c *AdminNewsController) Get(){
 
 func (c *AdminNewsDetailController) Get(){
 	var resp adminJsonView
+	newsId, parseErr := c.GetInt("id")
+	if parseErr != nil {
+
+	}
+	news := c.s.GetNewsDetail(newsId, nil)
+	if news == nil {
+		logs.Info("cant find id ==", newsId)
+		return
+	}
 	var data = map[string]interface{}  {
 		"status": "draft",
-		"title": "文章题目",
-		"content": "文章题目neirong", // 文章内容
-		"content_short": "文章摘要", // 文章摘要
+		"title": news.News.Title,
+		"content": news.News.Content, // 文章内容
+		"content_short": news.News.Brief,  // 文章摘要
 		// source_uri: '', // 文章外链
 		//image_uri: '', // 文章图片
 		//display_time: undefined, // 前台展示时间
-		"id": 1,
+		"id": news.News.ID,
 		//platforms: ['a-platform'],
 		//comment_disabled: false,
 		"display_homepage": false,
@@ -77,7 +83,7 @@ func (c *AdminNewsCreateController) Post(){
 		c.ServeJSON()
 		return
 	}
-	logs.Info("===title=========", news.Title, c.GetString("title"), c.GetString("Title"))
+
 	db := c.s.Dao.Mysql.Create(&news)
 	if err := db.Error;  err != nil {
 		logs.Error("Create question err", err, news)
