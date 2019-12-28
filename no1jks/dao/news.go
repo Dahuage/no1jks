@@ -66,7 +66,7 @@ func (d *Dao) GetNewsHomepage(page int, onlyCount bool, filters *map[string]inte
 	if err != nil {
 		panic(err)
 	}
-	logs.Info("whats wrong???????",news.NewsList )
+	logs.Info("whats wrong???????", news.NewsList )
 	news.Page = page
 	news.TotalCount = totalCount
 	return &news

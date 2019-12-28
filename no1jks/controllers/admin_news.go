@@ -70,7 +70,6 @@ func (c *AdminNewsCreateController) Post(){
 	var news models.News
 	var resp adminJsonView
 	if parseErr := json.Unmarshal(c.Ctx.Input.RequestBody, &news); parseErr != nil {
-		panic(parseErr)
 		logs.Info("REQUEST body", c.Ctx.Request.Body, parseErr)
 		resp.Code = utils.Errs["PARAM_ERROR"].Code
 		resp.Error.Display = utils.Errs["PARAM_ERROR"].Display
@@ -78,6 +77,7 @@ func (c *AdminNewsCreateController) Post(){
 		c.ServeJSON()
 		return
 	}
+	logs.Info("===title=========", news.Title, c.GetString("title"), c.GetString("Title"))
 	db := c.s.Dao.Mysql.Create(&news)
 	if err := db.Error;  err != nil {
 		logs.Error("Create question err", err, news)
