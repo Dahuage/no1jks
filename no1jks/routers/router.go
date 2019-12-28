@@ -49,5 +49,6 @@ func init() {
 	beego.Router("admin-api/article/list", &controllers.AdminNewsController{})
 	beego.Router("admin-api/article/detail", &controllers.AdminNewsDetailController{})
 	beego.Router("admin-api/article/create", &controllers.AdminNewsCreateController{})
+	beego.Router("admin-api/article/update", &controllers.AdminNewsCreateController{})
 
 }

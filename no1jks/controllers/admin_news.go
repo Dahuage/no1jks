@@ -98,5 +98,30 @@ func (c *AdminNewsCreateController) Post(){
 }
 
 func (c *AdminNewsCreateController) Put(){
+	var news models.News
+	var resp adminJsonView
+	if parseErr := json.Unmarshal(c.Ctx.Input.RequestBody, &news); parseErr != nil {
+		logs.Info("REQUEST body", c.Ctx.Request.Body, parseErr)
+		resp.Code = utils.Errs["PARAM_ERROR"].Code
+		resp.Error.Display = utils.Errs["PARAM_ERROR"].Display
+		c.Data["json"] = resp
+		c.ServeJSON()
+		return
+	}
 
+	newsId := news.ID
+	var savedNews models.News
+	//db := c.s.Dao.Mysql.First(&savedNews, newsId)
+	//if queryErr := db.Error; queryErr != nil {
+	//	panic(queryErr)
+	//}
+	err := c.s.Dao.Mysql.Model(&savedNews).
+				  Where("news.id = ?", newsId).
+		          Update(news).Error
+	if err != nil {
+		panic(err)
+	}
+	resp.Code = 0
+	c.Data["json"] = resp
+	c.ServeJSON()
 }

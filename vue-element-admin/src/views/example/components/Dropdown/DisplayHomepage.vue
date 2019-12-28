@@ -1,16 +1,16 @@
 <template>
   <el-dropdown :show-timeout="100" trigger="click">
     <el-button plain>
-      {{ !display_homepage?'首页展示':'首页不展示' }}
+      {{ !display_homepage?'不展示在首页':'展示在首页' }}
       <i class="el-icon-caret-bottom el-icon--right" />
     </el-button>
     <el-dropdown-menu slot="dropdown" class="no-padding">
       <el-dropdown-item>
         <el-radio-group v-model="display_homepage" style="padding: 10px;">
-          <el-radio :label="true">
+          <el-radio :label="1">
             首页展示
           </el-radio>
-          <el-radio :label="false">
+          <el-radio :label="0">
             不展示
           </el-radio>
         </el-radio-group>
@@ -23,8 +23,8 @@
 export default {
   props: {
     value: {
-      type: Boolean,
-      default: false
+      type: Number,
+      default: 1
     }
   },
   computed: {

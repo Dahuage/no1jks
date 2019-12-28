@@ -7,13 +7,13 @@
         </template>
       </el-table-column>
 
-      <el-table-column width="180px" align="center" label="Date">
+      <el-table-column width="180px" align="center" label="发布时间">
         <template slot-scope="scope">
           <span>{{ scope.row.create_at | parseTime('{y}-{m}-{d} {h}:{i}') }}</span>
         </template>
       </el-table-column>
 
-      <el-table-column width="120px" align="center" label="Author">
+      <el-table-column width="120px" align="center" label="来源">
         <template slot-scope="scope">
           <span>{{ scope.row.source_name }}</span>
         </template>
@@ -25,7 +25,7 @@
         </template>
       </el-table-column> -->
 
-      <el-table-column class-name="status-col" label="Status" width="110">
+      <el-table-column class-name="status-col" label="状态" width="110">
         <template slot-scope="{row}">
           <el-tag :type="row.is_deleted | statusFilter">
             {{ row.status }}
@@ -33,7 +33,7 @@
         </template>
       </el-table-column>
 
-      <el-table-column min-width="300px" label="Title">
+      <el-table-column min-width="300px" label="标题">
         <template slot-scope="{row}">
           <router-link :to="'/example/edit/'+row.id" class="link-type">
             <span>{{ row.title }}</span>
@@ -41,11 +41,11 @@
         </template>
       </el-table-column>
 
-      <el-table-column align="center" label="Actions" width="120">
+      <el-table-column align="center" label="操作" width="120">
         <template slot-scope="scope">
           <router-link :to="'/example/edit/'+scope.row.id">
             <el-button type="primary" size="small" icon="el-icon-edit">
-              Edit
+              编辑
             </el-button>
           </router-link>
         </template>
@@ -65,13 +65,7 @@ export default {
   components: { Pagination },
   filters: {
     statusFilter(status) {
-      const statusMap = {
-        0 : 'success',
-        1 : 'info',
-        deleted: 'danger'
-      }
-      console.log(status, typeof status)
-      return statusMap[status]
+      return status === 0 ? 'success' : 'info'
     }
   },
   data() {
@@ -92,9 +86,7 @@ export default {
     getList() {
       this.listLoading = true
       fetchList(this.listQuery).then(response => {
-        console.log("response======", response,
-        response.Data.News.NewsList, '\n',
-        typeof response.Data.News.NewsList, '\n', response.Data.News.NewsList.length )
+        console.log('response======', response)
         this.list = response.Data.News.NewsList
         this.total = response.Data.News.TotalCount
         this.listLoading = false

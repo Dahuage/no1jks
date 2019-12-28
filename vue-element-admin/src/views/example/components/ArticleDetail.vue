@@ -104,7 +104,7 @@ import Upload from '@/components/Upload/SingleImage3'
 import MDinput from '@/components/MDinput'
 import Sticky from '@/components/Sticky' // 粘性header组件
 import { validURL } from '@/utils/validate'
-import { fetchArticle, createArticle } from '@/api/article'
+import { fetchArticle, createArticle, updateArticle } from '@/api/article'
 import { searchUser } from '@/api/remote-search'
 // import Warning from './Warning'
 import { CommentDropdown, PlatformDropdown, SourceUrlDropdown, DisplayHomepage } from './Dropdown'
@@ -120,7 +120,7 @@ const defaultForm = {
   id: undefined,
   platforms: ['a-platform'],
   comment_disabled: false,
-  display_homepage: 0,
+  display_homepage: 1,
   importance: 0,
   source_name: '原创',
   is_top: 9999
@@ -209,11 +209,8 @@ export default {
       fetchArticle(id).then(response => {
         this.postForm = response.Data
         // just for test
-        this.postForm.title += `   Article Id:${this.postForm.id}`
-        this.postForm.brief += `   Article Id:${this.postForm.id}`
-
         // set tagsview title
-        this.setTagsViewTitle()
+        // this.setTagsViewTitle()
 
         // set page title
         this.setPageTitle()
@@ -235,11 +232,45 @@ export default {
       this.$refs.postForm.validate(valid => {
         if (valid) {
           this.loading = true
-          createArticle(this.postForm).then(response => {
+          const action = this.isEdit ? updateArticle : createArticle
+          action(this.postForm).then(response => {
             if (response.Code === 0) {
               this.$notify({
                 title: '成功',
                 message: '发布文章成功',
+                type: 'success',
+                duration: 2000
+              })
+              this.postForm.status = 'published'
+              this.loading = false
+            } else {
+              this.loading = false
+            }
+          }).catch(err => {
+            this.$notify({
+              title: '失败',
+              message: '未知错误',
+              type: 'fail',
+              duration: 2000
+            })
+            console.log(err)
+          })
+        } else {
+          console.log('error submit!!')
+          return false
+        }
+      })
+    },
+    submitEditForm() {
+      console.log(this.postForm)
+      this.$refs.postForm.validate(valid => {
+        if (valid) {
+          this.loading = true
+          updateArticle(this.postForm).then(response => {
+            if (response.Code === 0) {
+              this.$notify({
+                title: '成功',
+                message: '更新文章成功',
                 type: 'success',
                 duration: 2000
               })
