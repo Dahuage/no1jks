@@ -50,20 +50,20 @@ func (c *AdminNewsDetailController) Get(){
 		return
 	}
 	var data = map[string]interface{}  {
+		"id": news.News.ID,
 		"status": "draft",
 		"title": news.News.Title,
 		"content": news.News.Content, // 文章内容
-		"content_short": news.News.Brief,  // 文章摘要
+		"brief": news.News.Brief,  // 文章摘要
+		"image_uri": news.News.ThumbImg, // 文章图片
+		"display_homepage": news.News.DisplayHomepage,
+		"importance": 0,
+		"source_name": news.News.SourceName,
+		"is_top": news.News.IsTop,
 		// source_uri: '', // 文章外链
-		//image_uri: '', // 文章图片
 		//display_time: undefined, // 前台展示时间
-		"id": news.News.ID,
 		//platforms: ['a-platform'],
 		//comment_disabled: false,
-		"display_homepage": false,
-		"importance": 0,
-		"source": "原创",
-		"order": 9999,
 	}
 
 	resp.Code = 0

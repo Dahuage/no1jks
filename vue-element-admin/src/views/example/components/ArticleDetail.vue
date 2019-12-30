@@ -41,12 +41,12 @@
               <el-row>
                 <el-col :span="8">
                   <el-form-item label-width="60px" label="来源:" class="postInfo-container-item">
-                    <el-input v-model="postForm.source_name" ></el-input>
+                    <el-input v-model="postForm.source_name" />
                   </el-form-item>
                 </el-col>
                 <el-col :span="6">
                   <el-form-item label-width="90px" label="排序:" class="postInfo-container-item">
-                    <el-input v-model="postForm.is_top" placeholder="请输入内容"></el-input>
+                    <el-input-number v-model="postForm.is_top" type="number" placeholder="请输入内容" />
                   </el-form-item>
                 </el-col>
 
@@ -211,7 +211,7 @@ export default {
         // just for test
         // set tagsview title
         // this.setTagsViewTitle()
-
+        console.log(response.Data, 'this.postForm=======', this.postForm)
         // set page title
         this.setPageTitle()
       }).catch(err => {
