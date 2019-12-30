@@ -322,7 +322,7 @@
                                 {{ (index $question.Answers 0).AnswerContent | str2html }}
                             </div>
                             {{ else }}
-                            <div class="answer-info"><span>还没有答案 </span><button class="btn btn-default">我来回答</button>
+                            <div class="answer-info"><span>还没有答案 </span><button onclick="location.href='/question/{{$question.Question.QuestionID}}'" class="btn btn-default">我来回答</button>
                             </div>
                             {{ end }}
                         </div>
@@ -337,7 +337,7 @@
             </div>
             <div class="col-md-4 side">
                 <div class="side-bar">
-                    Coming soon
+
                 </div>
             </div>
         </div>

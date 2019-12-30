@@ -2,8 +2,8 @@ package controllers
 
 import (
 	"encoding/json"
-	"no1jks/no1jks/models"
 	"github.com/astaxie/beego/logs"
+	"no1jks/no1jks/models"
 	"no1jks/no1jks/utils"
 )
 

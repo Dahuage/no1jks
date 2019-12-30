@@ -164,6 +164,7 @@ var AllowExtMap = map[string]bool{
 	".jpg":true,
 	".jpeg":true,
 	".png":true,
+	".webp":true,
 }
 
 func PathExists(path string) (bool, error) {
@@ -193,7 +194,7 @@ func UploadTo(fileHead *multipart.FileHeader, fileType string) (string, string, 
 		return "", "", Errs[""]
 	}
 
-	baseDir := "/user/local/www/files/"
+	baseDir := "/usr/share/nginx/html/files"
 	if name, _ := os.Hostname(); name == "dahuadeMacBook-Pro.local"{
 		baseDir = "/tmp/"
 	}

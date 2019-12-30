@@ -44,7 +44,7 @@ func (c *NewsDetailController) Get() {
 	c.Data["News"] = news
 	breadcrumbs := Breadcrumbs{
 		[]struct{Href, Word string}{{"/news", "最新资讯"}},
-		(*news).News.Title,
+		news.News.Title,
 	}
 	c.Data["Navigation"] = breadcrumbs
 }

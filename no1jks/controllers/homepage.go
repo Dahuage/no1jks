@@ -11,9 +11,11 @@ type HomepageController struct {
 }
 
 type Banner struct {
-	Id        int
-	Order     int
-	Img, Herf string
+	Id     int
+	Order  int
+	Img    string
+	Href   string
+	Active string
 }
 
 // Get homepage controller
@@ -22,9 +24,9 @@ func (c *HomepageController) Get() {
 	c.TplName = "no1jks/home.html"
 	c.Data["IsHome"] = "active"
 	banners := []Banner{
-		{1, 1, "/static/imgs/banner2.png", ""},
-		{2, 2, "/static/imgs/banner3.png", ""},
-		{3, 3, "/static/imgs/banner1.png", "/train"},
+		{1, 1, "/static/imgs/banner2.png", "train", "active"},
+		{3, 3, "/static/imgs/banner1.png", "/train", ""},
+		{2, 2, "/static/imgs/banner3.png", "/train", ""},
 	}
 	c.Data["Banners"] = &banners
 	c.Data["News"] = (*RenderData)["News"]

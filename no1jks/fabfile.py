@@ -73,6 +73,7 @@ def deploy(c):
         connection.run(f'tar -xzvf {remote_tmp_tar}')
     connection.run(f'sudo chown -R no1jks:no1jks {REMOTE_PROJECT_DIR}')
     connection.run(f'sudo chown -R nginx:nginx {REMOTE_PROJECT_DIR}/static')
+    soft_link(f'{REMOTE_PROJECT_DIR}/static/*', '/usr/share/nginx/html/files')
 
     update_supervisor_conf(connection)
     update_nginx_conf(connection)
@@ -91,3 +92,7 @@ def update_nginx_conf(connection):
         connection.run(f'sudo cp {REMOTE_PROJECT_DIR}/etc/ngix_nojks.conf .')
         connection.run("sudo nginx -t")
         connection.run('sudo nginx -s reload')
+
+def soft_link(source, target):
+    print(f'ln -s -f {source} {target}')
+    connection.run(f'ln -s -f {source} {target}')

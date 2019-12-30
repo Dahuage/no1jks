@@ -67,18 +67,16 @@
 
 						<!-- Wrapper for slides -->
 						<div class="carousel-inner" role="listbox">
-							<div class="item active">
-								<img src="/static/imgs/banner2.png" alt="...">
-								<div class="carousel-caption">
-									...
-								</div>
+							{{ range $indx, $banner := .Banners }}
+							<div class="item {{ $banner.Active }}">
+								<a href="{{ $banner.Href}}">
+									<img src="{{ $banner.Img }}" alt="第一健康管理师">
+									<!-- <div class="carousel-caption">
+											...
+									</div> -->
+								</a>
 							</div>
-							<div class="item">
-								<img src="/static/imgs/banner3.png" alt="...">
-								<div class="carousel-caption">
-									...
-								</div>
-							</div>
+							{{ end }}
 						</div>
 
 						<!-- Controls -->
@@ -139,16 +137,14 @@
 				<hr>
 				{{ range $index, $question := .Questions.Questions }}
 				<div class="news-list-item clearfix">
-					<!--一定要清除浮动，不然排版不规范-->
 
 					<!-- Perfect when len(title) <= 40 -->
 					<div class="row question">
 						<div class="news-title">
 							<a href="/question/{{ $question.Question.QuestionID }}" class="title">
-
 								<h3>{{ $question.Question.QuestionTitle }}
 									<!-- <i class="layui-icon layui-icon-fire"></i>
-													<i class="layui-icon layui-icon-snowflake"></i> -->
+										 <i class="layui-icon layui-icon-snowflake"></i> -->
 								</h3>
 							</a>
 						</div>
@@ -169,7 +165,7 @@
 							<span class="label label-warning">{{ (index $question.Answers 0).AnswerLikeCount }}赞同</span>
 						</div>
 						{{ else }}
-							<div><span>还没有答案  </span><button class="btn btn-primary">我来回答</button></div>
+						<div><span>还没有答案 </span><button onclick="location.href='/question/{{$question.Question.QuestionID}}'" class="btn btn-primary">我来回答</button></div>
 						{{ end }}
 					</div>
 				</div>
@@ -228,7 +224,6 @@
 				{{end}}
 			</div>
 			{{end}}
-
 		</div>
 		<div class="col-md-4 col-xs-12 ad">
 			<div class="download-rank">
@@ -237,7 +232,7 @@
 				</div>
 				<hr>
 				<div class="rank">
-					
+
 				</div>
 			</div>
 		</div>
