@@ -51,7 +51,7 @@ func (c *AdminUserLoginController) Post() {
 		return
 	}
 
-	u := service.UserVerify{Phone: "15010608061", Pass: form.Password}
+	u := service.UserVerify{Phone: form.Username, Pass: form.Password}
 	user, verifyErr := c.s.VerifyUser(&u)
 	if verifyErr != nil {
 		resp.Code = verifyErr.Code
