@@ -44,8 +44,8 @@ func init() {
 	//admin start
 	beego.Router("/admin-api/user/login", &controllers.AdminUserLoginController{})
 	beego.Router("/admin-api/user/info", &controllers.AdminUserInfoController{})
-	beego.Router("/admin-api/news/upload_img", &controllers.AdminUserUploadController{})
 
+	beego.Router("/admin-api/news/upload_img", &controllers.AdminUserUploadController{})
 	beego.Router("admin-api/article/list", &controllers.AdminNewsController{})
 	beego.Router("admin-api/article/detail", &controllers.AdminNewsDetailController{})
 	beego.Router("admin-api/article/create", &controllers.AdminNewsCreateController{})

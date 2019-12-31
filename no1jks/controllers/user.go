@@ -77,6 +77,7 @@ func (c *UserLoginController) Post() {
 	c.Data["json"] = resp
 	c.SetSession("super-jks", user.ID)
 	c.ServeJSON()
+	return
 }
 
 func (c *UserSignupController) Get() {
