@@ -5,6 +5,7 @@ import (
 	"github.com/astaxie/beego/logs"
 	"no1jks/no1jks/models"
 	"no1jks/no1jks/utils"
+	"time"
 )
 
 type AdminNewsController struct {
@@ -83,7 +84,8 @@ func (c *AdminNewsCreateController) Post(){
 		c.ServeJSON()
 		return
 	}
-
+	news.CreateAt = int(time.Now().Unix())
+	news.UpdateAt = int(time.Now().Unix())
 	db := c.s.Dao.Mysql.Create(&news)
 	if err := db.Error;  err != nil {
 		logs.Error("Create question err", err, news)
