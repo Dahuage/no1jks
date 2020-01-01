@@ -37,7 +37,7 @@
 				<hr>
 				{{ range $index, $news := .News }}
 				<div class="row news-item" style="border-bottom: 1px solid #f6f6f6;">
-					<div class="col-xs-9 news-item-content">
+					<div class="col-xs-12 news-item-content">
 						<div class="news-item-title">
 							<a href="/news/{{ $news.ID }}" class="title">{{ $news.Title }}</a>
 						</div>
@@ -50,9 +50,9 @@
 						</div>
 					</div>
 					{{ if gt ($news.ThumbImg | len) 0 }}
-					<div class="col-xs-3 news-item-imgs">
+					<!-- <div class="col-xs-3 news-item-imgs">
 						<img src="/static/imgs/qiaobiluo.jpeg" alt="">
-					</div>
+					</div> -->
 					{{ end }}
 				</div>
 				{{ end }}
