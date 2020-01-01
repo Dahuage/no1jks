@@ -14,8 +14,8 @@ type News struct {
 	IsTop           int    `json:"is_top" gorm:"" sql:"TINYINT NOT NULL DEFAULT 0"`
 	SourceName      string `json:"source_name" gorm:"" sql:"VARCHAR(1024) NOT NULL DEFAULT ''"`
 	SourceHref      string `json:"source_href" gorm:"" sql:"VARCHAR(1024) NOT NULL DEFAULT ''"`
-	CreateAt        int    `json:"create_at" gorm:""`
-	UpdateAt        int    `json:"update_at" gorm:""`
+	CreateAt        int64    `json:"create_at" gorm:""`
+	UpdateAt        int64    `json:"update_at" gorm:""`
 	IsDeleted       int    `json:"is_deleted" gorm:"" sql:"TINYINT NOT NULL DEFAULT 0"`
 }
 

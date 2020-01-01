@@ -84,8 +84,8 @@ func (c *AdminNewsCreateController) Post(){
 		c.ServeJSON()
 		return
 	}
-	news.CreateAt = int(time.Now().Unix())
-	news.UpdateAt = int(time.Now().Unix())
+	news.CreateAt = time.Now().Unix()
+	news.UpdateAt = time.Now().Unix()
 	db := c.s.Dao.Mysql.Create(&news)
 	if err := db.Error;  err != nil {
 		logs.Error("Create question err", err, news)
