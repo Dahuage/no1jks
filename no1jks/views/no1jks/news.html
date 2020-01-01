@@ -26,13 +26,6 @@
                 {{ range $index, $news :=  .News.NewsList }}
                 <div class="news-list-item clearfix">
                     <!--一定要清除浮动，不然排版不规范-->
-
-                    <div class="col-xs-3">
-                        <a href="/news/{{ $news.ID }}">
-                            <img src="/static/imgs/qiaobiluo.jpeg" style="" alt="{{ $news.Title }}">
-                        </a>
-                    </div>
-
                     <div class="col-xs-9">
                         <!-- Perfect when len(title) <= 40 -->
                         <a href="/news/{{ $news.ID }}" class="title">{{ $news.Title }}</a>
@@ -43,6 +36,13 @@
                             <span class="label label-warning">{{ $news.CommentCount }}评论</span>
                         </div>
                     </div>
+                    {{ if gt ($news.ThumbImg | len) 0 }}
+                    <div class="col-xs-3">
+                        <a href="/news/{{ $news.ID }}">
+                            <img src="/static/imgs/qiaobiluo.jpeg" style="" alt="{{ $news.Title }}">
+                        </a>
+                    </div>
+                    {{ end }}
                 </div>
                 {{ end }}
                 {{ template "no1jks/common/page.html" . }}
