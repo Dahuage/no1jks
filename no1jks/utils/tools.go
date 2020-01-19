@@ -172,9 +172,9 @@ func PathExists(path string) (bool, error) {
 	if err == nil {
 		return true, nil
 	}
-	if os.IsNotExist(err) {
-		return false, nil
-	}
+	//if os.IsNotExist(err) {
+	//	return false, nil
+	//}
 	return false, err
 }
 
@@ -190,7 +190,7 @@ func HashFileName(base string, ext string) (fileName string) {
 func UploadTo(fileHead *multipart.FileHeader, fileType string) (string, string, *ServiceErr) {
 	ext := path.Ext(fileHead.Filename)
 	if _, ok := AllowExtMap[ext]; !ok{
-		logs.Info("============= noy allw" )
+		logs.Info("Extension not allow" )
 		return "", "", Errs[""]
 	}
 
@@ -203,7 +203,7 @@ func UploadTo(fileHead *multipart.FileHeader, fileType string) (string, string, 
 	if !exist {
 		osErr := os.MkdirAll(uploadDir , 777)
 		if osErr != nil{
-			logs.Info("=======", osErr, uploadDir)
+			logs.Info("Make dir error", osErr, uploadDir)
 			return "", "", Errs[""]
 		}
 	}

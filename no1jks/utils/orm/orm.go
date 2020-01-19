@@ -1,7 +1,6 @@
 package orm
 
 import (
-	"strings"
 	"time"
 
 	"github.com/astaxie/beego/logs"
@@ -16,19 +15,13 @@ type MysqlConf struct {
 	MysqlIdleTimeout int
 }
 
-type ormLog struct{}
-
-func (l ormLog) Print(v ...interface{}) {
-	logs.Info(strings.Repeat("%v ", len(v)), v...)
-}
-
 // NewMySQL mysql client factory
 func NewMySQL(c *MysqlConf) (db *gorm.DB) {
 	db, err := gorm.Open("mysql", c.MysqlDSN)
 	// TODO
 	//defer db.Close()
 	if err != nil {
-		logs.Error("cant connect (%s)", c.MysqlDSN)
+		logs.Error("can't connect (%s)", c.MysqlDSN)
 		logs.Error("db dsn(%s) connect err: %v", c.MysqlDSN, err)
 	}
 	db.SingularTable(true)

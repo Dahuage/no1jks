@@ -43,6 +43,9 @@ var SvrInstance *Service
 var once sync.Once
 
 func GetService() *Service {
+	if SvrInstance != nil {
+		return SvrInstance
+	}
 	once.Do(func() {
 		SvrInstance = newService()
 	})
@@ -50,5 +53,5 @@ func GetService() *Service {
 }
 
 func init(){
-	GetService()
+	_ = GetService()
 }
